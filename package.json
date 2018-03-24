@@ -1,0 +1,23 @@
+{
+  "name": "backend_npm",
+  "version": "1.0.0",
+  "description": "## Members",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ConsTructionGang/Backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ConsTructionGang/Backend/issues"
+  },
+  "homepage": "https://github.com/ConsTructionGang/Backend#readme",
+  "dependencies": {
+    "hapi": "^17.2.3",
+    "mysql": "^2.15.0"
+  }
+}
