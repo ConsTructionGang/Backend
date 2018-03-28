@@ -1,5 +1,3 @@
-import { connect } from 'http2';
-
 'use strict';
 
 const Hapi = require('hapi');
@@ -63,7 +61,7 @@ server.route({
     path: '/table',
     handler: function (request, reply) {
         database.getConnection(function(err, connection){
-            console.log('Server processing a query request')
+            console.log('Server processing a query request');
             connection.query('SELECT * FROM person', function(error, results, fields) {
                 reply(results);
                 connection.release();
@@ -74,6 +72,16 @@ server.route({
     }
 });
 
+server.route({
+    method: 'POST',
+    path:'/signup',
+    handler: function(request, reply) {
+        database.getConnection(function(err, connection){
+            console.log('Server processing a POST /login request');
+            connection.query('SELECT Email  Account WhHERE')
+        })
+    }
+})
 
 server.start((err) => {
     if(err) {
