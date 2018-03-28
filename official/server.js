@@ -45,6 +45,18 @@ server.route({
 });
 
 server.route({
+  method: "POST",
+  path: '/signup',
+  handler: createUser(request, reply)
+})
+
+server.route({
+  method: "POST",
+  path: '/login',
+  handler: login(request, reply)
+})
+
+server.route({
   method: "GET",
   path: "/{name}",
   handler: function(request, reply) {
