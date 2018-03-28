@@ -1,3 +1,5 @@
+import { connect } from 'http2';
+
 'use strict';
 
 const Hapi = require('hapi');
@@ -9,7 +11,7 @@ server.connection({port: 5000, host: '0.0.0.0'});
 
  //Create connection with docker container that is running on the local
  //machine
-const database = mysql.createConnection({
+const database = mysql.createPool({
     host: 'mysql',
     user: 'root',
     password: '',
@@ -60,13 +62,15 @@ server.route({
     method: 'GET',
     path: '/table',
     handler: function (request, reply) {
-        database.connect();
-        console.log('Server processing a query request')
-        database.query('SELECT * FROM person', function(error, results, fields) {
-            if(error) throw error;
-            reply(results);
+        database.getConnection(function(err, connection){
+            console.log('Server processing a query request')
+            connection.query('SELECT * FROM person', function(error, results, fields) {
+                reply(results);
+                connection.release();
+                if(error) throw error;
+            });
+            if (err) throw error;
         });
-        database.end();
     }
 });
 
