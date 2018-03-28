@@ -1,0 +1,9 @@
+version: '3'
+services:
+  hapi:
+    build: .
+    container_name: "hapi"
+    volumes:
+      - "/usr/src/app"
+    ports:
+      - "5000:5000"
