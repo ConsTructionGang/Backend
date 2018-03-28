@@ -25,20 +25,19 @@ function createUser(request, reply) {
     if (err) throw error;
 }
 
-function emailExists(email) {
-    //tolower(string)
-    //Run query 
-    //result empty ? false : true
-}
-
-function checkPassword(passward) {
-
-}
-
-function exists(parameter){
-    return function(data){
+function exists(parameter) {
+    return function(data) {
         data = tolower(data);
-        //run query with paranmeter
-        return result != null ? true : false;
+        const query = `SELECT ${parameter} FROM Account WHERE ${parameter} = ${data}`;
+
+        database.getConnection(function(err, connection) {
+            console.log("Server processing a query request");
+            connection.query("SELECT * FROM Account", function(error, results){
+                connection.release();
+                if (error) throw error;
+                return results[parameter] === undefined ? false : true;
+            });
+            if (err) throw err;
+        });
     };
-};
+}

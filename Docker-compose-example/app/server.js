@@ -67,7 +67,7 @@ server.route({
                 connection.release();
                 if(error) throw error;
             });
-            if (err) throw error;
+            if (err) throw err;
         });
     }
 });
