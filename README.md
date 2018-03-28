@@ -1,5 +1,5 @@
 # Construction Gang backend
-
+![](http://media0.giphy.com/media/ZTans30ONaaIM/giphy.gif)
 ## Members
 
 - Tyrone Criddle [@Rye-Ton](http://github.com/Rye-Ton)
