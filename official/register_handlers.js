@@ -16,21 +16,28 @@ function createUser(request, reply) {
                 if(result.length !== 0) {
                     return reply("Account already exists. Please log in").code(400);
                 } else {
-                    database.getConnection(function(err, connection) {
-                        connection.query(query.addUser(request.payload),
-                        function(error, results, fields) {
-                            connection.release();
-                            if(error){
-                                console.log("code 400: PROBLEM OCCURED");
-                                return reply("PROBLEM OCCURED").code(400);
-                            }
-                            return reply("Account created").code(200);
-                        });
-                        if (err) throw error;
-                    });
+                    insertUser(request.payload, reply);
                 }
             });
         }
+    });
+}
+
+function insertUser(request, reply) {
+    database.getConnection(function(err, connection) {
+      connection.query(query.addUser(request.payload), function(
+        error,
+        results,
+        fields
+      ) {
+        connection.release();
+        if (error) {
+          console.log("code 400: PROBLEM OCCURED");
+          return reply("PROBLEM OCCURED").code(400);
+        }
+        return reply("Account created").code(200);
+      });
+      if (err) throw error;
     });
 }
 
