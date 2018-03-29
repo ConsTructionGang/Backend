@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "hapi": "^16.6.3",
-    "inert": "^4.2.1",
     "mysql": "^2.15.0",
     "nodemon": "^1.17.2"
   }
