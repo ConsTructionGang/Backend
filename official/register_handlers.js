@@ -7,8 +7,8 @@ function createUser(request, reply) {
        ["name", "username", "password", "email", "type"])) {
         return reply("bad parameter error").code(400);
     }
-    const checkUserExists = fillParameters("Username");
-    const checkEmailExists = fillParameters("Email");
+    const checkUserExists = helpers.fillParameters("Username");
+    const checkEmailExists = helpers.fillParameters("Email");
 
     checkEmailExists(request.payload.email, function(result){
         if(result.length !== 0) {
@@ -27,40 +27,17 @@ function createUser(request, reply) {
 
 function insertUser(payload, reply) {
     console.log(payload);
-    database.getConnection(function(err, connection) {
-      connection.query(query.addUser(payload), function(
-        error,
-        results,
-        fields
-      ) {
-        connection.release();
-        if (error) {
-          console.log("code 400: PROBLEM OCCURED");
-          return reply("PROBLEM OCCURED").code(400);
-        }
-        return reply("Account created").code(200);
-      });
-      if (err) throw error;
-    });
-}
-
-function fillParameters(parameter) {
-    function runquery(data, callback) {
-        data = data.toLowerCase();
-        const query = `SELECT ${parameter} FROM Account WHERE ${parameter} = '${data}'`;
-
         database.getConnection(function(err, connection) {
-            console.log("Server processing a query request");
-            connection.query(query, function(error, results){
-                connection.release();
-                if (error) throw error;
-                return callback(results);
+            connection.query(query.addUser(payload), function(error){
+            connection.release();
+            if (error) {
+                console.log("code 400: PROBLEM OCCURED");
+                return reply("PROBLEM OCCURED").code(400);
+            }
+            return reply("Account created").code(200);
             });
-            if (err) throw err;
-        });
-    }
-
-    return runquery;
+        if (err) throw error;
+    });
 }
 
 module.exports = createUser;
