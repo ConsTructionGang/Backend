@@ -2,6 +2,9 @@ const database = require('./database');
 const query = require('./query');
 
 function createUser(request, reply) {
+    if(!fullyDefined(request.payload)) {
+        return reply("bad parameter error").code(400);
+    }
     const checkUserExists = fillParameters("Username");
     const checkEmailExists = fillParameters("Email");
 
@@ -58,4 +61,13 @@ function fillParameters(parameter) {
     return runquery;
 }
 
+function fullyDefined (payload) {
+    parameter = ["username", "email", "password", "name", "type"];
+    for(let i = 0; i < parameter.length; i++) {
+        if(payload[parameter[i]] === undefined) {
+            return false;
+        }
+    }
+    return true;
+}
 module.exports = createUser;
