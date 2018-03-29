@@ -1,6 +1,6 @@
 const query = {
   basicSelect: parameters =>
-    `SELECT ${parameter} FROM Account WHERE ${parameter} = '${data}';`
+    `SELECT ${parameter} FROM Account WHERE ${parameter} = '${data}';`,
   addUser: payload =>
     `INSERT INTO Account(
     Name,
