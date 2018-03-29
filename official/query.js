@@ -12,7 +12,11 @@ const query = {
         '${payload.email}', 
         '${payload.password}',
         '${payload.type}'
-      );`
+      );`,
+  checkUser: payload =>
+      `SELECT Password 
+       FROM ACCOUNT 
+       WHERE EMAIL = '{payload.email}';`
 };
 
 module.exports = query;
