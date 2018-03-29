@@ -1,20 +1,22 @@
 const database = require('./database');
 const query = require('./query');
+const helpers  = require('./handler_helpers');
 
 function createUser(request, reply) {
-    if(!fullyDefined(request.payload)) {
+    if(!helpers.fullyDefined(request.payload,
+       ["name", "username", "password", "email", "type"])) {
         return reply("bad parameter error").code(400);
     }
     const checkUserExists = fillParameters("Username");
     const checkEmailExists = fillParameters("Email");
 
-    checkUserExists(request.payload.username, function(result){
+    checkEmailExists(request.payload.email, function(result){
         if(result.length !== 0) {
-            return reply("User already exists").code(400);
+            return reply("Account already exists. Please log in").code(400);
         } else {
-            checkEmailExists(request.payload.email, function(result){
-                if(result.length !== 0) {
-                    return reply("Account already exists. Please log in").code(400);
+          checkUserExists(request.payload.username, function(result){
+              if(result.length !== 0) {
+                  return reply("User already exists").code(400);
                 } else {
                     insertUser(request.payload, reply);
                 }
@@ -57,17 +59,8 @@ function fillParameters(parameter) {
             if (err) throw err;
         });
     }
-    
+
     return runquery;
 }
 
-function fullyDefined (payload) {
-    parameter = ["username", "email", "password", "name", "type"];
-    for(let i = 0; i < parameter.length; i++) {
-        if(payload[parameter[i]] === undefined) {
-            return false;
-        }
-    }
-    return true;
-}
 module.exports = createUser;
