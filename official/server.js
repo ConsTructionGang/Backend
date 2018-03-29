@@ -17,16 +17,34 @@ server.route({
 });
 
 server.route({
+  method: "GET",
+  path: "/signup",
+  handler: function(request, reply) {
+    if (err) throw err;
+    return reply("Signup page").code(200);
+  }
+});
+
+server.route({
   method: "POST",
   path: '/signup',
   handler: register_handler
 });
 
-// server.route({
-//   method: "POST",
-//   path: '/login',
-//   handler: login_handler
-// });
+server.route({
+  method: "GET",
+  path: '/login',
+  handler: function(request, reply) {
+    if(err) throw err;
+    return reply("Login page").code(200);
+  }
+});
+
+server.route({
+  method: "POST",
+  path: '/login',
+  handler: login_handler
+});
 
 server.start(err => {
   if (err) {
