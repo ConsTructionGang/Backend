@@ -24,10 +24,10 @@ const query = {
     FROM (
     SELECT Password
     FROM Account
-    WHERE Username = ${payload.name}
-    OR Email = ${payload.name}
+    WHERE Username = '${payload.name}'
+    OR Email = '${payload.name}'
     ) AS t
-    WHERE Password = ${payload.password};`
+    WHERE Password = '${payload.password}';`
 };
 
 module.exports = query;
