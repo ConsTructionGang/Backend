@@ -40,7 +40,4 @@ function checkPassword(payload, callback) {
         if (err) throw error;
     });
 }
-
-
-
 module.exports = loginUser;
