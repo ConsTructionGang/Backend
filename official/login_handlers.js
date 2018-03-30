@@ -10,11 +10,13 @@ function loginUser(request, reply) {
         //If no, return reply with error code
     //else
         //Run query against password
-        checkPassword(payload, function(results){
-            if(err) return reply("PROBLEM OCCURED").reply(500);
-            return reply("You just signed in").reply(200);
+        checkPassword(request.payload, function(results){
+            if(results === 0){
+                return reply("No way jose").code(400);
+            } else {
+                return reply("You just signed in").code(200);
+            }
         });
-    //
 }
 
 function checkIfSessionExists() {
@@ -26,16 +28,16 @@ function runQuery() {
 }
 
 function checkPassword(payload, callback) {
-  database.getConnection(function(err, connection) {
+    database.getConnection(function(err, connection) {
         connection.query(query.checkAccount(payload), function(
-          error,
-          results,
-          fields
+            error, 
+            results
         ) {
             connection.release();
             if (error) throw error;
-            return callback(results);
+            return callback(results.length);
         });
+        if (err) throw error;
     });
 }
 
