@@ -35,9 +35,8 @@ function checkPassword(payload, callback) {
             connection.release();
             if (error) throw error;
             return callback(results);
-        });
+
     });
-}
-
-
+  }
+)};
 module.exports = loginUser;
