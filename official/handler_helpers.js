@@ -1,7 +1,6 @@
 const database = require('./database');
 
 function fullyDefined (payload, parameter) {
-    parameter = ["username", "email", "password", "name", "type"];
     for(let i = 0; i < parameter.length; i++) {
         if(payload[parameter[i]] === undefined) {
             return false;
