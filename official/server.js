@@ -1,6 +1,8 @@
 const Hapi = require('hapi');
 const server = new Hapi.Server();
 const database = require('./database');
+const express = require('express')
+const session = require('express-session');
 
 const register_handler = require('./register_handlers');
 const login_handler = require('./login_handlers');
