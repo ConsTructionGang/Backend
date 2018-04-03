@@ -2,10 +2,7 @@ const database = require("./database");
 const query = require("./query");
 const helpers = require("./handler_helpers")
 
-function manipPassword () {
-    
+function manipPassword (request, reply) {
 }
 
-module.exports = {
-    manipPassword,
-}
+module.exports = manipPassword;
