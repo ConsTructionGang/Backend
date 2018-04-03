@@ -57,6 +57,12 @@ server.route({
   }
 })
 
+server.route({
+  method: "POST",
+  path: '/changepassword',
+  handler: profile_handler
+})
+
 server.start(err => {
   if (err) {
     throw err;
