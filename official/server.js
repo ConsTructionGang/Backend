@@ -4,7 +4,7 @@ const database = require('./database');
 
 const register_handler = require('./register_handlers');
 const login_handler = require('./login_handlers');
-const profile_handler = require('./profile_handlers');
+const account_handlers = require('./account_handlers');
 
 
 server.connection({ port: 5000, host: "0.0.0.0" });
@@ -60,7 +60,7 @@ server.route({
 server.route({
   method: "POST",
   path: '/changepassword',
-  handler: profile_handler
+  handler: account_handlers
 })
 
 server.start(err => {
