@@ -55,7 +55,7 @@ server.route({
     if(err) throw err;
     return reply("Change Password Page").code(200);
   }
-})
+});
 
 server.route({
   method: "POST",
