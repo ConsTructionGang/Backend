@@ -33,7 +33,7 @@ const checkAccount = payload =>
     ) AS t
 	WHERE Password = '${payload.password}';`;
 
-	
+
 module.exports = {
 	basicSelect,
 	addUser,
