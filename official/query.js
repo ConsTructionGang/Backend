@@ -21,10 +21,10 @@ const addUser = payload =>
 const checkUser = payload =>
     `SELECT Password
     FROM ACCOUNT
-	WHERE EMAIL = '{payload.email}';`;
-	
+    WHERE EMAIL = '${payload.email}';`;
+    
 const checkAccount = payload =>
-	`SELECT *
+    `SELECT *
     FROM (
     SELECT Password
     FROM Account
