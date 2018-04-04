@@ -16,29 +16,19 @@ const addUser = payload =>
     '${payload.email}',
     '${payload.password}',
     '${payload.type}'
-<<<<<<< HEAD
-    );`,
+    );`;
+
   changePassword: payload =>
     `UPDATE Account 
     SET Password = '${payload.newpassword}'
-    WHERE Email = '${payload.email}';`,
+    WHERE Email = '${payload.email}';`;
+
   checkUser: payload =>
     `SELECT Password
     FROM ACCOUNT
-    WHERE EMAIL = '${payload.email}';`,
+    WHERE EMAIL = '${payload.email}';`;
   checkAccount: payload =>
     `SELECT *
-=======
-	);`;
-	
-const checkUser = payload =>
-    `SELECT Password
-    FROM ACCOUNT
-	WHERE EMAIL = '{payload.email}';`;
-	
-const checkAccount = payload =>
-	`SELECT *
->>>>>>> c3a80c355e8baf2343de84c5fd0c1ded875488fa
     FROM (
     SELECT Password
     FROM Account
