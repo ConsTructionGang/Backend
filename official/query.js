@@ -15,10 +15,14 @@ const query = {
     '${payload.password}',
     '${payload.type}'
     );`,
+  changePassword: payload =>
+    `UPDATE Account 
+    SET Password = '${payload.newpassword}'
+    WHERE Email = '${payload.email}';`,
   checkUser: payload =>
     `SELECT Password
     FROM ACCOUNT
-    WHERE EMAIL = '{payload.email}';`,
+    WHERE EMAIL = '${payload.email}';`,
   checkAccount: payload =>
     `SELECT *
     FROM (

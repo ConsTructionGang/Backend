@@ -7,7 +7,7 @@ function createUser(request, reply) {
        ["name", "username", "password", "email", "type"])) {
         return reply("bad parameter error").code(400);
     }
-    const checkUserExists = helpers.fillParameters("Username");
+    const checkUserExists = helpers.fillParameters("Name");
     const checkEmailExists = helpers.fillParameters("Email");
 
     checkEmailExists(request.payload.email, function(result){
@@ -27,15 +27,16 @@ function createUser(request, reply) {
 
 function insertUser(payload, reply) {
     console.log(payload);
-        database.getConnection(function(err, connection) {
-            connection.query(query.addUser(payload), function(error){
-            connection.release();
-            if (error) {
-                console.log("code 400: PROBLEM OCCURED");
-                return reply("PROBLEM OCCURED").code(400);
-            }
-            return reply("Account created").code(200);
-            });
+    database.getConnection(function(err, connection) {
+        connection.query(query.addUser(payload), function(error){
+        connection.release();
+        if (error) {
+            console.log("code 400: PROBLEM OCCURED");
+            console.log(error);
+            return reply("PROBLEM OCCURED").code(400);
+        }
+        return reply("Account created").code(200);
+        });
         if (err) throw error;
     });
 }
