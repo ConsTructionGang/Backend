@@ -1,6 +1,6 @@
 const database = require("./database");
 const query = require("./query");
-const helpers = require("./handler_helpers")
+const helpers = require("./handler_helpers");
 
 function loginUser(request, reply) {
   if(!helpers.fullyDefined(request.payload, ["name","password"])) {
@@ -17,10 +17,6 @@ function loginUser(request, reply) {
                 return reply("You just signed in").code(200);
             }
         });
-}
-
-function checkIfSessionExists() {
-
 }
 
 function runQuery() {
