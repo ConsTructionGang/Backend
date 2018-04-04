@@ -27,6 +27,7 @@ const addUser = payload =>
     `SELECT Password
     FROM ACCOUNT
     WHERE EMAIL = '${payload.email}';`;
+    
   checkAccount: payload =>
     `SELECT *
     FROM (
