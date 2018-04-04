@@ -17,6 +17,11 @@ const addUser = payload =>
 		'${payload.password}',
 		'${payload.type}'
 	);`;
+
+const changePassword = payload =>
+    `UPDATE Account 
+    SET Password = '${payload.newpassword}'
+    WHERE Email = '${payload.email}';`;
 	
 const checkUser = payload =>
     `SELECT Password
@@ -37,5 +42,6 @@ module.exports = {
 	basicSelect,
 	addUser,
 	checkUser,
-	checkAccount
+	checkAccount,
+	changePassword
 };
