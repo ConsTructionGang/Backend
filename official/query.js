@@ -5,17 +5,17 @@ const basicSelect = parameters =>
 
 const addUser = payload => 
 	`INSERT INTO Account(
-    Name,
-    Username,
-    Email,
-    Password,
+		Name,
+		Username,
+		Email,
+		Password,
     Type
     ) VALUES (
-    '${payload.name}',
-    '${payload.username}',
-    '${payload.email}',
-    '${payload.password}',
-    '${payload.type}'
+		'${payload.name}',
+		'${payload.username}',
+		'${payload.email}',
+		'${payload.password}',
+		'${payload.type}'
 	);`;
 	
 const checkUser = payload =>
@@ -32,7 +32,6 @@ const checkAccount = payload =>
     OR Email = '${payload.name}'
     ) AS t
 	WHERE Password = '${payload.password}';`;
-
 
 module.exports = {
 	basicSelect,
