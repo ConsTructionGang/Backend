@@ -18,7 +18,7 @@ const query = {
   checkUser: payload =>
     `SELECT Password
     FROM ACCOUNT
-    WHERE EMAIL = '{payload.email}';`,
+    WHERE EMAIL = '${payload.email}';`,
   checkAccount: payload =>
     `SELECT *
     FROM (
