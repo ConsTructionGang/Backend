@@ -11,10 +11,10 @@ server.connection({ port: 5000, host: "0.0.0.0" });
 
 server.route({
   method: "GET",
-  path: "/",
+  path: "/user",
   handler: function(request, reply, err) {
     console.log("Server processing a / request");
-    reply("Hello, worlds");
+    return reply("Hello, worlds");
   }
 });
 
@@ -69,6 +69,14 @@ server.route({
   handler: function (request, reply, err){
     if(err) throw err;
     return reply('Job Successfully created');
+  }
+});
+server.route({
+  method: "DELETE",
+  path: '/deleteuser',
+  handler: function (request, reply, err){
+    if(err) throw err;
+    return reply('Account Successfully created');
   }
 });
 
