@@ -29,7 +29,7 @@ server.route({
 
 server.route({
   method: "POST",
-  path: '/signup',
+  path: "/signup",
   handler: register_handler
 });
 
@@ -61,6 +61,15 @@ server.route({
   method: "POST",
   path: '/changepassword',
   handler: account_handlers
+});
+
+server.route({
+  method: "POST",
+  path: '/createjob',
+  handler: function (request, reply, err){
+    if(err) throw err;
+    return reply('Job Successfully created');
+  }
 });
 
 server.start(err => {
