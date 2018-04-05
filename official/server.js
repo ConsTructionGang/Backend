@@ -63,11 +63,6 @@ server.route({
   handler: account_handlers
 });
 
-server.route({
-  method: "POST"
-  path: '/createjob'
-  handler:
-});
 server.start(err => {
   if (err) {
     throw err;

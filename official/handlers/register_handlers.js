@@ -4,23 +4,17 @@ const helpers  = require('./handler_helpers');
 
 function createUser(request, reply) {
     if(!helpers.fullyDefined(request.payload,
-       ["name", "username", "password", "email", "type"])) {
+       ["name", "password", "email", "location"])) {
         return reply("bad parameter error").code(400);
     }
-    const checkUserExists = helpers.fillParameters("Name");
+ 
     const checkEmailExists = helpers.fillParameters("Email");
 
     checkEmailExists(request.payload.email, function(result){
         if(result.length !== 0) {
             return reply("Account already exists. Please log in").code(400);
         } else {
-          checkUserExists(request.payload.username, function(result){
-              if(result.length !== 0) {
-                  return reply("User already exists").code(400);
-                } else {
-                    insertUser(request.payload, reply);
-                }
-            });
+            insertUser(request.payload, reply);
         }
     });
 }

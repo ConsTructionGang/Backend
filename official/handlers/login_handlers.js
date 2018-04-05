@@ -3,7 +3,7 @@ const query = require("./query");
 const helpers = require("./handler_helpers");
 
 function loginUser(request, reply) {
-  if(!helpers.fullyDefined(request.payload, ["name","password"])) {
+  if(!helpers.fullyDefined(request.payload, ["email","password"])) {
       return reply("bad parameter error;").code(400);
   }
     //Check if user exists

@@ -12,7 +12,7 @@ function changePassword(request, reply) {
         if(result.length !== 0) {
             newPassword(request.payload, reply);
         } else {
-            return reply(" Account does not exist").code(200);
+            return reply("Account does not exist").code(200);
         }
     });
 };

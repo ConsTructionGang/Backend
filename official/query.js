@@ -6,16 +6,14 @@ const basicSelect = parameters =>
 const addUser = payload => 
 	`INSERT INTO Account(
 		Name,
-		Username,
 		Email,
 		Password,
-    Type
+		Location
     ) VALUES (
 		'${payload.name}',
-		'${payload.username}',
 		'${payload.email}',
 		'${payload.password}',
-		'${payload.type}'
+		'${payload.location}'
 	);`;
 
 const changePassword = payload =>
@@ -33,8 +31,7 @@ const checkAccount = payload =>
     FROM (
     SELECT Password
     FROM Account
-    WHERE Username = '${payload.name}'
-    OR Email = '${payload.name}'
+    WHERE Email = '${payload.email}'
     ) AS t
 	WHERE Password = '${payload.password}';`;
 
