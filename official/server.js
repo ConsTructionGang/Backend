@@ -29,7 +29,7 @@ server.route({
 
 server.route({
   method: "POST",
-  path: '/signup',
+  path: "/signup",
   handler: register_handler
 });
 
@@ -64,11 +64,11 @@ server.route({
 });
 
 server.route({
-  method: "POST"
-  path: '/createjob'
+  method: "POST",
+  path: '/createjob',
   handler: function (request, reply, err){
     if(err) throw err;
-    reply('Job Successfully created');
+    return reply('Job Successfully created');
   }
 });
 server.start(err => {
