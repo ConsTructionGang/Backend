@@ -25,5 +25,7 @@ function addSupplies(payload, reply) {
 
 }
 
-module.exports = createJob;
+module.exports = {
+    createJob,
+};
 

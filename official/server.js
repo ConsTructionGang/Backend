@@ -66,7 +66,7 @@ server.route({
 server.route({
   method: "POST",
   path: '/createjob',
-  handler: job_handler
+  handler: job_handler.createJob
 });
 
 server.start(err => {
