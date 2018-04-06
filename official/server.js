@@ -5,7 +5,7 @@ const database = require('./database');
 const register_handler = require('./register_handlers');
 const login_handler = require('./login_handlers');
 const account_handler = require('./account_handlers');
-const job_handler = require('./job_handler');
+const job_handler = require('./job_handlers');
 
 server.connection({ port: 5000, host: "0.0.0.0" });
 
