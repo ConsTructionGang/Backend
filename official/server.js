@@ -6,6 +6,7 @@ const register_handler = require('./register_handlers');
 const login_handler = require('./login_handlers');
 const account_handler = require('./account_handlers');
 const job_handler = require('./job_handlers');
+const supply_handler = require('./supply_handlers')
 
 server.connection({ port: 5000, host: "0.0.0.0" });
 
@@ -67,6 +68,12 @@ server.route({
   method: "POST",
   path: '/createjob',
   handler: job_handler.createJob
+});
+
+server.route({
+  method: "POST",
+  path: '/debug/addSupplies',
+  handler: supply_handler.addSupply
 });
 
 server.start(err => {
