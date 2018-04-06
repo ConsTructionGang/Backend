@@ -3,7 +3,6 @@ const basicSelect = parameters =>
 	FROM Account 
 	WHERE ${parameter} = '${data}';`;
 	
-	
 const checkUser = payload =>
 	`SELECT Password
 	FROM ACCOUNT
@@ -45,17 +44,15 @@ const deleteJob = payload =>
 	WHERE List_ID = '${payload.list_id}';`;
 
 const addJob = payload =>
-	`INSERT INTO Jobs(
+	`INSERT INTO Job(
         Construction_ID,
         Job_Title,
-        List_ID,
         Location,
         Budget,
         Completion_Date
     ) Values (
         '${payload.construction_id}',
         '${payload.job_title}',
-        '${payload.list_id}',
         '${payload.location}',
         '${payload.budget}',
         '${payload.completion_date}'

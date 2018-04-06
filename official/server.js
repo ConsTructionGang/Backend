@@ -4,8 +4,8 @@ const database = require('./database');
 
 const register_handler = require('./register_handlers');
 const login_handler = require('./login_handlers');
-const account_handlers = require('./account_handlers');
-
+const account_handler = require('./account_handlers');
+const job_handler = require('./job_handler');
 
 server.connection({ port: 5000, host: "0.0.0.0" });
 
@@ -60,24 +60,13 @@ server.route({
 server.route({
   method: "POST",
   path: '/changepassword',
-  handler: account_handlers
+  handler: account_handler
 });
 
 server.route({
   method: "POST",
   path: '/createjob',
-  handler: function (request, reply, err){
-    if(err) throw err;
-    return reply('Job Successfully created');
-  }
-});
-server.route({
-  method: "DELETE",
-  path: '/deleteuser',
-  handler: function (request, reply, err){
-    if(err) throw err;
-    return reply('Account Successfully created');
-  }
+  handler: job_handler
 });
 
 server.start(err => {

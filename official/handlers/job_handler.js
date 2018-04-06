@@ -11,7 +11,8 @@ function insertJob(payload, reply) {
         if(err) throw err;
         connection.query(query.addJob(payload), function(error) {
             if (error) {
-                console.err("ERROR OCCURRED WHEN INSERTING JOB");
+                console.log("ERROR OCCURRED WHEN INSERTING JOB");
+                console.log(error);
                 reply("Problem occured when creating job").code(400);
             } else {
                 reply("Job created");
@@ -24,6 +25,5 @@ function addSupplies(payload, reply) {
 
 }
 
-module.exports = {
+module.exports = createJob;
 
-}
