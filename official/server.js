@@ -72,7 +72,7 @@ server.route({
 
 server.route({
   method: "POST",
-  path: '/debug/addSupplies',
+  path: '/addsupplies',
   handler: supply_handler.addSupply
 });
 

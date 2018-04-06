@@ -58,6 +58,19 @@ const addJob = payload =>
         '${payload.completion_date}'
     );`;
 
+const addSupply = payload =>
+	`INSERT INTO Supplies
+	( 
+		Supplier_ID,
+		Name,
+	    	Tags,
+	    	Price
+	)  Values (
+		'${payload.supplier_id}',
+		'${payload.name}',
+		'${payload.tags}',
+		'${payload.price}'
+	);`;
 module.exports = {
 	basicSelect,
 	addUser,
@@ -66,5 +79,6 @@ module.exports = {
 	changePassword,
 	addJob,
 	deleteJob,
-	deleteJobSupplies
+	deleteJobSupplies,
+	addSupply,
 };
