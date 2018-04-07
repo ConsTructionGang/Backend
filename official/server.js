@@ -66,17 +66,17 @@ server.route({
 server.route({
   method: "POST",
   path: '/createjob',
-  handler: function (request, reply, err){
+  handler: function (reply, err){
     if(err) throw err;
-    return reply('Job Successfully created');
+    return reply('Job Successfully created').code(200);
   }
 });
 server.route({
   method: "DELETE",
   path: '/deleteuser',
-  handler: function (request, reply, err){
+  handler: function (reply, err){
     if(err) throw err;
-    return reply('Account Successfully created');
+    return reply('Account Successfully created').code(200);
   }
 });
 
