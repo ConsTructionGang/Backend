@@ -20,7 +20,6 @@ function createUser(request, reply) {
 }
 
 function insertUser(payload, reply) {
-    console.log(payload);
     database.getConnection(function(err, connection) {
         connection.query(query.addUser(payload), function(error){
         connection.release();

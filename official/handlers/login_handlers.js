@@ -5,18 +5,15 @@ const helpers = require("./handler_helpers");
 function loginUser(request, reply) {
   if(!helpers.fullyDefined(request.payload, ["email","password"])) {
       return reply("bad parameter error;").code(400);
+  } else {
+    checkPassword(request.payload, function(results){
+        if(results === 0){
+            return reply("No way jose").code(400);
+        } else {
+            return reply("You just signed in").code(200);
+        }
+    });
   }
-    //Check if user exists
-        //If no, return reply with error code
-    //else
-        //Run query against password
-        checkPassword(request.payload, function(results){
-            if(results === 0){
-                return reply("No way jose").code(400);
-            } else {
-                return reply("You just signed in").code(200);
-            }
-        });
 }
 
 function runQuery() {
