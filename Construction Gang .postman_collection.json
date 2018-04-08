@@ -8,7 +8,7 @@
 		{
 			"name": "Login user (not fully defined)",
 			"request": {
-				"method": "POST",
+				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "formdata",
@@ -401,7 +401,7 @@
 			},
 			"response": [
 				{
-					"id": "80a4cdcc-7aa7-4520-a749-020810e03ea7",
+					"id": "8fe22121-d183-4027-b35f-927c9006b678",
 					"name": "Job creation page",
 					"originalRequest": {
 						"method": "POST",
@@ -460,6 +460,77 @@
 					"body": ""
 				}
 			]
+		},
+		{
+			"name": "http://{{url}}/view/supplies/steel_copper_basket/m=1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "supplier_id",
+							"value": "5",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "lumber",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "tags",
+							"value": "wood oak",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": ".60",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{url}}/view/supplies/steel_copper_basket/m=1",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"view",
+						"supplies",
+						"steel_copper_basket",
+						"m=1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://{{url}}/view/supplies/steel",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{url}}/view/supplies/steel",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"view",
+						"supplies",
+						"steel"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
