@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Login user (not fully defined)",
+			"name": "Login",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -39,50 +39,7 @@
 			"response": []
 		},
 		{
-			"name": "Signup when email is already taken",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "name",
-							"value": "Poop",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "jankd",
-							"type": "text"
-						},
-						{
-							"key": "email",
-							"value": "fov@foo.net",
-							"type": "text"
-						},
-						{
-							"key": "location",
-							"value": "Dallas, TX",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://{{url}}/signup",
-					"protocol": "http",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"signup"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Signup when email is not taken",
+			"name": "Signup",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -125,153 +82,6 @@
 					],
 					"path": [
 						"signup"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Login page",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "name",
-							"value": "Poop",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "jankd",
-							"type": "text"
-						},
-						{
-							"key": "email",
-							"value": "fovfdsahfjdksalhfjdkalshfjdklas@foo.net",
-							"type": "text"
-						},
-						{
-							"key": "type",
-							"value": "1",
-							"type": "text",
-							"disabled": true
-						},
-						{
-							"key": "location",
-							"value": "Dallas, TX",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://{{url}}/login",
-					"protocol": "http",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"login"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Signup page",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "name",
-							"value": "Poop",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "jankd",
-							"type": "text"
-						},
-						{
-							"key": "email",
-							"value": "fovfdsahfjdksalhfjdkalshfjdklas@foo.net",
-							"type": "text"
-						},
-						{
-							"key": "type",
-							"value": "1",
-							"type": "text",
-							"disabled": true
-						},
-						{
-							"key": "location",
-							"value": "Dallas, TX",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://{{url}}/signup",
-					"protocol": "http",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"signup"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Homepage",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "name",
-							"value": "Poop",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "jankd",
-							"type": "text"
-						},
-						{
-							"key": "email",
-							"value": "fovfdsahfjdksalhfjdkalshfjdklas@foo.net",
-							"type": "text"
-						},
-						{
-							"key": "type",
-							"value": "1",
-							"type": "text",
-							"disabled": true
-						},
-						{
-							"key": "location",
-							"value": "Dallas, TX",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://{{url}}/",
-					"protocol": "http",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						""
 					]
 				}
 			},
@@ -354,7 +164,7 @@
 			"response": []
 		},
 		{
-			"name": "Job creation page",
+			"name": "Create Job",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -401,7 +211,7 @@
 			},
 			"response": [
 				{
-					"id": "8fe22121-d183-4027-b35f-927c9006b678",
+					"id": "b291155b-542e-4d7d-b49c-92b015996a92",
 					"name": "Job creation page",
 					"originalRequest": {
 						"method": "POST",
@@ -462,7 +272,7 @@
 			]
 		},
 		{
-			"name": "http://{{url}}/view/supplies/steel_copper_basket/m=1",
+			"name": "View Supply (ALL)",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -512,7 +322,7 @@
 			"response": []
 		},
 		{
-			"name": "http://{{url}}/view/supplies/steel",
+			"name": "View Supply (Tagged)",
 			"request": {
 				"method": "GET",
 				"header": [],
