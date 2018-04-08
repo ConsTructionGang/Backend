@@ -76,6 +76,18 @@ server.route({
   handler: supply_handler.addSupply
 });
 
+server.route({
+  method: "GET",
+  path: '/view/supplies',
+  handler: supply_handler.viewSupplies
+});
+
+server.route({
+    method: "GET",
+    path: '/view/supplies/{tag}',
+    handler: supply_handler.viewSuppliesTagged
+})
+
 server.start(err => {
   if (err) {
     throw err;

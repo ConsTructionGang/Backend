@@ -71,6 +71,20 @@ const addSupply = payload =>
 		'${payload.tags}',
 		'${payload.price}'
 	);`;
+
+const viewSupplies = payload =>
+	`Select Supplier_ID, s.Name AS product_name, Price, a.Name AS supplier_name
+	FROM Supplies s inner join Account a
+	ON s.Supplier_ID = a.ID;`;
+
+const viewSuppliesTagged = params =>
+	`Select Supplier_ID, s.Name AS product_name, Price, a.Name AS supplier_name
+	FROM 
+		Supplies s 
+	INNER JOIN 
+		Account a
+	ON s.Supplier_ID = a.ID
+	WHERE Tags LIKE '%${params.tag}%' OR s.Name LIKE '%${params.tag}%';`;
 module.exports = {
 	basicSelect,
 	addUser,
@@ -81,4 +95,6 @@ module.exports = {
 	deleteJob,
 	deleteJobSupplies,
 	addSupply,
+	viewSupplies,
+	viewSuppliesTagged,
 };

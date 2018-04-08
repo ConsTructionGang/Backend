@@ -23,7 +23,7 @@ function newPassword(payload, reply) {
             connection.release();
             if (error) {
                 console.log(error);
-                return reply("**********************PROBLEM OCCURED WITH MYSQL**********************").code(400);
+                return reply("***PROBLEM OCCURED WITH MYSQL***").code(400);
             } else {
                 return reply("Password Successfully Changed").code(200);
             }
