@@ -52,8 +52,36 @@ function viewSuppliesTagged(request, reply) {
     return;
 }
 
+function viewSuppliesTaggedMultiple(request, reply) {
+    let arr = request.params.tag.split('_');
+    let string = "";
+    for(let i = 0; i < arr.length; i++) {
+        string += "Tags LIKE '%";
+        string += arr[i];
+        string += "%' ";
+        if(i != arr.length - 1) {
+            string += 'OR ';
+        }
+    }
+    database.getConnection(function(err, connection) {
+        if(err) throw err;
+        console.log(string);
+        connection.query(query.viewSuppliesTaggedMultiple(string), function(error, results) {
+            if (error) {
+                console.log("ERROR VIEWING SUPPLIES");
+                console.log(error);
+                return reply("SQL QUERY ERROR").code(400);
+            } else {
+                return reply(results).code(200);
+            }
+        });
+    });
+    return;
+}
+
 module.exports = {
       addSupply,
       viewSupplies,
       viewSuppliesTagged,
+      viewSuppliesTaggedMultiple,
 }

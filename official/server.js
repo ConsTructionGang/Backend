@@ -83,6 +83,12 @@ server.route({
 });
 
 server.route({
+  method: "GET",
+  path: '/view/supplies/{tag}/m=1',
+  handler: supply_handler.viewSuppliesTaggedMultiple
+})
+
+server.route({
     method: "GET",
     path: '/view/supplies/{tag}',
     handler: supply_handler.viewSuppliesTagged

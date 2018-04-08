@@ -85,6 +85,14 @@ const viewSuppliesTagged = params =>
 		Account a
 	ON s.Supplier_ID = a.ID
 	WHERE Tags LIKE '%${params.tag}%' OR s.Name LIKE '%${params.tag}%';`;
+const viewSuppliesTaggedMultiple = params =>
+	`Select Supplier_ID, s.Name AS product_name, Price, a.Name AS supplier_name
+	FROM 
+		Supplies s 
+	INNER JOIN 
+		Account a
+	ON s.Supplier_ID = a.ID
+	WHERE ${params};`;
 module.exports = {
 	basicSelect,
 	addUser,
@@ -97,4 +105,5 @@ module.exports = {
 	addSupply,
 	viewSupplies,
 	viewSuppliesTagged,
+	viewSuppliesTaggedMultiple,
 };
