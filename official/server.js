@@ -67,30 +67,23 @@ server.route({
 server.route({
   method: "POST",
   path: '/createjob',
-<<<<<<< HEAD
-  handler: function (reply, err){
-    if(err) throw err;
-    return reply('Job Successfully created').code(200);
-  }
-=======
   handler: job_handler.createJob
->>>>>>> f94cf1122c688c7f9ab05acae8693e70414b81d3
 });
 
 server.route({
-<<<<<<< HEAD
   method: "DELETE",
   path: '/deleteuser',
   handler: function (reply, err){
     if(err) throw err;
     return reply('Account Successfully created').code(200);
   }
-=======
+});
+
+server.route({
   method: "POST",
   path: '/addsupplies',
   handler: supply_handler.addSupply
->>>>>>> f94cf1122c688c7f9ab05acae8693e70414b81d3
-});
+})
 
 server.start(err => {
   if (err) {
