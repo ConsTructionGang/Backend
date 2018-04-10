@@ -48,7 +48,7 @@ server.route({
   path: '/login',
   handler : (request, reply) => {
     reply({ ok : true })
-        .header('Access-Control-Allow-Methods', 'PUT')
+        .header('Access-Control-Allow-Methods', '*')
 }
 });
 
