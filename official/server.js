@@ -50,6 +50,12 @@ server.route({
 });
 
 server.route({
+  method: 'PUT',
+  path: '/login',
+  handler: login_handler
+})
+
+server.route({
   method: "GET",
   path: '/changepassword',
   handler: function(request, reply, err) {
