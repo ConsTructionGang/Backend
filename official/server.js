@@ -1,14 +1,13 @@
 const Hapi = require('hapi');
 const server = new Hapi.Server();
-const database = require('./database');
 
 const register_handler = require('./register_handlers');
 const login_handler = require('./login_handlers');
 const account_handler = require('./account_handlers');
 const job_handler = require('./job_handlers');
-const supply_handler = require('./supply_handlers')
+const review_handler = require('./review_handlers');
 
-server.connection({ port: 5000, host: "0.0.0.0" });
+server.connection({routes: {cors: true}, port: 5000, host: "0.0.0.0" });
 
 server.route({
   method: "GET",
@@ -70,10 +69,24 @@ server.route({
   handler: job_handler.createJob
 });
 
+//Reviews 
+
 server.route({
-  method: "POST",
-  path: '/addsupplies',
-  handler: supply_handler.addSupply
+  method: "GET",
+  path: '/{supplier_id}/reviews',
+  handler: review_handler.retrieveAll
+});
+
+server.route({
+  method: "DELETE",
+  path: '/{supplier_id}/reviews',
+  handler: review_handler.remove
+});
+
+server.route({
+  method: "PUT",
+  path: '/{supplier_id}/reviews',
+  handler: review_handler.publish
 });
 
 server.start(err => {
