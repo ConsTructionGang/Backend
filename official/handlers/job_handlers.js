@@ -11,6 +11,7 @@ function insertJob(payload, reply) {
         ["construction_id", "job_title", "budget", "location", "completion_date"])) {
          return reply("bad parameter error").code(400);
      }
+
     database.getConnection(function(err, connection) {
         if(err) throw err;
         connection.query(query.addJob(payload), function(error) {
@@ -30,6 +31,6 @@ function addSupplies(payload, reply) {
 }
 
 module.exports = {
-    createJob,
+    createJob
 };
 
