@@ -23,7 +23,7 @@ const query = {
     deleteReview: payload =>
         `DELETE FROM Review
         WHERE Supplier_ID = '${payload.supplier_id}'
-        AND Construction_ID = '${payload.construction_id}';`,
+        AND Author = '${payload.author}';`,
     updateAvgScore: payload =>
         `UPDATE Account
         SET Rating = (
@@ -38,7 +38,7 @@ function publish(request, reply){
     runQuery(query.postReview, request.payload, function(results) {
         return reply("Review published").code(200);
     });
-    
+    updateAvgRating(request);
 }
 
 function edit() {
@@ -52,15 +52,13 @@ function retrieveAll(request, reply) {
 }
 
 function remove() {
-    console.log("ffdsa");
-}
-
-function postAverage() {
-
-}
-
-function createUsers() {
     
+}
+
+function updateAvgRating(request) {
+    runQuery(query.updateAvgScore, request.params, function(results) {
+        console.log(`Updating review rating for ${request.params.supplier_id}`);
+    });
 }
 
 module.exports = {
