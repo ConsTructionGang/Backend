@@ -7,7 +7,7 @@ const account_handler = require('./account_handlers');
 const job_handler = require('./job_handlers');
 const review_handler = require('./review_handlers');
 
-server.connection({routes: {cors: true}, port: 5000, host: "0.0.0.0" });
+server.connection({ port: 5000, host: "0.0.0.0", routes: { cors: true}});
 
 server.route({
   method: "GET",
@@ -43,10 +43,25 @@ server.route({
 });
 
 server.route({
+  method: "OPTIONS",
+  path: '/login',
+  handler : (request, reply) => {
+    reply({ ok : true })
+        .header('Access-Control-Allow-Methods', '*')
+}
+});
+
+server.route({
   method: "POST",
   path: '/login',
   handler: login_handler
 });
+
+server.route({
+  method: 'PUT',
+  path: '/login',
+  handler: login_handler
+})
 
 server.route({
   method: "GET",
@@ -78,17 +93,31 @@ server.route({
 });
 
 server.route({
-  method: "DELETE",
-  path: '/supplier_{supplier_id}/reviews',
-  handler: review_handler.remove
-});
-
-server.route({
   method: "PUT",
   path: '/supplier_{supplier_id}/reviews',
   handler: review_handler.publish
 });
 
+server.route({
+  method: "DELETE",
+  path: '/supplier_{supplier_id}/reviews',
+  handler: review_handler.remove
+});
+  
+server.route({
+  method: "DELETE",
+  path: '/deleteuser',
+  handler: function (reply, err){
+    if(err) throw err;
+    return reply('Account Successfully created').code(200);
+  }
+});
+
+server.route({
+  method: "POST",
+  path: '/addsupplies',
+  handler: supply_handler.addSupply
+})
 
 server.start(err => {
   if (err) {
