@@ -1,0 +1,635 @@
+{
+	"info": {
+		"_postman_id": "43b744d1-12f3-4c64-a2f4-5d19e9371873",
+		"name": "Construction Gang ",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login user (not fully defined)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "him@gmail.com",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{url}}/login",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Signup when email is already taken",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Poop",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "jankd",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "fov@foo.net",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "location",
+							"value": "Dallas, TX",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{url}}/signup",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Signup when email is not taken",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Poop",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "jankd",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "fovfdsahfjdksalhfjdkalshfjdklas@foo.net",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "1",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "location",
+							"value": "Dallas, TX",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{url}}/signup",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login page",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Poop",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "jankd",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "fovfdsahfjdksalhfjdkalshfjdklas@foo.net",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "1",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "location",
+							"value": "Dallas, TX",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{url}}/login",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Signup page",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Poop",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "jankd",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "fovfdsahfjdksalhfjdkalshfjdklas@foo.net",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "1",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "location",
+							"value": "Dallas, TX",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{url}}/signup",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Homepage",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Poop",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "jankd",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "fovfdsahfjdksalhfjdkalshfjdklas@foo.net",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "1",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "location",
+							"value": "Dallas, TX",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{url}}/",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "foobar@foo.net",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "janks",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "newpassword",
+							"value": "poopybutt",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{url}}/changepassword",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"changepassword"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change password page",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "foobar@foo.net",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "janks",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "newpassword",
+							"value": "poopybutt",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{url}}/changepassword",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"changepassword"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Job creation page",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "construction_id",
+							"value": "4",
+							"type": "text",
+							"description": ""
+						},
+						{
+							"key": "job_title",
+							"value": "Boolin building",
+							"type": "text",
+							"description": ""
+						},
+						{
+							"key": "location",
+							"value": "Dallas, Tx",
+							"type": "text",
+							"description": ""
+						},
+						{
+							"key": "budget",
+							"value": "3000000.99",
+							"type": "text",
+							"description": ""
+						},
+						{
+							"key": "completion_date",
+							"value": "2018-12-31",
+							"type": "text",
+							"description": ""
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{url}}/createjob",
+					"protocol": "http",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"createjob"
+					]
+				}
+			},
+			"response": [
+				{
+					"id": "935ff503-4127-4d09-83bf-73aa8dcc20e2",
+					"name": "Job creation page",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Poop",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "jankd",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "fovfdsahfjdksalhfjdkalshfjdklas@foo.net",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "1",
+									"description": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "location",
+									"value": "Dallas, TX",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://0.0.0.0:5000/createJob",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "5000",
+							"path": [
+								"createJob"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "",
+					"header": [],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "options",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Publish Review",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "author_id",
+							"value": "29",
+							"type": "text",
+							"description": ""
+						},
+						{
+							"key": "title",
+							"value": "This company sux",
+							"type": "text",
+							"description": ""
+						},
+						{
+							"key": "body",
+							"value": "I would rather eat dirt than work with this company again",
+							"type": "text",
+							"description": ""
+						},
+						{
+							"key": "rating",
+							"value": "2",
+							"type": "text",
+							"description": ""
+						},
+						{
+							"key": "date",
+							"value": "2018-03-07",
+							"type": "text",
+							"description": ""
+						}
+					]
+				},
+				"url": {
+					"raw": "http://0.0.0.0:5000/supplier_39/reviews",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5000",
+					"path": [
+						"supplier_39",
+						"reviews"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Review",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "author_id",
+							"value": "29",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://0.0.0.0:5000/supplier_39/reviews",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5000",
+					"path": [
+						"supplier_39",
+						"reviews"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve Reviews",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://0.0.0.0:5000/supplier_39/reviews",
+					"protocol": "http",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "5000",
+					"path": [
+						"supplier_39",
+						"reviews"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -9,6 +9,14 @@ function fullyDefined (payload, parameter) {
     return true;
 }
 
+//Function to run basic queries
+function runQuery(query, callback){
+    database.query(query, function(err, results) {
+        if (err) throw err;
+        return callback(results);
+    });
+}
+
 function fillParameters(parameter) {
     function runquery(data, callback){
         data = data.toLowerCase();
@@ -29,5 +37,6 @@ function fillParameters(parameter) {
 
 module.exports = {
   fullyDefined,
-  fillParameters
-}
+  fillParameters,
+  runQuery
+};
