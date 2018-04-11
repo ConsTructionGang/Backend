@@ -1,4 +1,4 @@
-const database = require('../database');
+const database = require('./database');
 
 function fullyDefined (payload, parameter) {
     for(let i = 0; i < parameter.length; i++) {
@@ -10,15 +10,10 @@ function fullyDefined (payload, parameter) {
 }
 
 //Function to run basic queries
-function runQuery(query, parameters, callback){
-    database.getConnection(function(err, connection) {
-        console.log("Server processing a query request");
-        connection.query(query(parameters), function(error, results) {
-            connection.release();
-            if (error) throw error;
-            return callback(results);
-        });
+function runQuery(query, callback){
+    database.query(query, function(err, results) {
         if (err) throw err;
+        return callback(results);
     });
 }
 
@@ -44,4 +39,4 @@ module.exports = {
   fullyDefined,
   fillParameters,
   runQuery
-}
+};
