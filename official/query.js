@@ -22,12 +22,14 @@ const addUser = payload =>
 		Name,
 		Email,
 		Password,
-		Location
+		Location,
+		isSupplier
 	) VALUES (
 		'${payload.name}',
 		'${payload.email}',
 		'${payload.password}',
-		'${payload.location}'
+		'${payload.location}',
+		${payload.isSupplier}
 	);`;
 
 const changePassword = payload =>

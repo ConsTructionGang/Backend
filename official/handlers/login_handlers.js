@@ -4,13 +4,13 @@ const helpers = require("./handler_helpers");
 
 function loginUser(request, reply) {
   if(!helpers.fullyDefined(request.payload, ["email","password"])) {
-      return reply("bad parameter error;").code(400);
+      return reply({'message': 'Parameter Error'}).code(400);
   } else {
     checkPassword(request.payload, function(results){
         if(results === 0){
-            return reply("No way jose").code(400);
+            return reply({'message': 'Sign In Valid'}).code(400);
         } else {
-            return reply("You just signed in").code(200);
+            return reply({'message': 'Signed in'}).code(200);
         }
     });
   }
