@@ -73,21 +73,22 @@ server.route({
 
 server.route({
   method: "GET",
-  path: '/{supplier_id}/reviews',
+  path: '/supplier_{supplier_id}/reviews',
   handler: review_handler.retrieveAll
 });
 
 server.route({
   method: "DELETE",
-  path: '/{supplier_id}/reviews',
+  path: '/supplier_{supplier_id}/reviews',
   handler: review_handler.remove
 });
 
 server.route({
   method: "PUT",
-  path: '/{supplier_id}/reviews',
+  path: '/supplier_{supplier_id}/reviews',
   handler: review_handler.publish
 });
+
 
 server.start(err => {
   if (err) {
