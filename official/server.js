@@ -1,3 +1,4 @@
+
 const Hapi = require('hapi');
 const server = new Hapi.Server();
 
@@ -136,6 +137,36 @@ server.route({
     console.log('do something');
   }
 });
+
+server.route({
+  method: "GET",
+  path: '/view/supplies',
+  handler: supply_handler.viewSupplies
+});
+
+server.route({
+  method: "GET",
+  path: '/view/supplies/{tag}/m=1',
+  handler: supply_handler.viewSuppliesTaggedMultiple
+})
+
+server.route({
+    method: "GET",
+    path: '/view/supplies/{tag}',
+    handler: supply_handler.viewSuppliesTagged
+})
+
+server.route({
+    method: "GET",
+    path: '/view/supplies/s=0{tag}',
+    handler: supply_handler.viewSuppliesSortedASC
+})
+
+server.route({
+  method: "GET",
+  path: '/view/supplies/s=1{tag}',
+  handler: supply_handler.viewSuppliesSortedDSC
+})
 
 server.start(err => {
   if (err) {

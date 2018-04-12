@@ -7,7 +7,7 @@ function createJob(request, reply) {
 }
 
 function insertJob(payload, reply) {
-    if(!helpers.fullyDefined(request.payload,
+    if(!helpers.fullyDefined(payload,
         ["construction_id", "job_title", "budget", "location", "completion_date"])) {
          return reply("bad parameter error").code(400);
      }
@@ -24,10 +24,6 @@ function insertJob(payload, reply) {
             }
         });
     });
-}
-
-function addSupplies(payload, reply) {
-
 }
 
 module.exports = {
