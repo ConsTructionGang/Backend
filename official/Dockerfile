@@ -9,6 +9,7 @@ WORKDIR /usr/src/app/
 COPY *.js /usr/src/app/
 COPY package.json /usr/src/app/
 COPY handlers /usr/src/app/
+COPY queries /usr/src/app/
 
 RUN mkdir frontend
 
