@@ -6,6 +6,7 @@ const login_handler = require('./login_handlers');
 const account_handler = require('./account_handlers');
 const job_handler = require('./job_handlers');
 const review_handler = require('./review_handlers');
+const supply_handler = require('./supply_handlers');
 
 server.connection({ port: 5000, host: "0.0.0.0", routes: { cors: true }});
 
@@ -95,19 +96,19 @@ server.route({
 
 server.route({
   method: "GET",
-  path: '/supplier_{supplier_id}/reviews',
+  path: '/supplier={supplier_id}/reviews',
   handler: review_handler.retrieveAll
 });
 
 server.route({
   method: "PUT",
-  path: '/supplier_{supplier_id}/reviews',
+  path: '/supplier={supplier_id}/reviews',
   handler: review_handler.publish
 });
 
 server.route({
   method: "DELETE",
-  path: '/supplier_{supplier_id}/reviews',
+  path: '/supplier={supplier_id}/reviews',
   handler: review_handler.remove
 });
   
@@ -124,7 +125,17 @@ server.route({
   method: "POST",
   path: '/addsupplies',
   handler: supply_handler.addSupply
-})
+});
+
+//Reviews - Dispute
+
+server.route({
+  method: "PUT",
+  path: '/supplier={supplier_id}/dispute',
+  handler: function(request, reply) {
+    console.log('do something');
+  }
+});
 
 server.start(err => {
   if (err) {
