@@ -116,6 +116,7 @@ const viewSuppliesSortedDSC = params =>
 	ON s.Supplier_ID = a.ID
 	WHERE Tags LIKE '%${params.tag}%' OR s.Name LIKE '%${params.tag}%'
 	ORDER BY Price DESC;`;
+	
 module.exports = {
 	basicSelect,
 	addUser,
