@@ -87,6 +87,7 @@ const viewSuppliesTagged = params =>
 		Account a
 	ON s.Supplier_ID = a.ID
 	WHERE Tags LIKE '%${params.tag}%' OR s.Name LIKE '%${params.tag}%';`;
+
 const viewSuppliesTaggedMultiple = params =>
 	`Select Supplier_ID, s.Name AS product_name, Price, a.Name AS supplier_name
 	FROM 
@@ -94,7 +95,27 @@ const viewSuppliesTaggedMultiple = params =>
 	INNER JOIN 
 		Account a
 	ON s.Supplier_ID = a.ID
-	WHERE ${params};`;
+	WHERE ${params.tag};`;
+
+const viewSuppliesSortedASC = params =>
+	`Select Supplier_ID, s.Name AS product_name, Price, a.Name AS supplier_name
+	FROM 
+	Supplies s 
+	INNER JOIN 
+	Account a
+	ON s.Supplier_ID = a.ID
+	WHERE Tags LIKE '%${params.tag}%' OR s.Name LIKE '%${params.tag}%'
+	ORDER BY Price ASC;`;
+
+const viewSuppliesSortedDSC = params =>
+	`Select Supplier_ID, s.Name AS product_name, Price, a.Name AS supplier_name
+	FROM 
+	Supplies s 
+	INNER JOIN 
+	Account a
+	ON s.Supplier_ID = a.ID
+	WHERE Tags LIKE '%${params.tag}%' OR s.Name LIKE '%${params.tag}%'
+	ORDER BY Price DESC;`;
 module.exports = {
 	basicSelect,
 	addUser,
@@ -108,4 +129,6 @@ module.exports = {
 	viewSupplies,
 	viewSuppliesTagged,
 	viewSuppliesTaggedMultiple,
+	viewSuppliesSortedASC,
+	viewSuppliesSortedDSC,
 };

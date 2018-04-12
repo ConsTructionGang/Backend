@@ -80,11 +80,35 @@ function viewSuppliesTaggedMultiple(request, reply) {
 }
 
 function viewSuppliesSortedASC(request, reply) {
-    reply("asc");
+    database.getConnection(function(err, connection) {
+        if(err) throw err;
+        connection.query(query.viewSuppliesSortedASC(request.params), function(error, results) {
+            if (error) {
+                console.log("ERROR VIEWING SUPPLIES");
+                console.log(error);
+                return reply("SQL QUERY ERROR").code(400);
+            } else {
+                return reply(results).code(200);
+            }
+        });
+    });
+    return;
 };
 
 function viewSuppliesSortedDSC(request, reply) {
-    reply("dsc");
+    database.getConnection(function(err, connection) {
+        if(err) throw err;
+        connection.query(query.viewSuppliesSortedDSC(request.params), function(error, results) {
+            if (error) {
+                console.log("ERROR VIEWING SUPPLIES");
+                console.log(error);
+                return reply("SQL QUERY ERROR").code(400);
+            } else {
+                return reply(results).code(200);
+            }
+        });
+    });
+    return;
 }
 
 module.exports = {
