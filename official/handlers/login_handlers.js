@@ -16,10 +16,6 @@ function loginUser(request, reply) {
   }
 }
 
-function runQuery() {
-
-}
-
 function checkPassword(payload, callback) {
     database.getConnection(function(err, connection) {
         connection.query(query.checkAccount(payload), function(
