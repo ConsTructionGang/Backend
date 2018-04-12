@@ -26,10 +26,6 @@ function insertJob(payload, reply) {
     });
 }
 
-function addSupplies(payload, reply) {
-
-}
-
 module.exports = {
     createJob
 };

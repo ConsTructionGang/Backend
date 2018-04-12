@@ -6,6 +6,7 @@ const login_handler = require('./login_handlers');
 const account_handler = require('./account_handlers');
 const job_handler = require('./job_handlers');
 const review_handler = require('./review_handlers');
+const supply_handler = require('./supply_handlers');
 
 server.connection({ port: 5000, host: "0.0.0.0", routes: { cors: true }});
 
