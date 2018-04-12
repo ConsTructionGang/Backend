@@ -79,9 +79,19 @@ function viewSuppliesTaggedMultiple(request, reply) {
     return;
 }
 
+function viewSuppliesSortedASC(request, reply) {
+    reply("asc");
+};
+
+function viewSuppliesSortedDSC(request, reply) {
+    reply("dsc");
+}
+
 module.exports = {
-      addSupply,
-      viewSupplies,
-      viewSuppliesTagged,
-      viewSuppliesTaggedMultiple,
+    addSupply,
+    viewSupplies,
+    viewSuppliesTagged,
+    viewSuppliesTaggedMultiple,
+    viewSuppliesSortedASC,
+    viewSuppliesSortedDSC,
 }
