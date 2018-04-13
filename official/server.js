@@ -8,6 +8,7 @@ const account_handler = require('./account_handlers');
 const job_handler = require('./job_handlers');
 const review_handler = require('./review_handlers');
 const supply_handler = require('./supply_handlers');
+const supplier_handler = require('./supplier_handlers');
 
 server.connection({ port: 5000, host: "0.0.0.0", 
   routes: {
@@ -85,6 +86,12 @@ server.route({
 });
 
 //Reviews 
+
+server.route({
+  method: "GET",
+  path: "/supplier={supplier_id}",
+  handler: supplier_handler.view
+});
 
 server.route({
   method: "GET",
