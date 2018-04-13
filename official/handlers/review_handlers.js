@@ -1,4 +1,3 @@
-const database = require('./database');
 const helpers = require('./handler_helpers');
 const query = require('./review_query');
 
