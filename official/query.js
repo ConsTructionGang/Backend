@@ -69,6 +69,7 @@ const addSupplyToSupplyList = payload  =>
 		'${payload.quantity}',
 		'${payload.supply_id}'
 	);`;
+	
 const addSupplyToSupplyListMultiple = payloadstring =>
 `INSERT INTO SupplyList(
 	Job_ID,
@@ -78,6 +79,7 @@ const addSupplyToSupplyListMultiple = payloadstring =>
 	${payloadstring}
 	ON DUPLICATE KEY UPDATE Quantity = Quantity + values(Quantity); 
 	;`;
+
 const addSupply = payload =>
 	`INSERT INTO Supplies
 	( 

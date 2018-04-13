@@ -27,26 +27,6 @@ function insertJob(payload, reply) {
 }
 
 function addSupplyToJob(request, reply){
-    if(!helpers.fullyDefined(request.payload,
-        ["job_id", "quantity", "supply_id"])) {
-         return reply("bad parameter error").code(400);
-     }
-
-    database.getConnection(function(err, connection) {
-        if(err) throw err;
-        connection.query(query.addSupplyToSupplyList(request.payload), function(error, results) {
-            if (error) {
-                console.log("ERROR OCCURRED WHEN INSERTING JOB");
-                console.log(error);
-                reply("Problem occured when creating job").code(400);
-            } else {
-                reply(results);
-            }
-        });
-    });
-}
-
-function addSupplyToJobMultiple(request, reply){
     let string = "";
     if(!helpers.fullyDefined(request.payload,
         ["job_id", "supplies"])) {
@@ -79,6 +59,5 @@ function addSupplyToJobMultiple(request, reply){
 module.exports = {
     createJob,
     addSupplyToJob,
-    addSupplyToJobMultiple,
 };
 
