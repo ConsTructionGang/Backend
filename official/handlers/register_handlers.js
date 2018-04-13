@@ -4,7 +4,7 @@ const helpers  = require('./handler_helpers');
 
 function createUser(request, reply) {
     if(!helpers.fullyDefined(request.payload,
-       ["name", "password", "email", "location"])) {
+       ["name", "password", "email", "city", "state"])) {
         return reply("bad parameter error").code(400);
     }
  

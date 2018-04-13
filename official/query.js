@@ -22,14 +22,18 @@ const addUser = payload =>
 		Name,
 		Email,
 		Password,
-		Location,
+		City,
+		State,
+		Address,
 		isSupplier
 	) VALUES (
 		'${payload.name}',
 		'${payload.email}',
 		'${payload.password}',
-		'${payload.location}',
-		${payload.isSupplier}
+		'${payload.city}',
+		'${payload.state}',
+		'${payload.address}',
+		${payload.type}
 	);`;
 
 const changePassword = payload =>
@@ -69,7 +73,7 @@ const addSupplyToSupplyList = payload  =>
 		'${payload.quantity}',
 		'${payload.supply_id}'
 	);`;
-	
+
 const addSupplyToSupplyListMultiple = payloadstring =>
 `INSERT INTO SupplyList(
 	Job_ID,
