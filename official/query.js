@@ -59,6 +59,26 @@ const addJob = payload =>
         '${payload.budget}',
         '${payload.completion_date}'
     );`;
+const addSupplyToSupplyList = payload  =>
+    `INSERT INTO SupplyList(
+	Job_ID,
+	Quantity,
+	Supply_ID
+	) Values (
+		'${payload.job_id}',
+		'${payload.quantity}',
+		'${payload.supply_id}'
+	);`;
+	
+const addSupplyToSupplyListMultiple = payloadstring =>
+`INSERT INTO SupplyList(
+	Job_ID,
+	Quantity,
+	Supply_ID
+	) Values 
+	${payloadstring}
+	ON DUPLICATE KEY UPDATE Quantity = Quantity + values(Quantity); 
+	;`;
 
 const addSupply = payload =>
 	`INSERT INTO Supplies
@@ -204,5 +224,7 @@ module.exports = {
 	updateAvgScore,
 	isSupplier,
 	authorIsSupplier,
-	alreadyReviewed
+	alreadyReviewed,
+	addSupplyToSupplyList,
+	addSupplyToSupplyListMultiple
 };

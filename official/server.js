@@ -16,6 +16,10 @@ server.connection({ port: 5000, host: "0.0.0.0",
       origin: ["*"],
       headers: ["Access-Control-Allow-Origin","Access-Control-Allow-Headers","Content-Type"],
       credentials: true
+      // additionalHeaders: ["Access-Control-Allow-Origin","Access-Control-Allow-Headers",
+      // "Content-Type", "Accept-Language"],
+      // additionalExposedHeaders: ["Access-Control-Allow-Origin","Access-Control-Allow-Headers",
+      // "Content-Type", "Origin", "Accept-Language"]
     }
 }});
 
@@ -165,6 +169,12 @@ server.route({
   path: '/view/supplies/s=1{tag}',
   handler: supply_handler.viewSuppliesSortedDSC
 })
+
+server.route({
+  method: "POST",
+  path: '/addtolist',
+  handler: job_handler.addSupplyToJob
+});
 
 server.start(err => {
   if (err) {

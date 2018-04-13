@@ -31,7 +31,8 @@ const query = {
         FROM Review JOIN Account ON Account.ID = Review_ID 
         WHERE Supplier_ID = '${payload.supplier_id}'
     ) t LEFT JOIN Comment 
-    ON t.Review_ID = Comment.Review_ID;`,
+    ON t.Review_ID = Comment.Review_ID
+    Order By t.Date_Created;`,
   deleteReview: (payload, params) =>
     `DELETE FROM Review
         WHERE Supplier_ID = '${params.supplier_id}'
