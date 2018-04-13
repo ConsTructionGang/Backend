@@ -163,6 +163,18 @@ server.route({
   handler: supply_handler.viewSuppliesSortedDSC
 })
 
+server.route({
+  method: "POST",
+  path: '/addtolist',
+  handler: job_handler.addSupplyToJob
+})
+
+server.route({
+  method: "POST",
+  path: '/addtolist/m=1',
+  handler: job_handler.addSupplyToJobMultiple
+});
+
 server.start(err => {
   if (err) {
     throw err;
