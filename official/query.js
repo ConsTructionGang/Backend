@@ -241,6 +241,7 @@ module.exports = {
 	isSupplier,
 	authorIsSupplier,
 	alreadyReviewed,
+	retrieveSupplier,
 	addSupplyToSupplyList,
 	addSupplyToSupplyListMultiple
 };
