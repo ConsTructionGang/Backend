@@ -15,6 +15,10 @@ server.connection({ port: 5000, host: "0.0.0.0",
       origin: ["*"],
       headers: ["Access-Control-Allow-Origin","Access-Control-Allow-Headers","Content-Type"],
       credentials: true
+      // additionalHeaders: ["Access-Control-Allow-Origin","Access-Control-Allow-Headers",
+      // "Content-Type", "Accept-Language"],
+      // additionalExposedHeaders: ["Access-Control-Allow-Origin","Access-Control-Allow-Headers",
+      // "Content-Type", "Origin", "Accept-Language"]
     }
 }});
 
