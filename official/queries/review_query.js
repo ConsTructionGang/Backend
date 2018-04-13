@@ -10,7 +10,7 @@ const query = {
         ) VALUES (
             ${request.payload.author_id},
             ${request.params.supplier_id},
-            ${request.payload.date},
+            "${request.payload.date}",
             "${request.payload.title}",
             "${request.payload.body}",
             ${request.payload.rating}
