@@ -9,9 +9,9 @@ const checkUser = payload =>
 	WHERE EMAIL = '${payload.email}';`;
 	
 const checkAccount = payload =>
-	`SELECT *
+	`SELECT Name, ID
 	FROM (
-	SELECT Password
+	SELECT *
 	FROM Account
 	WHERE Email = '${payload.email}'
 	) AS t

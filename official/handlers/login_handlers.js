@@ -7,10 +7,14 @@ function loginUser(request, reply) {
 		return reply({'message': 'Parameter Error'}).code(400); 
 	} else {
 		checkPassword(request.payload, function(results){
-			if(results === 0){
-				return reply({'message': 'Sign In Valid'}).code(400);
+			if(results.length === 0){
+				return reply({'message': 'Sign Invalid'}).code(400);
 			} else {
-				return reply({'message': 'Signed in'}).code(200);
+				return reply({
+					message: 'Signed in',
+					name: results[0].Name,
+					id: results[0].ID,
+				}).code(200);
 			}
 		});
 	}
@@ -24,7 +28,7 @@ function checkPassword(payload, callback) {
 		) {
 			connection.release();
 			if (error) throw error;
-			return callback(results.length);
+			return callback(results);
 		});
 		if (err) throw err;
 	});
