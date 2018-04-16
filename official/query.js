@@ -231,6 +231,15 @@ const retrieveSupplier = params =>
 	FROM Account JOIN Review
 	ON Account.ID = Review.Supplier_ID
 	WHERE Account.ID = ${params.supplier_id};`;
+
+const rank = () =>
+	`SELECT
+		Name, 
+		ID, 
+		Rating
+	FROM Account
+	WHERE isSupplier = true
+	ORDER BY Rating;`;
 	
 module.exports = {
 	basicSelect,
@@ -257,5 +266,6 @@ module.exports = {
 	alreadyReviewed,
 	retrieveSupplier,
 	addSupplyToSupplyList,
-	addSupplyToSupplyListMultiple
+	addSupplyToSupplyListMultiple,
+	rank
 };
