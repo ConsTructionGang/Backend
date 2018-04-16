@@ -8,10 +8,11 @@ function loginUser(request, reply) {
 	} else {
 		checkPassword(request.payload, function(results){
 			if(results.length === 0){
-				return reply({'message': 'Sign Invalid'}).code(400);
+				return reply({
+					message: 'Sign Invalid'
+				}).code(400);
 			} else {
 				return reply({
-					message: 'Signed in',
 					name: results[0].Name,
 					id: results[0].ID,
 				}).code(200);
