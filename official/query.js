@@ -205,7 +205,19 @@ const alreadyReviewed = (payload, params) =>
     `SELECT *
         FROM Review
         WHERE Supplier_ID = '${params.supplier_id}'
-        AND Author_ID = '${payload.author_id}';`;
+		AND Author_ID = '${payload.author_id}';`;
+		
+const retrieveSupplier = params => 
+	`SELECT 
+		Name,
+		City,
+		Address,
+		State,
+		Account.Rating, 
+		Count(Review.Supplier_ID) Reviews
+	FROM Account JOIN Review
+	ON Account.ID = Review.Supplier_ID
+	WHERE Account.ID = ${params.supplier_id};`;
 	
 module.exports = {
 	basicSelect,
@@ -229,6 +241,7 @@ module.exports = {
 	isSupplier,
 	authorIsSupplier,
 	alreadyReviewed,
+	retrieveSupplier,
 	addSupplyToSupplyList,
 	addSupplyToSupplyListMultiple
 };
