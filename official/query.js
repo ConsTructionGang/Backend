@@ -232,14 +232,14 @@ const retrieveSupplier = params =>
 	ON Account.ID = Review.Supplier_ID
 	WHERE Account.ID = ${params.supplier_id};`;
 
-const rank = () =>
+const rank = type =>
 	`SELECT
 		Name, 
 		ID, 
 		Rating
 	FROM Account
 	WHERE isSupplier = true
-	ORDER BY Rating;`;
+	ORDER BY Rating ${(type) ? 'ASC' : 'DESC'};`;
 	
 module.exports = {
 	basicSelect,
