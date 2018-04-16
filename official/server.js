@@ -11,48 +11,49 @@ const supply_handler = require('./supply_handlers');
 const supplier_handler = require('./supplier_handlers');
 
 server.connection({ port: 5000, host: "0.0.0.0", 
-  routes: {
-    cors: {
-      origin: ["*"],
-      headers: ["Access-Control-Allow-Origin","Access-Control-Allow-Headers","Content-Type"],
-      credentials: true
-      // additionalHeaders: ["Access-Control-Allow-Origin","Access-Control-Allow-Headers",
-      // "Content-Type", "Accept-Language"],
-      // additionalExposedHeaders: ["Access-Control-Allow-Origin","Access-Control-Allow-Headers",
-      // "Content-Type", "Origin", "Accept-Language"]
-    }
-}});
+	routes: {
+		cors: {
+			origin: ["*"],
+			headers: ["Access-Control-Allow-Origin","Access-Control-Allow-Headers","Content-Type"],
+			credentials: true
+			// additionalHeaders: ["Access-Control-Allow-Origin","Access-Control-Allow-Headers",
+			// "Content-Type", "Accept-Language"],
+			// additionalExposedHeaders: ["Access-Control-Allow-Origin","Access-Control-Allow-Headers",
+			// "Content-Type", "Origin", "Accept-Language"]
+		}
+	}
+});
 
 server.route({
 	method: "GET",
 	path: "/user",
-	handler: function(request, reply, err) {
-    console.log("Server processing a / request");
-    return reply("Hello, worlds");
-  }
+	handler: function(request, reply) {
+		console.log("Server processing a / request");
+		return reply("Hello, worlds");
+	}
 });
 
 server.route({
 	method: "GET",
 	path: "/signup",
 	handler: function(request, reply, err) {
-	if (err) throw err;
+		if (err) throw err;
 		return reply("Signup page").code(200);
 	}
 });
 
 server.route({
-  	method: "POST",
-  	path: "/signup",
-  	handler: register_handler
+	method: "POST",
+	path: "/signup",
+	handler: register_handler
 });
 
 server.route({
 	method: "GET",
 	path: '/login',
-  	handler: function(request, reply, err) {
-    	if(err) throw err;
-    	return reply("Login page").code(200);
+	handler: function(request, reply, err) {
+		if(err) throw err;
+		return reply("Login page").code(200);
 	}
 });
 
@@ -66,14 +67,14 @@ server.route({
 	method: 'PUT',
 	path: '/login',
 	handler: login_handler
-})
+});
 
 server.route({
 	method: "GET",
 	path: '/changepassword',
 	handler: function(request, reply, err) {
-	if(err) throw err;
-	return reply("Change Password Page").code(200);
+		if(err) throw err;
+		return reply("Change Password Page").code(200);
 	}
 });
 
@@ -99,7 +100,7 @@ server.route({
 server.route({
 	method: "GET",
 	path: '/supplier={supplier_id}/reviews',
-  	handler: review_handler.retrieveAll
+	handler: review_handler.retrieveAll
 });
 
 server.route({
@@ -134,7 +135,7 @@ server.route({
 server.route({
 	method: "PUT",
 	path: '/supplier={supplier_id}/dispute',
-	handler: function(request, reply) {
+	handler: function() {
 		console.log('do something');
 	}
 });
@@ -149,30 +150,30 @@ server.route({
 	method: "GET",
 	path: '/view/supplies/{tag}/m=1',
 	handler: supply_handler.viewSuppliesTaggedMultiple
-})
+});
 
 server.route({
-    method: "GET",
-    path: '/view/supplies/{tag}',
-    handler: supply_handler.viewSuppliesTagged
-})
+	method: "GET",
+	path: '/view/supplies/{tag}',
+	handler: supply_handler.viewSuppliesTagged
+});
 
 server.route({
-    method: "GET",
-    path: '/view/supplies/s=0{tag}',
-    handler: supply_handler.viewSuppliesSortedASC
-})
+	method: "GET",
+	path: '/view/supplies/s=0{tag}',
+	handler: supply_handler.viewSuppliesSortedASC
+});
 
 server.route({
 	method: "GET",
 	path: '/view/supplies/s=1{tag}',
 	handler: supply_handler.viewSuppliesSortedDSC
-})
+});
 
 server.route({
 	method: "POST",
-  	path: '/addtolist',
-  	handler: job_handler.addSupplyToJob
+	path: '/addtolist',
+	handler: job_handler.addSupplyToJob
 });
 
 server.start(err => {

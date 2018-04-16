@@ -37,9 +37,9 @@ const addUser = payload =>
 	);`;
 
 const changePassword = payload =>
-    `UPDATE Account 
-    SET Password = '${payload.newpassword}'
-    WHERE Email = '${payload.email}';`;
+	`UPDATE Account 
+	SET Password = '${payload.newpassword}'
+	WHERE Email = '${payload.email}';`;
 
 const deleteJobSupplies = payload =>
 	`DELETE FROM SupplyList
@@ -51,20 +51,20 @@ const deleteJob = payload =>
 
 const addJob = payload =>
 	`INSERT INTO Job(
-        Construction_ID,
-        Job_Title,
-        Location,
-        Budget,
-        Completion_Date
-    ) Values (
-        '${payload.construction_id}',
-        '${payload.job_title}',
-        '${payload.location}',
-        '${payload.budget}',
-        '${payload.completion_date}'
-    );`;
+		Construction_ID,
+		Job_Title,
+		Location,
+		Budget,
+		Completion_Date
+	) Values (
+		'${payload.construction_id}',
+		'${payload.job_title}',
+		'${payload.location}',
+		'${payload.budget}',
+		'${payload.completion_date}'
+	);`;
 const addSupplyToSupplyList = payload  =>
-    `INSERT INTO SupplyList(
+	`INSERT INTO SupplyList(
 	Job_ID,
 	Quantity,
 	Supply_ID
@@ -89,8 +89,8 @@ const addSupply = payload =>
 	( 
 		Supplier_ID,
 		Name,
-	    	Tags,
-	    	Price
+			Tags,
+			Price
 	)  Values (
 		'${payload.supplier_id}',
 		'${payload.name}',
@@ -142,69 +142,69 @@ const viewSuppliesSortedDSC = params =>
 	ORDER BY Price DESC;`;
 
 const postReview = request =>
-    `INSERT INTO Review(
-            Author_ID,
-            Supplier_ID, 
-            Date_Created,
-            Title,
-            Body,
-            Rating
-        ) VALUES (
-            ${request.payload.author_id},
-            ${request.params.supplier_id},
-            "${request.payload.date}",
-            "${request.payload.title}",
-            "${request.payload.body}",
-            ${request.payload.rating}
+	`INSERT INTO Review(
+			Author_ID,
+			Supplier_ID, 
+			Date_Created,
+			Title,
+			Body,
+			Rating
+		) VALUES (
+			${request.payload.author_id},
+			${request.params.supplier_id},
+			"${request.payload.date}",
+			"${request.payload.title}",
+			"${request.payload.body}",
+			${request.payload.rating}
 		);`;
 		
 const retrieveReviews = payload =>
-    `SELECT
-        t.Review_ID, 
-        t.Author_ID,
-        t.Name, 
-        t.Date_Created,
-        t.Title, 
-        t.Body, 
-        t.Rating, 
-        Comment.Body Comment,
-        Comment.Date_Created Date
-    FROM (
-        SELECT Review_ID, Author_ID, Name, Date_Created, Title, Body, Review.Rating
-        FROM Review JOIN Account ON Account.ID = Review_ID 
-        WHERE Supplier_ID = '${payload.supplier_id}'
-    ) t LEFT JOIN Comment 
-    ON t.Review_ID = Comment.Review_ID
+	`SELECT
+		t.Review_ID, 
+		t.Author_ID,
+		t.Name, 
+		t.Date_Created,
+		t.Title, 
+		t.Body, 
+		t.Rating, 
+		Comment.Body Comment,
+		Comment.Date_Created Date
+	FROM (
+		SELECT Review_ID, Author_ID, Name, Date_Created, Title, Body, Review.Rating
+		FROM Review JOIN Account ON Account.ID = Review_ID 
+		WHERE Supplier_ID = '${payload.supplier_id}'
+	) t LEFT JOIN Comment 
+	ON t.Review_ID = Comment.Review_ID
 	Order By t.Date_Created;`;
 	
 const deleteReview = (payload, params) =>
-    `DELETE FROM Review
-        WHERE Supplier_ID = '${params.supplier_id}'
+	`DELETE FROM Review
+		WHERE Supplier_ID = '${params.supplier_id}'
 		AND Author_ID = '${payload.author_id}';`;
 		
 const updateAvgScore = payload =>
-    `UPDATE Account
-        SET Rating = (
-            SELECT AVG(Rating)
-            FROM Review
-            WHERE Supplier_ID = '${payload.supplier_id}'
-        )
+	`UPDATE Account
+		SET Rating = (
+			SELECT AVG(Rating)
+			FROM Review
+			WHERE Supplier_ID = '${payload.supplier_id}'
+		)
 		WHERE ID = '${payload.supplier_id}';`;
 		
 const isSupplier = params =>
-    `SELECT isSupplier
-        FROM Account
+	`SELECT isSupplier
+		FROM Account
 		WHERE ID = '${params.supplier_id}';`;
 		
 const authorIsSupplier = payload =>
-    `SELECT isSupplier
-        FROM Account
+	`SELECT isSupplier
+		FROM Account
 		WHERE ID = '${payload.author_id}';`;
 		
 const alreadyReviewed = (payload, params) =>
-    `SELECT *
-        FROM Review
-        WHERE Supplier_ID = '${params.supplier_id}'
+	`SELECT *
+		FROM Review
+		WHERE Supplier_ID = '${params.supplier_id}'
 		AND Author_ID = '${payload.author_id}';`;
 		
 const retrieveSupplier = params => 
