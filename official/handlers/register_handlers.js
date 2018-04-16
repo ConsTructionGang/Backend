@@ -23,8 +23,9 @@ function createUser(request, reply) {
 }
 
 function insertUser(payload, reply) {
+	const insert = (payload.type === 1) ? query.addSupplier(payload) : query.addUser(payload);
 	database.getConnection(function(err, connection) {
-		connection.query(query.addUser(payload), function(error){
+		connection.query(insert, function(error){
 			connection.release();
 			if (error) {
 				console.log("code 400: PROBLEM OCCURED");

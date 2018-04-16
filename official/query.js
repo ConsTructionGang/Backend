@@ -17,7 +17,7 @@ const checkAccount = payload =>
 	) AS t
 	WHERE Password = '${payload.password}';`;
 
-const addUser = payload => 
+const addSupplier = payload => 
 	`INSERT INTO Account(
 		Name,
 		Email,
@@ -33,6 +33,19 @@ const addUser = payload =>
 		'${payload.city}',
 		'${payload.state}',
 		'${payload.address}',
+		${payload.type}
+	);`;
+
+const addUser = payload =>
+	`INSERT INTO Account(
+		Name,
+		Email,
+		Password,
+		isSupplier
+	) VALUES (
+		'${payload.name}',
+		'${payload.email}',
+		'${payload.password}',
 		${payload.type}
 	);`;
 
@@ -222,6 +235,7 @@ const retrieveSupplier = params =>
 module.exports = {
 	basicSelect,
 	addUser,
+	addSupplier,
 	checkUser,
 	checkAccount,
 	changePassword,
