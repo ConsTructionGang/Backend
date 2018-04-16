@@ -7,7 +7,7 @@ function createUser(request, reply) {
 	initialize(request.payload);
 
 	if(!helpers.fullyDefined(request.payload,
-		["name", "password", "email", "city", "state"])) {
+		["name", "password", "email", "type"])) {
 		return reply("bad parameter error").code(400);
 	}
  
