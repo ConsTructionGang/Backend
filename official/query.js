@@ -1,7 +1,7 @@
 const basicSelect = parameters =>
-	`SELECT ${parameter} 
+	`SELECT ${parameters} 
 	FROM Account 
-	WHERE ${parameter} = '${data}';`;
+	WHERE ${parameters} = '${data}';`;
 	
 const checkUser = payload =>
 	`SELECT Password

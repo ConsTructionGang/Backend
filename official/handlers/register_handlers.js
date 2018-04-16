@@ -4,7 +4,7 @@ const helpers  = require('./handler_helpers');
 
 function createUser(request, reply) {
 	
-	initialize(request.payload);
+	request.payload.type = (request.payload.type === "User") ? 0 : 1;
 
 	if(!helpers.fullyDefined(request.payload,
 		["name", "password", "email", "type"])) {
@@ -36,17 +36,6 @@ function insertUser(payload, reply) {
 		});
 		if (err) throw err;
 	});
-}
-
-function initialize(payload) {
-	if (payload.type === 'User') {
-		payload.city = null;
-		payload.state = null;
-		payload.address = null;
-		payload.type = 0;
-	} else {
-		payload.type = 1;
-	}
 }
 
 module.exports = createUser;
