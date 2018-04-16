@@ -13,6 +13,20 @@ function view(request, reply) {
 	});
 }
 
+function rankAsc(request, reply) {
+	helpers.runQuery(query.rank(1), function(results) {
+		return reply({results}).code(200);
+	});
+}
+
+function rankDesc(request, reply) {
+	helpers.runQuery(query.rank(0), function(results) {
+		return reply({results}).code(200);
+	});
+}
+
 module.exports = {
-	view
+	view,
+	rankAsc,
+	rankDesc
 };

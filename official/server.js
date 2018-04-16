@@ -89,6 +89,17 @@ server.route({
 	handler: job_handler.createJob
 });
 
+server.route({
+	method: "GET",
+	path: "/suppliers=asc",
+	handler: supplier_handler.rankAsc
+});
+
+server.route({
+	method: "GET",
+	path: "/suppliers=desc",
+	handler: supplier_handler.rankDesc
+});
 //Reviews 
 server.route({
 	method: "GET",
