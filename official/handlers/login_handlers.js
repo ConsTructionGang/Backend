@@ -1,10 +1,11 @@
 const database = require("./database");
 const query = require("./query");
 const helpers = require("./handler_helpers");
+const session = require("./session_handler");
 
 function loginUser(request, reply) {
 	if(!helpers.fullyDefined(request.payload, ["email","password"])) {
-		return reply({'message': 'Parameter Error'}).code(400); 
+		return reply({'message': 'Parameter Error'}).code(400);
 	} else {
 		checkPassword(request.payload, function(results){
 			if(results.length === 0){
@@ -24,7 +25,7 @@ function loginUser(request, reply) {
 function checkPassword(payload, callback) {
 	database.getConnection(function(err, connection) {
 		connection.query(query.checkAccount(payload), function(
-			error, 
+			error,
 			results
 		) {
 			connection.release();

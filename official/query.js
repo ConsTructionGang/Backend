@@ -1,13 +1,13 @@
 const basicSelect = parameters =>
-	`SELECT ${parameters} 
-	FROM Account 
+	`SELECT ${parameters}
+	FROM Account
 	WHERE ${parameters} = '${data}';`;
-	
+
 const checkUser = payload =>
 	`SELECT Password
 	FROM ACCOUNT
 	WHERE EMAIL = '${payload.email}';`;
-	
+
 const checkAccount = payload =>
 	`SELECT Name, ID
 	FROM (
@@ -17,7 +17,25 @@ const checkAccount = payload =>
 	) AS t
 	WHERE Password = '${payload.password}';`;
 
-const addSupplier = payload => 
+const createSession = payload =>
+	`INSERT INTO Session_manager(
+		session_key,
+		ID
+	)VALUES(
+		Rand(),
+		'${payload.ID}'
+	);`;
+	
+const checkSession = payload =>
+	`SELECT *
+	FROM Session_manager
+	WHERE session_key = '${payload.key}' `;
+
+const removeSession = payload =>
+	`DELETE FROM Session_manager
+	WHERE ID = '${payload.ID}' `;
+
+const addSupplier = payload =>
 	`INSERT INTO Account(
 		Name,
 		Email,
@@ -50,7 +68,7 @@ const addUser = payload =>
 	);`;
 
 const changePassword = payload =>
-	`UPDATE Account 
+	`UPDATE Account
 	SET Password = '${payload.newpassword}'
 	WHERE Email = '${payload.email}';`;
 
@@ -92,14 +110,14 @@ const addSupplyToSupplyListMultiple = payloadstring =>
 	Job_ID,
 	Quantity,
 	Supply_ID
-	) Values 
+	) Values
 	${payloadstring}
-	ON DUPLICATE KEY UPDATE Quantity = Quantity + values(Quantity); 
+	ON DUPLICATE KEY UPDATE Quantity = Quantity + values(Quantity);
 	;`;
 
 const addSupply = payload =>
 	`INSERT INTO Supplies
-	( 
+	(
 		Supplier_ID,
 		Name,
 			Tags,
@@ -118,27 +136,27 @@ const viewSupplies = payload =>
 
 const viewSuppliesTagged = params =>
 	`Select Supplier_ID, s.Name AS product_name, Price, a.Name AS supplier_name
-	FROM 
-		Supplies s 
-	INNER JOIN 
+	FROM
+		Supplies s
+	INNER JOIN
 		Account a
 	ON s.Supplier_ID = a.ID
 	WHERE Tags LIKE '%${params.tag}%' OR s.Name LIKE '%${params.tag}%';`;
 
 const viewSuppliesTaggedMultiple = params =>
 	`Select Supplier_ID, s.Name AS product_name, Price, a.Name AS supplier_name
-	FROM 
-		Supplies s 
-	INNER JOIN 
+	FROM
+		Supplies s
+	INNER JOIN
 		Account a
 	ON s.Supplier_ID = a.ID
 	WHERE ${params.tag};`;
 
 const viewSuppliesSortedASC = params =>
 	`Select Supplier_ID, s.Name AS product_name, Price, a.Name AS supplier_name
-	FROM 
-	Supplies s 
-	INNER JOIN 
+	FROM
+	Supplies s
+	INNER JOIN
 	Account a
 	ON s.Supplier_ID = a.ID
 	WHERE Tags LIKE '%${params.tag}%' OR s.Name LIKE '%${params.tag}%'
@@ -146,9 +164,9 @@ const viewSuppliesSortedASC = params =>
 
 const viewSuppliesSortedDSC = params =>
 	`Select Supplier_ID, s.Name AS product_name, Price, a.Name AS supplier_name
-	FROM 
-	Supplies s 
-	INNER JOIN 
+	FROM
+	Supplies s
+	INNER JOIN
 	Account a
 	ON s.Supplier_ID = a.ID
 	WHERE Tags LIKE '%${params.tag}%' OR s.Name LIKE '%${params.tag}%'
@@ -157,7 +175,7 @@ const viewSuppliesSortedDSC = params =>
 const postReview = request =>
 	`INSERT INTO Review(
 			Author_ID,
-			Supplier_ID, 
+			Supplier_ID,
 			Date_Created,
 			Title,
 			Body,
@@ -170,31 +188,31 @@ const postReview = request =>
 			"${request.payload.body}",
 			${request.payload.rating}
 		);`;
-		
+
 const retrieveReviews = payload =>
 	`SELECT
-		t.Review_ID, 
+		t.Review_ID,
 		t.Author_ID,
-		t.Name, 
+		t.Name,
 		t.Date_Created,
-		t.Title, 
-		t.Body, 
-		t.Rating, 
+		t.Title,
+		t.Body,
+		t.Rating,
 		Comment.Body Comment,
 		Comment.Date_Created Date
 	FROM (
 		SELECT Review_ID, Author_ID, Name, Date_Created, Title, Body, Review.Rating
-		FROM Review JOIN Account ON Account.ID = Review_ID 
+		FROM Review JOIN Account ON Account.ID = Review_ID
 		WHERE Supplier_ID = '${payload.supplier_id}'
-	) t LEFT JOIN Comment 
+	) t LEFT JOIN Comment
 	ON t.Review_ID = Comment.Review_ID
 	Order By t.Date_Created;`;
-	
+
 const deleteReview = (payload, params) =>
 	`DELETE FROM Review
 		WHERE Supplier_ID = '${params.supplier_id}'
 		AND Author_ID = '${payload.author_id}';`;
-		
+
 const updateAvgScore = payload =>
 	`UPDATE Account
 		SET Rating = (
@@ -203,30 +221,30 @@ const updateAvgScore = payload =>
 			WHERE Supplier_ID = '${payload.supplier_id}'
 		)
 		WHERE ID = '${payload.supplier_id}';`;
-		
+
 const isSupplier = params =>
 	`SELECT isSupplier
 		FROM Account
 		WHERE ID = '${params.supplier_id}';`;
-		
+
 const authorIsSupplier = payload =>
 	`SELECT isSupplier
 		FROM Account
 		WHERE ID = '${payload.author_id}';`;
-		
+
 const alreadyReviewed = (payload, params) =>
 	`SELECT *
 		FROM Review
 		WHERE Supplier_ID = '${params.supplier_id}'
 		AND Author_ID = '${payload.author_id}';`;
-		
-const retrieveSupplier = params => 
-	`SELECT 
+
+const retrieveSupplier = params =>
+	`SELECT
 		Name,
 		City,
 		Address,
 		State,
-		Account.Rating, 
+		Account.Rating,
 		Count(Review.Supplier_ID) Reviews
 	FROM Account JOIN Review
 	ON Account.ID = Review.Supplier_ID
@@ -234,13 +252,13 @@ const retrieveSupplier = params =>
 
 const rank = type =>
 	`SELECT
-		Name, 
-		ID, 
+		Name,
+		ID,
 		Rating
 	FROM Account
 	WHERE isSupplier = true
 	ORDER BY Rating ${(type) ? 'ASC' : 'DESC'};`;
-	
+
 module.exports = {
 	basicSelect,
 	addUser,
