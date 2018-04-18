@@ -14,6 +14,7 @@ function insertJob(payload, reply) {
 	}
 	database.getConnection(function(err, connection) {
 		if(err) throw err;
+		console.log("creating connnection");
 		connection.query(query.addJob(payload), function(error, results) {
 			if (error) {
 				console.log("ERROR OCCURRED WHEN INSERTING JOB");
