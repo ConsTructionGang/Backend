@@ -263,7 +263,7 @@ const rank = type =>
 	WHERE isSupplier = true
 	ORDER BY Rating ${(type) ? 'ASC' : 'DESC'};`;
 
-const addTaskToJob = payload =>
+const addTask = payload =>
 	`INSERT INTO Task (
 		Job_ID,
 		Name,
