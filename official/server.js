@@ -100,7 +100,9 @@ server.route({
 	path: "/suppliers=desc",
 	handler: supplier_handler.rankDesc
 });
+
 //Reviews 
+
 server.route({
 	method: "GET",
 	path: "/supplier={supplier_id}",
