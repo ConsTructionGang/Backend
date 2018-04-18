@@ -263,6 +263,22 @@ const rank = type =>
 	WHERE isSupplier = true
 	ORDER BY Rating ${(type) ? 'ASC' : 'DESC'};`;
 
+const addTaskToJob = payload =>
+	`INSERT INTO Task (
+		Job_ID,
+		Name,
+		Description,
+		Priority,
+		Creation_Date,
+		Estimated_Date
+	) VALUES (
+		'${payload.job_id}',
+		'${payload.taskname}',
+		'${payload.description}',
+		'${payload.priority}',
+		'${payload.creation_date}',
+		'${payload.estimated_date}'
+	);`;
 module.exports = {
 	basicSelect,
 	addUser,
@@ -289,5 +305,6 @@ module.exports = {
 	retrieveSupplier,
 	addSupplyToSupplyList,
 	addSupplyToSupplyListMultiple,
-	rank
+	rank,
+	addTask
 };
