@@ -1,5 +1,3 @@
-import { runInNewContext } from "vm";
-
 /*
 	Use this .js file to store all queries pertaining to the database in order to hide implementation 
 	of the query from the server.js
