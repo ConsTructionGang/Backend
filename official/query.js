@@ -88,7 +88,7 @@ const addJob = payload =>
 		City,
 		State,
 		Budget,
-		Start_Date,
+		Start_Date
 	) Values (
 		'${payload.construction_id}',
 		'${payload.job_title}',
