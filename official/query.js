@@ -96,7 +96,7 @@ const addJob = payload =>
 		'${payload.city}',
 		'${payload.state}',
 		'${payload.budget}',
-		${payload.start_date}
+		'${payload.start_date}'
 	);`;
 const addSupplyToSupplyList = payload  =>
 	`INSERT INTO SupplyList(
