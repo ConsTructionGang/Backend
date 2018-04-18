@@ -47,13 +47,13 @@ function insertReview(request, reply) {
 }
 
 function retrieveAll(request, reply) {
-	database.runQuery(query.isSupplier(request.params), function(results) {
+	database.runQuery(query.isSupplier(request.params), function(error, results) {
 		if(results.length == 0 || !results[0].isSupplier){
 			return reply({
 				message: "Page not found"
 			}).code(404);
 		} else {
-			database.runQuery(query.retrieve(request.params), function(results) {
+			database.runQuery(query.retrieve(request.params), function(error, results) {
 				return reply({
 					results
 				}).code(200);
