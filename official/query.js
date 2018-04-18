@@ -175,7 +175,7 @@ const viewSuppliesSortedDSC = params =>
 	ON s.Supplier_ID = a.ID
 	WHERE Tags LIKE '%${params.tag}%' OR s.Name LIKE '%${params.tag}%'
 	ORDER BY Price DESC;`;
-
+ 
 const addTask = payload =>
 	`INSERT INTO Task (
 		Job_ID,
