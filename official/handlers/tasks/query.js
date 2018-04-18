@@ -4,18 +4,20 @@ const query = {
 			FROM Task
 			WHERE Job_ID = ${payload.job_id};`,
 	create: payload =>
-		`INSERT INTO Task(
+		`INSERT INTO Task (
+			Job_ID,
 			Name,
 			Description,
 			Priority,
-			Creation_Date
+			Creation_Date,
 			Estimated_Date
-		) Values (
-			'${payload.name}',
+		) VALUES (
+			'${payload.job_id}',
+			'${payload.taskname}',
 			'${payload.description}',
-			${payload.priority},
-			${payload.date_created},
-			${payload.est_date}
+			'${payload.priority}',
+			'${payload.creation_date}',
+			'${payload.estimated_date}'
 		);`,
 	complete: payload =>
 		`UPDATE Task
