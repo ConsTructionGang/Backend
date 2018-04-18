@@ -5,9 +5,9 @@ const register_handler = require('./register_handlers');
 const login_handler = require('./login_handlers');
 const account_handler = require('./account_handlers');
 const job_handler = require('./job_handlers');
-const review_handler = require('./review_handlers');
+const review_handler = require('./reviews/handlers');
 const supply_handler = require('./supply_handlers');
-const supplier_handler = require('./supplier_handlers');
+const supplier_handler = require('./suppliers/handlers');
 
 server.connection({ port: 5000, host: "0.0.0.0", 
 	routes: {
@@ -32,6 +32,8 @@ server.route({
 	}
 });
 
+// Signup
+
 server.route({
 	method: "GET",
 	path: "/signup",
@@ -46,6 +48,8 @@ server.route({
 	path: "/signup",
 	handler: register_handler
 });
+
+// Login
 
 server.route({
 	method: "GET",
@@ -68,6 +72,8 @@ server.route({
 	handler: login_handler
 });
 
+// Change Password
+
 server.route({
 	method: "GET",
 	path: '/changepassword',
@@ -83,25 +89,24 @@ server.route({
 	handler: account_handler
 });
 
+// Delete Account
+
 server.route({
-	method: "POST",
-	path: '/createjob',
-	handler: job_handler.createJob
+	method: "DELETE",
+	path: '/deleteuser',
+	handler: function (reply, err){
+		if(err) throw err;
+		return reply('Account Successfully created').code(200);
+	}
 });
+
+// Suppliers + Reviews
 
 server.route({
 	method: "GET",
-	path: "/suppliers=asc",
-	handler: supplier_handler.rankAsc
+	path: "/suppliers",
+	handler: supplier_handler.viewAll
 });
-
-server.route({
-	method: "GET",
-	path: "/suppliers=desc",
-	handler: supplier_handler.rankDesc
-});
-
-//Reviews 
 
 server.route({
 	method: "GET",
@@ -125,15 +130,6 @@ server.route({
 	method: "DELETE",
 	path: '/supplier={supplier_id}/reviews',
 	handler: review_handler.remove
-});
-  
-server.route({
-	method: "DELETE",
-	path: '/deleteuser',
-	handler: function (reply, err){
-		if(err) throw err;
-		return reply('Account Successfully created').code(200);
-	}
 });
 
 server.route({
@@ -183,10 +179,17 @@ server.route({
 });
 
 server.route({
+	method: "POST",
+	path: '/createjob',
+	handler: job_handler.createJob
+});
+
+
+server.route({
 	method: "PUT",
 	path: '/job/todolist',
 	handler: job_handler.addTask
-})
+});
 
 server.route({
 	method: "POST",
