@@ -1,14 +1,18 @@
-const database = require("./database");
+const database = require("../database");
 const query = require("./query");
-const helpers = require("./handler_helpers");
 const session = require("./session_handler");
 
 function loginUser(request, reply) {
 	if(!helpers.fullyDefined(request.payload, ["email","password"])) {
 		return reply({'message': 'Parameter Error'}).code(400);
 	} else {
-		checkPassword(request.payload, function(results){
-			if(results.length === 0){
+		database.runQuery(query.checkAcoount(request.payload), function(error, results){
+			if(error) {
+				console.log(error);
+				return reply({
+					message: "PROBLEM OCCURED WHEN CHECKING PASSWORD"
+				}).code(500);
+			} else if(results.length === 0){
 				return reply({
 					message: 'Sign Invalid'
 				}).code(400);
@@ -22,17 +26,4 @@ function loginUser(request, reply) {
 	}
 }
 
-function checkPassword(payload, callback) {
-	database.getConnection(function(err, connection) {
-		connection.query(query.checkAccount(payload), function(
-			error,
-			results
-		) {
-			connection.release();
-			if (error) throw error;
-			return callback(results);
-		});
-		if (err) throw err;
-	});
-}
 module.exports = loginUser;
