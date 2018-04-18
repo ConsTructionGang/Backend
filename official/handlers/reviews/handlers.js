@@ -2,19 +2,19 @@ const database = require('../database');
 const query = require('./query');
 
 function publish(request, reply){
-	database.runQuery(query.isSupplier(request.params), function(results) {
+	database.runQuery(query.isSupplier(request.params), function(error, results) {
 		if(!results[0].isSupplier) {
 			return reply({
 				message: "Only permitted to review suppliers"
 			}).code(400);
 		} else {
-			database.runQuery(query.authorIsSupplier(request.payload), function(results) {
+			database.runQuery(query.authorIsSupplier(request.payload), function(error, results) {
 				if(results[0].isSupplier) {
 					return reply({
 						message: "Cannot review another supplier"
 					}).code(400);
 				} else {
-					database.runQuery(query.alreadyReviewed(request.payload, request.params), function(result) {
+					database.runQuery(query.alreadyReviewed(request.payload, request.params), function(error, result) {
 						if (result.length) {
 							return reply({
 								message: "Cannot re-review a company"
@@ -30,11 +30,12 @@ function publish(request, reply){
 }
 
 function insertReview(request, reply) {
-	database.runQuery(query.post(request), function(results, err) {
-		if (err) {
+	database.runQuery(query.post(request), function(error) {
+		if (error) {
+			console.log(error);
 			return reply({
-				message: "Problem publishing review"
-			}).code(400);
+				message: "ERROR OCCURED WHEN PUBLISHING REVIEW"
+			}).code(500);
 		} else {
 			updateAvgRating(request, function() {
 				return reply({
@@ -62,11 +63,12 @@ function retrieveAll(request, reply) {
 }
 
 function remove(request, reply) {
-	database.runQuery(query.remove(request.payload, request.params), function(results, err) {
-		if (err) {
+	database.runQuery(query.remove(request.payload, request.params), function(error) {
+		if (error) {
+			console.log(error);
 			return reply({
-				message: "Error occured when deleting review"
-			}).code(400);
+				message: "ERROR OCCURED WHEN REMOVING REVIEW"
+			}).code(500);
 		} else {
 			updateAvgRating(request, function() {
 				return reply({
