@@ -71,7 +71,7 @@ function addTask(request, reply) {
 				console.log(error);
 				reply("Problem occured when creating job").code(400);
 			} else {
-				reply("supplies added");
+				reply({'message': "Task added"}).code(200);
 			}
 		});
 	})
