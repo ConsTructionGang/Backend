@@ -9,7 +9,7 @@ function createJob(request, reply) {
 function insertJob(payload, reply) {
 	if(!helpers.fullyDefined(payload,
 		["construction_id", "job_title", "budget", "address",
-		 "city", "state", "start_date", "completion_date"])) {
+		 "city", "state", "start_date"])) {
 		return reply("bad parameter error").code(400);
 	}
 	database.getConnection(function(err, connection) {
