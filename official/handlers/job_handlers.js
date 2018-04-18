@@ -59,7 +59,7 @@ function addSupplyToJob(request, reply){
 }
 
 function addTask(request, reply) {
-	if(!helpers.fullyDefined(request.payload,["job_id", "name", "priority",
+	if(!helpers.fullyDefined(request.payload,["job_id", "taskname", "priority",
 	"creation_date", "estimated_date"])) {
 		return reply("bad parameter error").code(400);
 	}	
