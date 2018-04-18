@@ -1,28 +1,12 @@
 const helpers = './handler_helpers';
-
-const query = {
-	retrieveAll: payload => 
-		`SELECT * 
-		FROM Task
-		WHERE Job_ID = ${payload.job_id}`,
-	create: payload => 
-		`INSERT INTO Task(
-				`,
-	complete: payload =>
-		`UPDATE Task
-		SET Completion_Date = ${payload.completion_date}
-		WHERE ID = ${payload.id}`,
-	remove: payload =>
-		`DELETE FROM Task
-		WHERE ID = ${payload.id}`
-};
+const query = './task_query';
 
 function retrieve(request, reply) {
 	helpers.runQuery(query.retrieveAll(request.payload), function(results) {
 		return reply({
 			results
-		})
-	})
+		});
+	});
 }
 
 function create(request, reply) {
