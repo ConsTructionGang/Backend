@@ -8,19 +8,21 @@ function createJob(request, reply) {
 
 function insertJob(payload, reply) {
 	if(!helpers.fullyDefined(payload,
-		["construction_id", "job_title", "budget", "location", "completion_date"])) {
+		["construction_id", "job_title", "budget", "address",
+		 "city", "state", "start_date"])) {
 		return reply("bad parameter error").code(400);
 	}
-
 	database.getConnection(function(err, connection) {
 		if(err) throw err;
+		console.log("creating connnection");
 		connection.query(query.addJob(payload), function(error, results) {
 			if (error) {
 				console.log("ERROR OCCURRED WHEN INSERTING JOB");
 				console.log(error);
 				reply("Problem occured when creating job").code(400);
 			} else {
-				reply(results);
+				console.log(results);
+				reply("Job Created").code(200);
 			}
 		});
 	});
@@ -56,8 +58,27 @@ function addSupplyToJob(request, reply){
 	});
 }
 
+function addTask(request, reply) {
+	if(!helpers.fullyDefined(request.payload,["job_id", "taskname", "priority",
+	"creation_date", "estimated_date"])) {
+		return reply("bad parameter error").code(400);
+	}	
+	database.getConnection(function(err, connection) {
+		if(err) throw err;
+		connection.query(query.addTask(request.payload), function(error) {
+			if (error) {
+				console.log("ERROR OCCURRED WHEN TASK TO JOB");
+				console.log(error);
+				reply("Problem occured when creating job").code(400);
+			} else {
+				reply({'message': "Task added"}).code(200);
+			}
+		});
+	})
+}
 module.exports = {
 	createJob,
 	addSupplyToJob,
+	addTask,
 };
 
