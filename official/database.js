@@ -1,3 +1,5 @@
+import { runInNewContext } from "vm";
+
 /*
 	Use this .js file to store all queries pertaining to the database in order to hide implementation 
 	of the query from the server.js
@@ -11,11 +13,11 @@ const database = mysql.createPool({
 	database: "backend_database"
 });
 
+// Function to run basic queries
 
 function runQuery(query, callback){
-	database.query(query, function(err, results) {
-		if (err) throw err;
-		return callback(results);
+	database.query(query, function(error, results) {
+		return callback(error, results);
 	});
 }
 
