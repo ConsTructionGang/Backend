@@ -20,7 +20,8 @@ function insertJob(payload, reply) {
 				console.log(error);
 				reply("Problem occured when creating job").code(400);
 			} else {
-				reply(results);
+				console.log(results);
+				reply("Job Created").code(200);
 			}
 		});
 	});
