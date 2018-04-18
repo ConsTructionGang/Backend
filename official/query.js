@@ -84,14 +84,20 @@ const addJob = payload =>
 	`INSERT INTO Job(
 		Construction_ID,
 		Job_Title,
-		Location,
+		Address,
+		City,
+		State,
 		Budget,
+		Start_Date,
 		Completion_Date
 	) Values (
 		'${payload.construction_id}',
 		'${payload.job_title}',
-		'${payload.location}',
+		'${payload.address}',
+		'${payload.city}',
+		'${payload.state}',
 		'${payload.budget}',
+		'${payload.start_date}',
 		'${payload.completion_date}'
 	);`;
 const addSupplyToSupplyList = payload  =>

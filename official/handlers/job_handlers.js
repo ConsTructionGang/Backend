@@ -8,10 +8,10 @@ function createJob(request, reply) {
 
 function insertJob(payload, reply) {
 	if(!helpers.fullyDefined(payload,
-		["construction_id", "job_title", "budget", "location", "completion_date"])) {
+		["construction_id", "job_title", "budget", "address",
+		 "city", "state", "start_date", "completion_date"])) {
 		return reply("bad parameter error").code(400);
 	}
-
 	database.getConnection(function(err, connection) {
 		if(err) throw err;
 		connection.query(query.addJob(payload), function(error, results) {
