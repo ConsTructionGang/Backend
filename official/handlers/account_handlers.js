@@ -18,19 +18,12 @@ function changePassword(request, reply) {
 }
 
 function newPassword(payload, reply) {
-	database.getConnection(function(err, connection) {
-		connection.query(query.changePassword(payload), function(error){
-			connection.release();
-			if (error) {
-				console.log(error);
-				return reply("***PROBLEM OCCURED WITH MYSQL***").code(400);
-			} else {
-				return reply("Password Successfully Changed").code(200);
-			}
-		});
-		if (err){
-			console.log(err);
-			return reply("ERROR WITH CONNECTION").code(400);
+	database.runQuery(query.changePassword(payload), function(error){
+		if (error) {
+			console.log(error);
+			return reply("***PROBLEM OCCURED WITH MYSQL***").code(400);
+		} else {
+			return reply("Password Successfully Changed").code(200);
 		}
 	});
 }
