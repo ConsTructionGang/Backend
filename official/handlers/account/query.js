@@ -1,4 +1,8 @@
 const query = {
+	checkEmail: payload =>
+		`SELECT Email
+		FROM Account 
+		WHERE Email = '${payload.email}';`,
 	checkAccount: payload =>
 		`SELECT Name, ID
 		FROM (
@@ -37,9 +41,9 @@ const query = {
 			'${payload.password}',
 			${payload.type}
 		);`,
-	checkEmail: payload =>
-		`SELECT Email
-		FROM Account 
+	changePassword: payload =>
+		`UPDATE Account
+		SET Password = '${payload.newpassword}'
 		WHERE Email = '${payload.email}';`
 };
 
