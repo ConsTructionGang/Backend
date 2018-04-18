@@ -1,12 +1,10 @@
 const Hapi = require('hapi');
 const server = new Hapi.Server();
 
-const register_handler = require('./register_handlers');
-const login_handler = require('./login_handlers');
-const account_handler = require('./account_handlers');
-const job_handler = require('./job_handlers');
+const account_handler = require('./account/handlers');
+const job_handler = require('./job/handlers');
 const review_handler = require('./reviews/handlers');
-const supply_handler = require('./supply_handlers');
+const supply_handler = require('./supply/handlers');
 const supplier_handler = require('./suppliers/handlers');
 
 server.connection({ port: 5000, host: "0.0.0.0", 
@@ -46,7 +44,7 @@ server.route({
 server.route({
 	method: "POST",
 	path: "/signup",
-	handler: register_handler
+	handler: account_handler.register
 });
 
 // Login
@@ -63,13 +61,13 @@ server.route({
 server.route({
 	method: "POST",
 	path: '/login',
-	handler: login_handler
+	handler: account_handler.login
 });
 
 server.route({
 	method: 'PUT',
 	path: '/login',
-	handler: login_handler
+	handler: account_handler.login
 });
 
 // Change Password
@@ -86,7 +84,7 @@ server.route({
 server.route({
 	method: "POST",
 	path: '/changepassword',
-	handler: account_handler
+	handler: account_handler.changePassword
 });
 
 // Delete Account
