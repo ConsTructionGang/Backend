@@ -22,15 +22,6 @@ server.connection({ port: 5000, host: "0.0.0.0",
 	}
 });
 
-server.route({
-	method: "GET",
-	path: "/user",
-	handler: function(request, reply) {
-		console.log("Server processing a / request");
-		return reply("Hello, worlds");
-	}
-});
-
 // Signup
 
 server.route({
@@ -57,12 +48,6 @@ server.route({
 		if(err) throw err;
 		return reply("Login page").code(200);
 	}
-});
-
-server.route({
-	method: "POST",
-	path: '/login',
-	handler: account_handler.login
 });
 
 server.route({
