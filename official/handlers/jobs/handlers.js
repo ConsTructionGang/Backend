@@ -6,11 +6,6 @@ function create(request, reply) {
 }
 
 function insert(payload, reply) {
-	if(!helpers.fullyDefined(payload,
-		["construction_id", "job_title", "budget", "address",
-		 "city", "state", "start_date"])) {
-		return reply("bad parameter error").code(400);
-	}
 	database.runQuery(query.add(payload), function(error, results) {
 		if (error) {
 			console.log("ERROR OCCURRED WHEN INSERTING JOB");

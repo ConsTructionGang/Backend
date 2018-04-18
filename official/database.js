@@ -19,4 +19,6 @@ function runQuery(query, callback){
 	});
 }
 
-module.exports = runQuery;
+module.exports = {
+	runQuery
+};

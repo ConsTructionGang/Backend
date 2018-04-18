@@ -1,12 +1,7 @@
 const database = require('../database');
 const query = require('./query');
-const helpers  = require('./handler_helpers');
 
 function create(request, reply) {
-	if(!helpers.fullyDefined(request.payload,
-		["supplier_id", "name", "tags", "price"])) {
-		return reply("bad parameter error").code(400);
-	}
 	database.getConnection(function(err, connection) {
 		if(err) throw err;
 		connection.query(query.create(request.payload), function(error) {
@@ -38,9 +33,6 @@ function view(request, reply) {
 
 function add(request, reply){
 	let string = "";
-	if(!helpers.fullyDefined(request.payload,["job_id", "supplies"])) {
-		return reply("bad parameter error").code(400);
-	}
 	let data = JSON.parse(request.payload.supplies);
 	for (let i = 0; i < data.length; i++) {
 		string += '(';
@@ -71,17 +63,14 @@ function remove(request, reply) {
 }
 
 function viewTagged(request, reply) {
-	database.getConnection(function(err, connection) {
-		if(err) throw err;
-		connection.query(query.viewSuppliesTagged(request.params), function(error, results) {
-			if (error) {
-				console.log("ERROR VIEWING SUPPLIES");
-				console.log(error);
-				return reply("SQL QUERY ERROR").code(400);
-			} else {
-				return reply(results).code(200);
-			}
-		});
+	database.runQuery(query.viewSuppliesTagged(request.params), function(error, results) {
+		if (error) {
+			console.log("ERROR VIEWING SUPPLIES");
+			console.log(error);
+			return reply("SQL QUERY ERROR").code(400);
+		} else {
+			return reply(results).code(200);
+		}
 	});
 	return;
 }
@@ -97,50 +86,40 @@ function viewTaggedMultiple(request, reply) {
 			string += 'OR ';
 		}
 	}
-	database.getConnection(function(err, connection) {
-		if(err) throw err;
-		console.log(string);
-		connection.query(query.viewSuppliesTaggedMultiple(string), function(error, results) {
-			if (error) {
-				console.log("ERROR VIEWING SUPPLIES");
-				console.log(error);
-				return reply("SQL QUERY ERROR").code(400);
-			} else {
-				return reply(results).code(200);
-			}
-		});
+	database.runQuery(query.viewSuppliesTaggedMultiple(string), function(error, results) {
+		if (error) {
+			console.log("ERROR VIEWING SUPPLIES");
+			console.log(error);
+			return reply("SQL QUERY ERROR").code(400);
+		} else {
+			return reply(results).code(200);
+		}
 	});
 	return;
 }
 
 function viewSortedASC(request, reply) {
-	database.getConnection(function(err, connection) {
-		if(err) throw err;
-		connection.query(query.viewSuppliesSortedASC(request.params), function(error, results) {
-			if (error) {
-				console.log("ERROR VIEWING SUPPLIES");
-				console.log(error);
-				return reply("SQL QUERY ERROR").code(400);
-			} else {
-				return reply(results).code(200);
-			}
-		});
+	database.runQuery(query.viewSuppliesSortedASC(request.params), function(error, results) {
+		if (error) {
+			console.log("ERROR VIEWING SUPPLIES");
+			console.log(error);
+			return reply("SQL QUERY ERROR").code(400);
+		} else {
+			return reply(results).code(200);
+		}
 	});
 	return;
 }
 
 function viewSortedDSC(request, reply) {
-	database.getConnection(function(err, connection) {
-		if(err) throw err;
-		connection.query(query.viewSuppliesSortedDSC(request.params), function(error, results) {
-			if (error) {
-				console.log("ERROR VIEWING SUPPLIES");
-				console.log(error);
-				return reply("SQL QUERY ERROR").code(400);
-			} else {
-				return reply(results).code(200);
-			}
-		});
+	database.runQuery(query.viewSuppliesSortedDSC(request.params), function(error, results) {
+		if (error) {
+			console.log("ERROR VIEWING SUPPLIES");
+			console.log(error);
+			return reply("SQL QUERY ERROR").code(400);
+		} else {
+			return reply(results).code(200);
+		}
 	});
 	return;
 }

@@ -1,12 +1,11 @@
 const database = require("../database");
 const query = require("./query");
-const session = require("./session_handler");
 
 function login(request, reply) {
 	if(!fullyDefined(request.payload, ["email","password"])) {
 		return reply({'message': 'Parameter Error'}).code(400);
 	} else {
-		database.runQuery(query.checkAcoount(request.payload), function(error, results){
+		database.runQuery(query.checkAccount(request.payload), function(error, results){
 			if(error) {
 				console.log(error);
 				return reply({
@@ -62,7 +61,9 @@ function insert(payload, reply) {
 				message: "PROBLEM OCCURED WHEN INSERTING NEW USER"
 			}).code(500);
 		}
-		return reply().code(201);
+		return reply({
+			message: "Account created"
+		}).code(201);
 	});
 }
 

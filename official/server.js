@@ -2,10 +2,11 @@ const Hapi = require('hapi');
 const server = new Hapi.Server();
 
 const account_handler = require('./account/handlers');
-const job_handler = require('./job/handlers');
+const job_handler = require('./jobs/handlers');
 const review_handler = require('./reviews/handlers');
-const supply_handler = require('./supply/handlers');
+const supply_handler = require('./supplies/handlers');
 const supplier_handler = require('./suppliers/handlers');
+const task_handler = require('./tasks/handlers');
 
 server.connection({ port: 5000, host: "0.0.0.0", 
 	routes: {
@@ -133,7 +134,7 @@ server.route({
 server.route({
 	method: "POST",
 	path: '/addsupplies',
-	handler: supply_handler.addSupply
+	handler: supply_handler.create
 });
 
 //Reviews - Dispute
@@ -149,50 +150,50 @@ server.route({
 server.route({
 	method: "GET",
 	path: '/view/supplies',
-	handler: supply_handler.viewSupplies
+	handler: supply_handler.view
 });
 
 server.route({
 	method: "GET",
 	path: '/view/supplies/{tag}/m=1',
-	handler: supply_handler.viewSuppliesTaggedMultiple
+	handler: supply_handler.viewTaggedMultiple
 });
 
 server.route({
 	method: "GET",
 	path: '/view/supplies/{tag}',
-	handler: supply_handler.viewSuppliesTagged
+	handler: supply_handler.viewTagged
 });
 
 server.route({
 	method: "GET",
 	path: '/view/supplies/s=0{tag}',
-	handler: supply_handler.viewSuppliesSortedASC
+	handler: supply_handler.viewSortedASC
 });
 
 server.route({
 	method: "GET",
 	path: '/view/supplies/s=1{tag}',
-	handler: supply_handler.viewSuppliesSortedDSC
+	handler: supply_handler.viewSortedDSC
 });
 
 server.route({
 	method: "POST",
 	path: '/createjob',
-	handler: job_handler.createJob
+	handler: job_handler.create
 });
 
 
 server.route({
 	method: "PUT",
 	path: '/job/todolist',
-	handler: job_handler.addTask
+	handler: task_handler.create
 });
 
 server.route({
 	method: "POST",
 	path: '/addtolist',
-	handler: job_handler.addSupplyToJob
+	handler: supply_handler.add
 });
 
 server.start(err => {
