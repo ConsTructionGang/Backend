@@ -26,8 +26,7 @@ function login(request, reply) {
 	}
 }
 
-function create(request, reply) {
-	
+function register(request, reply) {
 	request.payload.type = (request.payload.type === "User") ? 0 : 1;
 
 	if(!fullyDefined(request.payload,
@@ -72,12 +71,11 @@ function changePassword(request, reply) {
 		["email", "password", "newpassword"])) {
 		return reply("bad parameter error").code(400);
 	}
-	database.runQuery(query.checkEmail(request.payload.email), function(error, result){
-		if()
+	database.runQuery(query.checkAccount(request.payload), function(error, result){
 		if(result.length !== 0) {
 			newPassword(request.payload, reply);
 		} else {
-			return reply("Account does not exist").code(200);
+			return reply("Passwords do not match").code(400);
 		}
 	});
 }
@@ -105,5 +103,6 @@ function fullyDefined(payload, parameter) {
 
 module.exports = {
 	login,
-	create,
+	register,
+	changePassword
 };
