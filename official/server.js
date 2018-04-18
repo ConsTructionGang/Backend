@@ -1,13 +1,12 @@
 const Hapi = require('hapi');
 const server = new Hapi.Server();
 
-const register_handler = require('./register_handlers');
-const login_handler = require('./login_handlers');
-const account_handler = require('./account_handlers');
-const job_handler = require('./job_handlers');
-const review_handler = require('./review_handlers');
-const supply_handler = require('./supply_handlers');
-const supplier_handler = require('./supplier_handlers');
+const account_handler = require('./account/handlers');
+const job_handler = require('./jobs/handlers');
+const review_handler = require('./reviews/handlers');
+const supply_handler = require('./supplies/handlers');
+const supplier_handler = require('./suppliers/handlers');
+const task_handler = require('./tasks/handlers');
 
 server.connection({ port: 5000, host: "0.0.0.0", 
 	routes: {
@@ -23,14 +22,7 @@ server.connection({ port: 5000, host: "0.0.0.0",
 	}
 });
 
-server.route({
-	method: "GET",
-	path: "/user",
-	handler: function(request, reply) {
-		console.log("Server processing a / request");
-		return reply("Hello, worlds");
-	}
-});
+// Signup
 
 server.route({
 	method: "GET",
@@ -44,8 +36,10 @@ server.route({
 server.route({
 	method: "POST",
 	path: "/signup",
-	handler: register_handler
+	handler: account_handler.register
 });
+
+// Login
 
 server.route({
 	method: "GET",
@@ -57,16 +51,12 @@ server.route({
 });
 
 server.route({
-	method: "POST",
-	path: '/login',
-	handler: login_handler
-});
-
-server.route({
 	method: 'PUT',
 	path: '/login',
-	handler: login_handler
+	handler: account_handler.login
 });
+
+// Change Password
 
 server.route({
 	method: "GET",
@@ -80,28 +70,27 @@ server.route({
 server.route({
 	method: "POST",
 	path: '/changepassword',
-	handler: account_handler
+	handler: account_handler.changePassword
 });
 
+// Delete Account
+
 server.route({
-	method: "POST",
-	path: '/createjob',
-	handler: job_handler.createJob
+	method: "DELETE",
+	path: '/deleteuser',
+	handler: function (reply, err){
+		if(err) throw err;
+		return reply('Account Successfully created').code(200);
+	}
 });
+
+// Suppliers + Reviews
 
 server.route({
 	method: "GET",
-	path: "/suppliers=asc",
-	handler: supplier_handler.rankAsc
+	path: "/suppliers",
+	handler: supplier_handler.viewAll
 });
-
-server.route({
-	method: "GET",
-	path: "/suppliers=desc",
-	handler: supplier_handler.rankDesc
-});
-
-//Reviews 
 
 server.route({
 	method: "GET",
@@ -126,20 +115,11 @@ server.route({
 	path: '/supplier={supplier_id}/reviews',
 	handler: review_handler.remove
 });
-  
-server.route({
-	method: "DELETE",
-	path: '/deleteuser',
-	handler: function (reply, err){
-		if(err) throw err;
-		return reply('Account Successfully created').code(200);
-	}
-});
 
 server.route({
 	method: "POST",
 	path: '/addsupplies',
-	handler: supply_handler.addSupply
+	handler: supply_handler.create
 });
 
 //Reviews - Dispute
@@ -155,43 +135,50 @@ server.route({
 server.route({
 	method: "GET",
 	path: '/view/supplies',
-	handler: supply_handler.viewSupplies
+	handler: supply_handler.view
 });
 
 server.route({
 	method: "GET",
 	path: '/view/supplies/{tag}/m=1',
-	handler: supply_handler.viewSuppliesTaggedMultiple
+	handler: supply_handler.viewTaggedMultiple
 });
 
 server.route({
 	method: "GET",
 	path: '/view/supplies/{tag}',
-	handler: supply_handler.viewSuppliesTagged
+	handler: supply_handler.viewTagged
 });
 
 server.route({
 	method: "GET",
 	path: '/view/supplies/s=0{tag}',
-	handler: supply_handler.viewSuppliesSortedASC
+	handler: supply_handler.viewSortedASC
 });
 
 server.route({
 	method: "GET",
 	path: '/view/supplies/s=1{tag}',
-	handler: supply_handler.viewSuppliesSortedDSC
+	handler: supply_handler.viewSortedDSC
 });
+
+server.route({
+	method: "POST",
+	path: '/createjob',
+	handler: job_handler.create
+});
+
 
 server.route({
 	method: "PUT",
 	path: '/job/todolist',
-	handler: job_handler.addTask
-})
+	handler: task_handler.create
+});
 
 server.route({
 	method: "POST",
 	path: '/addtolist',
-	handler: job_handler.addSupplyToJob
+	handler: supply_handler.add
 });
 
 server.start(err => {

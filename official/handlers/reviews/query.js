@@ -1,5 +1,5 @@
 const query = {
-	postReview: request =>
+	post: request =>
 		`INSERT INTO Review(
 			Author_ID,
 			Supplier_ID, 
@@ -15,7 +15,7 @@ const query = {
 			"${request.payload.body}",
 			${request.payload.rating}
 		);`,
-	retrieveReviews: payload =>
+	retrieve: payload =>
 		`SELECT
 			t.Review_ID, 
 			t.Author_ID,
@@ -33,7 +33,7 @@ const query = {
 		) t LEFT JOIN Comment 
 		ON t.Review_ID = Comment.Review_ID
 		Order By t.Date_Created;`,
-	deleteReview: (payload, params) =>
+	remove: (payload, params) =>
 		`DELETE FROM Review
 		WHERE Supplier_ID = '${params.supplier_id}'
 		AND Author_ID = '${payload.author_id}';`,

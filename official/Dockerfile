@@ -8,12 +8,9 @@ WORKDIR /usr/src/app/
 
 COPY *.js /usr/src/app/
 COPY package.json /usr/src/app/
-COPY handlers /usr/src/app/
-COPY queries /usr/src/app/
+COPY handlers/. /usr/src/app/
 
-RUN mkdir frontend
-
-RUN npm install
+RUN npm install 
 
 EXPOSE 5000
 CMD [ "npm", "start" ]

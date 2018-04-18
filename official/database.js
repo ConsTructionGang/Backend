@@ -11,4 +11,14 @@ const database = mysql.createPool({
 	database: "backend_database"
 });
 
-module.exports = database;
+// Function to run basic queries
+
+function runQuery(query, callback){
+	database.query(query, function(error, results) {
+		return callback(error, results);
+	});
+}
+
+module.exports = {
+	runQuery
+};
