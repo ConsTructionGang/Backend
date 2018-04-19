@@ -44,7 +44,10 @@ const query = {
 	changePassword: payload =>
 		`UPDATE Account
 		SET Password = '${payload.newpassword}'
-		WHERE Email = '${payload.email}';`
+		WHERE Email = '${payload.email}';`,
+	deleteAccount: payload =>
+		`DELETE Account 
+		`
 };
 
 module.exports = query;

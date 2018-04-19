@@ -92,6 +92,25 @@ function newPassword(payload, reply) {
 	});
 }
 
+function deleteAccount() {
+	database.runQuery(query.checkAccount(request.payload), function(error, results){
+		if(error) {
+			console.log(error);
+			return reply({
+				message: "PROBLEM OCCURED WHEN CHECKING PASSWORD"
+			}).code(500);
+		} else if(results.length === 0){
+			return reply({
+				message: 'Sign Invalid'
+			}).code(400);
+		} else {
+			return reply({
+				name: results[0].Name,
+				id: results[0].ID,
+			}).code(200);
+		}
+	});	
+} 
 function fullyDefined(payload, parameter) {
 	for(let i = 0; i < parameter.length; i++) {
 		if(payload[parameter[i]] === undefined) {
@@ -105,5 +124,6 @@ function fullyDefined(payload, parameter) {
 module.exports = {
 	login,
 	register,
-	changePassword
+	changePassword,
+	deleteAccount,
 };
