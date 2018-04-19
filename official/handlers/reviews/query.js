@@ -5,13 +5,15 @@ const query = {
 			Supplier_ID, 
 			Date_Created,
 			Title,
-			Body
+			Body,
+			Rating
 		) VALUES (
 			${request.payload.author_id},
 			${request.params.supplier_id},
 			"${request.payload.date}",
 			"${request.payload.title}",
-			"${request.payload.body}"
+			"${request.payload.body}",
+			${request.payload.rating}
 		);`,
 	retrieve: payload =>
 		`SELECT
@@ -20,11 +22,12 @@ const query = {
 			t.Name, 
 			t.Date_Created,
 			t.Title, 
-			t.Body,
+			t.Body, 
+			t.Rating, 
 			Comment.Body Comment,
 			Comment.Date_Created Date
 		FROM (
-			SELECT Review_ID, Author_ID, Name, Date_Created, Title, Body
+			SELECT Review_ID, Author_ID, Name, Date_Created, Title, Body, Review.Rating
 			FROM Review JOIN Account ON Account.ID = Review_ID 
 			WHERE Supplier_ID = '${payload.supplier_id}'
 		) t LEFT JOIN Comment 
