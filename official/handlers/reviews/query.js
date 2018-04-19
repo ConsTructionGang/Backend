@@ -37,14 +37,6 @@ const query = {
 		`DELETE FROM Review
 		WHERE Supplier_ID = '${params.supplier_id}'
 		AND Author_ID = '${payload.author_id}';`,
-	updateAvgScore: payload =>
-		`UPDATE Account
-		SET Rating = (
-			SELECT AVG(Rating)
-			FROM Review
-			WHERE Supplier_ID = '${payload.supplier_id}'
-		)
-		WHERE ID = '${payload.supplier_id}';`,
 	isSupplier: params =>
 		`SELECT isSupplier
 		FROM Account

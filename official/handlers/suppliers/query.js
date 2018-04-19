@@ -2,10 +2,14 @@ const query = {
 	retrieve: params =>
 		`SELECT
 			Name,
-			City,
 			Address,
+			City,
 			State,
-			Account.Rating,
+			(
+				SELECT AVG(Rating)
+				FROM Review
+				WHERE Supplier_ID = ${params.supplier_id}
+			) Rating,
 			Count(Review.Supplier_ID) Reviews
 		FROM Account JOIN Review
 		ON Account.ID = Review.Supplier_ID

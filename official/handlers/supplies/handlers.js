@@ -2,32 +2,26 @@ const database = require('../database');
 const query = require('./query');
 
 function create(request, reply) {
-	database.getConnection(function(err, connection) {
-		if(err) throw err;
-		connection.query(query.create(request.payload), function(error) {
-			if (error) {
-				console.log("ERROR OCCURRED WHEN ADDING JOB");
-				console.log(error);
-				reply("SQL QUERY ERROR").code(400);
-			} else {
-				reply("Supply Added");
-			}
-		});
+	database.runQuery(query.create(request.payload), function(error) {
+		if (error) {
+			console.log("ERROR OCCURRED WHEN ADDING JOB");
+			console.log(error);
+			reply("SQL QUERY ERROR").code(400);
+		} else {
+			reply("Supply Added");
+		}
 	});
 }
 
 function view(request, reply) {
-	database.getConnection(function(err, connection) {
-		if(err) throw err;
-		connection.query(query.view(request.payload), function(error, results) {
-			if (error) {
-				console.log("ERROR VIEWING SUPPLIES");
-				console.log(error);
-				reply("SQL QUERY ERROR").code(400);
-			} else {
-				reply(results).code(200);
-			}
-		});
+	database.runQuery(query.view(request.payload), function(error, results) {
+		if (error) {
+			console.log("ERROR VIEWING SUPPLIES");
+			console.log(error);
+			reply("SQL QUERY ERROR").code(400);
+		} else {
+			reply(results).code(200);
+		}
 	});
 }
 
@@ -44,17 +38,14 @@ function add(request, reply){
 		}
 	}
 
-	database.getConnection(function(err, connection) {
-		if(err) throw err;
-		connection.query(query.add(string), function(error) {
-			if (error) {
-				console.log("ERROR OCCURRED WHEN INSERTING JOB");
-				console.log(error);
-				reply("Problem occured when creating job").code(400);
-			} else {
-				reply("supplies added");
-			}
-		});
+	database.runQuery(query.add(string), function(error) {
+		if (error) {
+			console.log("ERROR OCCURRED WHEN INSERTING JOB");
+			console.log(error);
+			reply("Problem occured when creating job").code(400);
+		} else {
+			reply("supplies added");
+		}
 	});
 }
 
