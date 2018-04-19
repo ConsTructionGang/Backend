@@ -1,18 +1,28 @@
 {
-  "name": "mysql-node",
-  "version": "1.0.0",
-  "description": "Node.js on Docker with mysql",
-  "author": "Zach Banducci",
-  "main": "server.js",
-  "scripts": {
-    "start": "nodemon -L server.js"
-  },
-  "dependencies": {
-    "hapi": "^16.6.3",
-    "mysql": "^2.15.0",
-    "nodemon": "^1.17.2"
-  },
-  "devDependencies": {
-    "eslint": "^4.19.1"
-  }
+	"name": "backend_npm",
+	"version": "1.0.0",
+	"description": "Package for Construction Gang server",
+	"author": "",
+	"main": "server.js",
+	"scripts": {
+		"start": "nodemon -L server.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ConsTructionGang/Backend.git"
+	},
+		"bugs": {
+		"url": "https://github.com/ConsTructionGang/Backend/issues"
+	},
+	"homepage": "https://github.com/ConsTructionGang/Backend#readme",
+	"dependencies": {
+		"hapi": "^16.6.3",
+		"mysql": "^2.15.0",
+		"nodemon": "^1.17.2",
+		"express": "^4.16.3",
+		"express-session": "^1.15.6"
+	},
+	"devDependencies": {
+		"eslint": "^4.19.1"
+	}
 }
