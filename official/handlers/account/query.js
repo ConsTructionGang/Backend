@@ -46,8 +46,9 @@ const query = {
 		SET Password = '${payload.newpassword}'
 		WHERE Email = '${payload.email}';`,
 	deleteAccount: payload =>
-		`DELETE Account 
-		`
+		`DELETE Account
+		WHERE ID = ${payload.id} 
+		`,
 };
 
 module.exports = query;
