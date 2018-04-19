@@ -8,7 +8,7 @@ const supply_handler = require('./supplies/handlers');
 const supplier_handler = require('./suppliers/handlers');
 const task_handler = require('./tasks/handlers');
 
-server.connection({ port: 5000, host: "0.0.0.0", 
+server.connection({ port: 5000, host: "0.0.0.0",
 	routes: {
 		cors: {
 			origin: ["*"],
@@ -41,7 +41,7 @@ server.route({
 
 server.route({
 	method: "DELETE",
-	path: './deleteAccount',
+	path: '/deleteAccount',
 	handler: account_handler.remove
 });
 

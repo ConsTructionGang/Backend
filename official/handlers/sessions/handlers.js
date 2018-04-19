@@ -4,7 +4,7 @@
 *By:Zach Banducci, Tyrone Criddle, Fernando Corral
 */
 const database = require('../database');
-const query = require('query');
+const query = require('./query');
 //Creates new session and returns random key value generated for session
 function createSession(payload){
   database.runQuery(query.createSession(payload), function(error, results){
