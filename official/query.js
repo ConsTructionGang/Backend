@@ -17,23 +17,28 @@ const checkAccount = payload =>
 	) AS t
 	WHERE Password = '${payload.password}';`;
 
-const createSession = payload =>
+const createSession = ID =>
 	`INSERT INTO Session_manager(
 		session_key,
 		ID
 	)VALUES(
 		Rand(),
-		'${payload.ID}'
+		'${ID}'
 	);`;
-	
+
+const getSession = payload =>
+	`SELECT *
+	FROM Session_manager
+	WHERE ID = '${payload.ID}' `;
+
 const checkSession = payload =>
 	`SELECT *
 	FROM Session_manager
-	WHERE session_key = '${payload.key}' `;
+	WHERE ID = '${payload.ID}' `;
 
 const removeSession = payload =>
 	`DELETE FROM Session_manager
-	WHERE ID = '${payload.ID}' `;
+	WHERE session_key = '${payload.key}' `;
 
 const addSupplier = payload =>
 	`INSERT INTO Account(
@@ -265,6 +270,10 @@ module.exports = {
 	addSupplier,
 	checkUser,
 	checkAccount,
+	createSession,
+	deleteSession,
+	checkSession,
+	getSession,
 	changePassword,
 	addJob,
 	deleteJob,

@@ -13,9 +13,13 @@ function loginUser(request, reply) {
 					message: 'Sign Invalid'
 				}).code(400);
 			} else {
+				if(session.checkSession(request.payload)){
+					session.deleteSession(request.payload);
+				}
 				return reply({
 					name: results[0].Name,
 					id: results[0].ID,
+					key: session.createSession(request.payload),
 				}).code(200);
 			}
 		});
