@@ -1,1 +1,0 @@
-SELECT * FROM employees e WHERE lastName = '?' LIMIT 1;
