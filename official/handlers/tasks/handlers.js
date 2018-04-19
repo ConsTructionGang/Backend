@@ -1,5 +1,5 @@
-const database = '../database';
-const query = './query';
+const database = require('../database');
+const query = require('./query');
 
 function retrieve(request, reply) {
 	database.runQuery(query.retrieveAll(request.params), function(error, results) {
@@ -65,5 +65,5 @@ module.exports = {
 	create,
 	complete,
 	remove,
-	retrieve
+	retrieve,
 };
