@@ -92,7 +92,7 @@ function newPassword(payload, reply) {
 	});
 }
 
-function deleteAccount() {
+function remove() {
 	database.runQuery(query.checkAccount(request.payload), function(error, results){
 		if(error) {
 			console.log(error);
@@ -125,5 +125,5 @@ module.exports = {
 	login,
 	register,
 	changePassword,
-	deleteAccount,
+	remove,
 };

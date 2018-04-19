@@ -39,6 +39,12 @@ server.route({
 	handler: account_handler.register
 });
 
+server.route({
+	method: "DELETE",
+	path: './deleteAccount',
+	handler: account_handler.remove
+});
+
 // Login
 
 server.route({
