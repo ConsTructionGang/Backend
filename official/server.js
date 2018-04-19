@@ -185,7 +185,7 @@ server.route({
 
 server.route({
 	method: "POST",
-	path: '/addtolist',
+	path: '/jobs/{job_id}/supplylist',
 	handler: supply_handler.add
 });
 
