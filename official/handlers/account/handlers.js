@@ -1,5 +1,6 @@
 const database = require("../database");
 const query = require("./query");
+const session = require('./sessions');
 
 function login(request, reply) {
 	if(!fullyDefined(request.payload, ["email","password"])) {
@@ -16,9 +17,13 @@ function login(request, reply) {
 					message: 'Sign Invalid'
 				}).code(400);
 			} else {
+				if(session.checkSession(request.payload)){
+					session.deleteSession(request.payload);
+				}
 				return reply({
 					name: results[0].Name,
 					id: results[0].ID,
+					key: session.createSession(request.payload),
 				}).code(200);
 			}
 		});
@@ -109,8 +114,8 @@ function remove() {
 				id: results[0].ID,
 			}).code(200);
 		}
-	});	
-} 
+	});
+}
 function fullyDefined(payload, parameter) {
 	for(let i = 0; i < parameter.length; i++) {
 		if(payload[parameter[i]] === undefined) {
