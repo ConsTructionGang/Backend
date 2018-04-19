@@ -30,7 +30,7 @@ function add(request, reply){
 	let data = JSON.parse(request.payload.supplies);
 	for (let i = 0; i < data.length; i++) {
 		string += '(';
-		string += request.payload.job_id + ', ';
+		string += request.params.job_id + ', ';
 		string += data[i]['quantity'] + ', ';
 		string += data[i]['supply_id'] + ')';
 		if(i != data.length-1) {
