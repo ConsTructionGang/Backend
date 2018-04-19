@@ -184,8 +184,8 @@ server.route({
 
 server.route({
 	method: "POST",
-	path: '/user/{supplier_id}/addsupplies',
-	handler: supplier_handler.add
+	path: '/user/{job_id}/addsupplies',
+	handler: supply_handler.add
 });
 
 server.start(err => {
