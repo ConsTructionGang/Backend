@@ -87,6 +87,9 @@ function changePassword(request, reply) {
 }
 
 function newPassword(payload, reply) {
+	if(!session.checkSession(request.payload)) {
+		return reply("Session Authentication Error").code(401);
+	}
 	database.runQuery(query.changePassword(payload), function(error){
 		if (error) {
 			console.log(error);
@@ -98,6 +101,9 @@ function newPassword(payload, reply) {
 }
 
 function remove() {
+	if(!session.checkSession(request.payload)) {
+		return reply("Session Authentication Error").code(401);
+	}
 	database.runQuery(query.checkAccount(request.payload), function(error, results){
 		if(error) {
 			console.log(error);
@@ -109,6 +115,7 @@ function remove() {
 				message: 'Sign Invalid'
 			}).code(400);
 		} else {
+			session.deleteSession(request.payload;
 			return reply({
 				name: results[0].Name,
 				id: results[0].ID,
