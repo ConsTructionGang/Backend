@@ -20,7 +20,7 @@ function publish(request, reply){
 								message: "Cannot re-review a company"
 							}).code(400);
 						} else {
-							insertReview(request, reply);
+							insert(request, reply);
 						}
 					});
 				}
@@ -29,7 +29,7 @@ function publish(request, reply){
 	});
 }
 
-function insertReview(request, reply) {
+function insert(request, reply) {
 	database.runQuery(query.post(request), function(error) {
 		if (error) {
 			console.log(error);
@@ -37,11 +37,9 @@ function insertReview(request, reply) {
 				message: "ERROR OCCURED WHEN PUBLISHING REVIEW"
 			}).code(500);
 		} else {
-			updateAvgRating(request, function() {
-				return reply({
-					message: "Review has been published"
-				}).code(200);
-			});
+			return reply({
+				message: "Review has been published"
+			}).code(200);
 		}
 	});
 }
@@ -70,18 +68,11 @@ function remove(request, reply) {
 				message: "ERROR OCCURED WHEN REMOVING REVIEW"
 			}).code(500);
 		} else {
-			updateAvgRating(request, function() {
-				return reply({
-					message: "Review has been deleted"
-				}).code(200);
-			});
+			return reply({
+				message: "Review has been deleted"
+			}).code(200);
 		}
 	});
-}
-
-function updateAvgRating(request, callback) {
-	console.log(`Rating edited for ${request.params.supplier_id}`);
-	database.runQuery(query.updateAvgScore(request.params), callback);
 }
 
 module.exports = {

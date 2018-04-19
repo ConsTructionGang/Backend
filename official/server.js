@@ -187,13 +187,6 @@ server.route({
 });
 
 server.route({
-	method: "PUT",
-	path: '/job/todolist',
-	handler: task_handler.create
-});
-
-
-server.route({
 	method: "POST",
 	path: '/addtolist',
 	handler: supply_handler.add
