@@ -5,15 +5,13 @@ const query = {
 			Supplier_ID, 
 			Date_Created,
 			Title,
-			Body,
-			Rating
+			Body
 		) VALUES (
 			${request.payload.author_id},
 			${request.params.supplier_id},
 			"${request.payload.date}",
 			"${request.payload.title}",
-			"${request.payload.body}",
-			${request.payload.rating}
+			"${request.payload.body}"
 		);`,
 	retrieve: payload =>
 		`SELECT
@@ -22,12 +20,11 @@ const query = {
 			t.Name, 
 			t.Date_Created,
 			t.Title, 
-			t.Body, 
-			t.Rating, 
+			t.Body,
 			Comment.Body Comment,
 			Comment.Date_Created Date
 		FROM (
-			SELECT Review_ID, Author_ID, Name, Date_Created, Title, Body, Review.Rating
+			SELECT Review_ID, Author_ID, Name, Date_Created, Title, Body
 			FROM Review JOIN Account ON Account.ID = Review_ID 
 			WHERE Supplier_ID = '${payload.supplier_id}'
 		) t LEFT JOIN Comment 
@@ -37,14 +34,6 @@ const query = {
 		`DELETE FROM Review
 		WHERE Supplier_ID = '${params.supplier_id}'
 		AND Author_ID = '${payload.author_id}';`,
-	updateAvgScore: payload =>
-		`UPDATE Account
-		SET Rating = (
-			SELECT AVG(Rating)
-			FROM Review
-			WHERE Supplier_ID = '${payload.supplier_id}'
-		)
-		WHERE ID = '${payload.supplier_id}';`,
 	isSupplier: params =>
 		`SELECT isSupplier
 		FROM Account
