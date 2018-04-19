@@ -182,10 +182,9 @@ server.route({
 	handler: task_handler.complete
 });
 
-
 server.route({
 	method: "POST",
-	path: '/jobs/{job_id}/supplylist',
+	path: '/user/{job_id}/addsupplies',
 	handler: supply_handler.add
 });
 
