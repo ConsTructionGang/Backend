@@ -332,27 +332,41 @@
 					"formdata": [
 						{
 							"key": "construction_id",
-							"value": "4",
+							"value": "1",
 							"type": "text"
 						},
 						{
 							"key": "job_title",
-							"value": "Boom Shakala",
-							"type": "text"
-						},
-						{
-							"key": "location",
-							"value": "Jacksonville, MI",
+							"value": "Dummy Job",
 							"type": "text"
 						},
 						{
 							"key": "budget",
-							"value": ".13",
+							"value": "1000000",
 							"type": "text"
 						},
 						{
-							"key": "completion_date",
-							"value": "2018-9-31",
+							"key": "city",
+							"value": "Dummy City",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "state",
+							"value": "Dummy State",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "start_date",
+							"value": "2017-10-31",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "Dummy Address, 99999",
+							"description": "",
 							"type": "text"
 						}
 					]
@@ -370,7 +384,7 @@
 			},
 			"response": [
 				{
-					"id": "6e33c439-d5b9-4fb3-a672-0f3ad00998dc",
+					"id": "13d3234d-6cef-4749-936f-b7f61c1b2c66",
 					"name": "Job creation page",
 					"originalRequest": {
 						"method": "POST",
