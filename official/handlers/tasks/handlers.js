@@ -2,7 +2,7 @@ const database = '../database';
 const query = './query';
 
 function retrieve(request, reply) {
-	database.runQuery(query.retrieveAll(request.payload), function(error, results) {
+	database.runQuery(query.retrieveAll(request.params), function(error, results) {
 		if(error) {
 			console.log(error);
 			reply({

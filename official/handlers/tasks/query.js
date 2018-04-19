@@ -1,8 +1,8 @@
 const query = {
-	retrieveAll: payload =>
+	retrieveAll: params =>
 		`SELECT * 
 			FROM Task
-			WHERE Job_ID = ${payload.job_id};`,
+			WHERE Job_ID = ${params.id};`,
 	create: payload =>
 		`INSERT INTO Task (
 			Job_ID,

@@ -168,12 +168,30 @@ server.route({
 	handler: job_handler.create
 });
 
+server.route({
+	method: "PUT",
+	path: '/job/todolist',
+	handler: task_handler.create
+});
+
+server.route({
+	method: "PUT",
+	path: '/job/todolist/complete',
+	handler: task_handler.complete
+});
+
+server.route({
+	method: "GET",
+	path: '/job/todolist/{id}',
+	handler: task_handler.remove
+});
 
 server.route({
 	method: "PUT",
 	path: '/job/todolist',
 	handler: task_handler.create
 });
+
 
 server.route({
 	method: "POST",
