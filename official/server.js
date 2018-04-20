@@ -56,7 +56,7 @@ server.route({
 
 server.route({
 	method: "DELETE",
-	path: '/deleteAccount',
+	path: '/deleteaccount',
 	handler: account_handler.remove
 });
 
@@ -72,6 +72,18 @@ server.route({
 	method: "GET",
 	path: "/suppliers/{supplier_id?}",
 	handler: supplier_handler.view
+});
+
+server.route({
+	method: "GET",
+	path: "/supplies/name={supply}",
+	handler: supplier_handler.viewAllSuppliersName
+});
+
+server.route({
+	method: "GET",
+	path: "/supplies/id={supply_id}",
+	handler: supplier_handler.viewAllSuppliersID
 });
 
 server.route({

@@ -100,7 +100,7 @@ function newPassword(payload, reply) {
 	});
 }
 
-function remove() {
+function remove(request, reply) {
 	if(!session.checkSession(request.payload)) {
 		return reply("Session Authentication Error").code(401);
 	}
