@@ -25,6 +25,17 @@ function login(request, reply) {
 	}
 }
 
+function retrieve(request, reply) {
+	database.runQuery(query.retrieve(), function(error, results) {
+		if(error) {
+			throw error;
+		} else {
+			return reply({results}).code(200);
+		}
+
+	})
+}
+
 function register(request, reply) {
 	request.payload.type = (request.payload.type === "User") ? 0 : 1;
 
