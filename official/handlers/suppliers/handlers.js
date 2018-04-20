@@ -28,6 +28,7 @@ function viewAllSuppliersID(request, reply) {
 }
 
 function viewAllSuppliersName(request, reply) {
+	console.log(request.params);
 	database.runQuery(query.retrieveAllSuppliersByName(request.params), function(error, results) {
 		if (results.length == 0 || !results[0].isSupplier) {
 			return reply({ message: "Page not found" }).code(404);
