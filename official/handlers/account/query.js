@@ -55,9 +55,7 @@ const query = {
 		WHERE
 			a.ID = 1
 		AND
-			a.ID = j.Construction_ID
-		GROUP BY
-			a.ID;`
+			a.ID = j.Construction_ID;`
 };
 
 module.exports = query;
