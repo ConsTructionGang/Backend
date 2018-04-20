@@ -1,6 +1,5 @@
 const database = require("../database");
 const query = require("./query");
-const session = require('../sessions/handlers');
 
 function login(request, reply) {
 	if(!fullyDefined(request.payload, ["email","password"])) {
@@ -17,13 +16,9 @@ function login(request, reply) {
 					message: 'Sign Invalid'
 				}).code(400);
 			} else {
-				if(session.checkSession(request.payload)){
-					session.deleteSession(request.payload);
-				}
 				return reply({
 					name: results[0].Name,
 					id: results[0].ID,
-					key: session.createSession(request.payload),
 				}).code(200);
 			}
 		});
