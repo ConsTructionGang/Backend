@@ -56,7 +56,7 @@ server.route({
 
 server.route({
 	method: "DELETE",
-	path: '/deleteAccount',
+	path: '/deleteaccount',
 	handler: account_handler.remove
 });
 
