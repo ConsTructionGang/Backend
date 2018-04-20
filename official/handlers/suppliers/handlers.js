@@ -17,6 +17,34 @@ function view(request, reply) {
 	}
 }
 
+function viewAllSuppliersID(request, reply) {
+	if (!request.params.user) {
+		viewAll(request, reply);
+	} else {
+		database.runQuery(query.retrieveAllSuppliersByID(request.params), function(error, results) {
+			if (results.length == 0 || !results[0].isSupplier) {
+				return reply({ message: "Page not found" }).code(404);
+			} else {
+				return reply ({results});
+			}
+		});
+	}
+}
+
+function viewAllSuppliersName(request, reply) {
+	if (!request.params.user) {
+		viewAll(request, reply);
+	} else {
+		database.runQuery(query.retrieveAllSuppliersByName(request.params), function(error, results) {
+			if (results.length == 0 || !results[0].isSupplier) {
+				return reply({ message: "Page not found" }).code(404);
+			} else {
+				return reply ({results});
+			}
+		});
+	}
+}
+
 function viewAll(request, reply) {
 	database.runQuery(query.retrieveAll(), function(error, results) {
 		return reply({results}).code(200);
@@ -24,5 +52,8 @@ function viewAll(request, reply) {
 }
 
 module.exports = {
-	view
+	viewAll,
+	viewAllSuppliersID,
+	viewAllSuppliersName,
+	view,
 };

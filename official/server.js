@@ -76,6 +76,18 @@ server.route({
 
 server.route({
 	method: "GET",
+	path: "/supplies/{supply}",
+	handler: supplier_handler.viewAllSuppliersName
+});
+
+server.route({
+	method: "GET",
+	path: "/supplies/{supply_id}",
+	handler: supplier_handler.viewAllSuppliersID
+});
+
+server.route({
+	method: "GET",
 	path: '/suppliers/{supplier_id}/reviews',
 	handler: review_handler.retrieveAll
 });
