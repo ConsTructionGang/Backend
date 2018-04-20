@@ -19,7 +19,7 @@ function view(request, reply) {
 
 function viewAllSuppliersID(request, reply) {
 	database.runQuery(query.retrieveAllSuppliersByID(request.params), function(error, results) {
-		if (results.length == 0 || !results[0].isSupplier) {
+		if (results.length == 0 ) {
 			return reply({ message: "Page not found" }).code(404);
 		} else {
 			return reply ({results});
@@ -28,13 +28,11 @@ function viewAllSuppliersID(request, reply) {
 }
 
 function viewAllSuppliersName(request, reply) {
-	console.log(request.params);
 	database.runQuery(query.retrieveAllSuppliersByName(request.params), function(error, results) {
 		if (results.length == 0) {
-			console.log(results)
 			return reply({ message: "Page not found" }).code(404);
 		} else {
-			return reply ({results});
+			return reply (results);
 		}
 	});
 }
