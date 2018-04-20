@@ -152,7 +152,7 @@ server.route({
 
 server.route({
 	method: "POST",
-	path: '/jobs/{job_id}/supplies',
+	path: '/supplies/add',
 	handler: supply_handler.create
 });
 
@@ -161,7 +161,7 @@ server.route({
 server.route({
 	method: "GET",
 	path: '/jobs/{job_id}/tasks',
-	handler: task_handler.retrieveAll
+	handler: task_handler.retrieve
 });
 
 server.route({
