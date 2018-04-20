@@ -144,4 +144,5 @@ module.exports = {
 	register,
 	changePassword,
 	remove,
+	retrieve
 };
