@@ -49,6 +49,15 @@ const query = {
 		`DELETE Account
 		WHERE ID = ${payload.id} 
 		`,
+	retrieve: payload =>
+		`SELECT *
+		FROM Account a inner join Job j natural join SupplyList s natural join Item i
+		WHERE
+			a.ID = 1
+		AND
+			a.ID = j.Construction_ID
+		GROUP BY
+			a.ID;`
 };
 
 module.exports = query;
