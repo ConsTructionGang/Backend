@@ -17,6 +17,7 @@ function retrieve(request, reply) {
 }
 
 function create(request, reply) {
+	request.payload.job_id = request.params.job_id;
 	database.runQuery(query.create(request.payload), function(error) {
 		if(error) {
 			console.log(error);

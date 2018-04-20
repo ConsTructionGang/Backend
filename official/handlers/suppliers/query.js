@@ -18,7 +18,11 @@ const query = {
 		`SELECT
 			ID,
 			Name,
-			Rating
+			(
+				SELECT AVG(Rating)
+				FROM Review
+				WHERE Supplier_ID = ${params.supplier_id}
+			) Rating,
 		FROM Account
 		WHERE isSupplier = true;`,
 	isSupplier: params =>
