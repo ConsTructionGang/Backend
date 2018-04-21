@@ -1,6 +1,5 @@
 const database = require("../database");
 const query = require("./query");
-const session = require('../sessions/handlers');
 
 function login(request, reply) {
 	if(!fullyDefined(request.payload, ["email","password"])) {
@@ -14,20 +13,27 @@ function login(request, reply) {
 				}).code(500);
 			} else if(results.length === 0){
 				return reply({
-					message: 'Sign Invalid'
+					message: 'Signin Invalid'
 				}).code(400);
 			} else {
-				if(session.checkSession(request.payload)){
-					session.deleteSession(request.payload);
-				}
 				return reply({
 					name: results[0].Name,
 					id: results[0].ID,
-					key: session.createSession(request.payload),
 				}).code(200);
 			}
 		});
 	}
+}
+
+function retrieve(request, reply) {
+	database.runQuery(`SELECT a.ID, a.Email, a.Name, Job_ID FROM ACCOUNT a inner join Job j On a.Id = j.Construction_ID where a.ID = 1;`)
+	.then( (account) => {
+		console.log('fjdsakofdsa');
+		database.runQuery( /* Some other query */);
+	}).then().catch( (error) => {
+		console.log(error);
+		return reply().code(500);
+	})
 }
 
 function register(request, reply) {
@@ -138,4 +144,5 @@ module.exports = {
 	register,
 	changePassword,
 	remove,
+	retrieve
 };
