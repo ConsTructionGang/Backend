@@ -24,11 +24,11 @@ function runQueryPromise(query, callback){
 }
 
 function runQuery(query) {
-	database.query(query, function(error, results) {
+	return database.query(query, function(error, results) {
 		if (error) throw(error);
-		return results;
 	});
 };
 module.exports = {
-	runQuery
+	runQuery,
+	runQueryPromise,
 };
