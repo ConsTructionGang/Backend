@@ -23,7 +23,7 @@ function runQueryPromise(query, callback){
 
 }
 
-function runQuery(query) {
+function runQuery(query, error) {
 	return database.query(query, function(error, results) {
 		if (error) throw(error);
 	});
