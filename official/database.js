@@ -22,12 +22,11 @@ function runQueryPromise(query, callback){
 	});
 
 }
-
-function runQuery(query, error) {
-	return database.query(query, function(error, results) {
-		if (error) throw(error);
+function runQuery(query, callback){
+	database.query(query, function(error, results) {
+		return callback(error, results);
 	});
-};
+}
 module.exports = {
 	runQuery,
 	runQueryPromise,
