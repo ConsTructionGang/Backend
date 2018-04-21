@@ -1,5 +1,5 @@
 /*
-	Use this .js file to store all queries pertaining to the database in order to hide implementation 
+	Use this .js file to store all queries pertaining to the database in order to hide implementation
 	of the query from the server.js
 */
 const mysql = require("mysql");
@@ -14,9 +14,13 @@ const database = mysql.createPool({
 // Function to run basic queries
 
 function runQuery(query, callback){
-	database.query(query, function(error, results) {
-		return callback(error, results);
+	return new Promise( (resolve, reject) => {
+		database.query(query, function(error, results) {
+			if (error) reject(error);
+			resolve(results);
+		});
 	});
+
 }
 
 module.exports = {

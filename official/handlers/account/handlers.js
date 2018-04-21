@@ -13,7 +13,7 @@ function login(request, reply) {
 				}).code(500);
 			} else if(results.length === 0){
 				return reply({
-					message: 'Sign Invalid'
+					message: 'Signin Invalid'
 				}).code(400);
 			} else {
 				return reply({
@@ -32,7 +32,6 @@ function retrieve(request, reply) {
 		} else {
 			return reply({results}).code(200);
 		}
-
 	})
 }
 
