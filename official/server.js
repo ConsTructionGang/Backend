@@ -1,6 +1,6 @@
 const Hapi = require('hapi');
 const server = new Hapi.Server();
-
+const authentication = require('authentication')
 const account_handler = require('./account/handlers');
 const job_handler = require('./jobs/handlers');
 const review_handler = require('./reviews/handlers');
