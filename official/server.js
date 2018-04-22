@@ -24,9 +24,6 @@ server.connection({ port: 5000, host: "0.0.0.0",
 	}
 });
 
-server.auth.default({
-	strategy: 'base'
-})
 // Account
 
 server.route({
