@@ -202,7 +202,7 @@ server.route({
 
 server.route({
 	method: "GET",
-	path: "/tester"
+	path: "/tester",
 	handler: account_handler.retrieve
 });
 
