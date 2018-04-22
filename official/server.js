@@ -1,6 +1,7 @@
+import { SSL_OP_CIPHER_SERVER_PREFERENCE } from 'constants';
+
 const Hapi = require('hapi');
 const server = new Hapi.Server();
-const authentication = require('./authentication')
 const account_handler = require('./account/handlers');
 const job_handler = require('./jobs/handlers');
 const review_handler = require('./reviews/handlers');
@@ -23,8 +24,10 @@ server.connection({ port: 5000, host: "0.0.0.0",
 		}
 	},
 });
-
-
+server.auth.strategy('session', 'cookie', {
+	password: 'areallygoodasspassword',
+	redirectTo: '/'
+});
 
 // Account
 
