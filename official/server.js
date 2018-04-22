@@ -40,6 +40,14 @@ server.route({
 });
 
 server.route({
+	method: 'GET',
+	path: '/logout',
+	handler: function(request, reply) {
+		return reply("login page").code(200);
+	}
+})
+
+server.route({
 	method: "GET",
 	path: "/signup",
 	handler: function(request, reply, err) {
