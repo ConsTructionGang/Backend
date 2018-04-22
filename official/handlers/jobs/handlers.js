@@ -3,6 +3,7 @@ const query = require('./query');
 
 function create(request, reply) {
 	database.runQuery(query.isSupplier(request.params), function(error, results) {
+		if (error) throw error;
 		if(true) {
 			console.log(results);
 		}
