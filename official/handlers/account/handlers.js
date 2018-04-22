@@ -29,9 +29,7 @@ function job(_data) {
 	const data = _data;
 	async function createJob() {
 		return database.runQueryPromise(
-			`SELECT Supply_ID, Supplier_ID, Name, Price
-			FROM Job j natural join SupplyList s natural join Item i natural join Supplies
-			WHERE j.Job_ID = ${data.Job_ID};`
+			query.retrieveJobs(data)
 		).then( (results) => {
 			return {
 				id: data.Job_ID,
@@ -58,11 +56,8 @@ function job(_data) {
 
 function retrieve(request, reply) {
 	let jobList = [];
-	// place the queries in the query file
-	// formatting the response
-	// formatting the code!!!!!!!!!!!!!!!!!!!!!!!!!
 	account = {};
-	database.runQueryPromise(`SELECT * FROM Account a inner join Job j On a.Id = j.Construction_ID where a.ID = 1;`)
+	database.runQueryPromise(query.retrieve)
 	.then( (jobInfo) => {
 		account.id = jobInfo[0]["ID"];
 		account.email = jobInfo[0]["Email"];
