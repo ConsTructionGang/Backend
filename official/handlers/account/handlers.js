@@ -57,7 +57,7 @@ function job(_data) {
 function retrieve(request, reply) {
 	let jobList = [];
 	account = {};
-	database.runQueryPromise(query.retrieve(request.params.id))
+	database.runQueryPromise(query.retrieve(request.params))
 	.then( (jobInfo) => {
 		account.id = jobInfo[0]["ID"];
 		account.email = jobInfo[0]["Email"];
