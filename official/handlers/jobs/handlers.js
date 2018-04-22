@@ -35,10 +35,10 @@ function retrieveAll(request, reply) {
 	database.runQuery(query.isSupplier(request.params), function(error, results) {
 		if (error) {
 			console.log(error);
-			return reply().code(404);
+			return reply({msg:"page not found"}).code(404);
 		}
 		if (results[0].isSupplier){
-			return reply().code(404);
+			return reply{msg:"page not found"}().code(404);
 		} else {
 			database.runQuery(query.retrieveAll(request.params), function(error, results) {
 				if(error) console.log(error);
