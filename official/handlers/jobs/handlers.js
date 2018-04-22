@@ -113,6 +113,7 @@ function retrieve(request, reply) {
 module.exports = {
 	create,
 	remove,
-	retrieveAll
+	retrieveAll,
+	retrieve,
 };
 
