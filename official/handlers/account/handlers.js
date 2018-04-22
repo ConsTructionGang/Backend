@@ -62,6 +62,7 @@ function retrieve(request, reply) {
 	// place the queries in the query file
 	// formatting the response
 	// formatting the code!!!!!!!!!!!!!!!!!!!!!!!!!
+	account = {};
 	database.runQueryPromise(`SELECT * FROM Account a inner join Job j On a.Id = j.Construction_ID where a.ID = 1;`)
 	.then( (jobInfo) => {
 		account.id = jobInfo[0]["ID"];
