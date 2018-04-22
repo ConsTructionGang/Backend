@@ -21,8 +21,10 @@ server.connection({ port: 5000, host: "0.0.0.0",
 			// additionalExposedHeaders: ["Access-Control-Allow-Origin","Access-Control-Allow-Headers",
 			// "Content-Type", "Origin", "Accept-Language"]
 		}
-	}
+	},
 });
+
+
 
 // Account
 
