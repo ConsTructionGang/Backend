@@ -1,4 +1,4 @@
-stategy => {
+function strategy() {
       return server.auth.strategy('session', 'cookie', {
                   password: 'areallygoodasspassword',
                   redirectTo: '/'
@@ -6,4 +6,6 @@ stategy => {
 } ;
 
 
-module.exports = stategy
+module.exports = {
+      strategy,
+}
