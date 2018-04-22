@@ -1,4 +1,3 @@
-import { SSL_OP_CIPHER_SERVER_PREFERENCE } from 'constants';
 
 const Hapi = require('hapi');
 const server = new Hapi.Server();
