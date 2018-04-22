@@ -82,6 +82,7 @@ function job(_data) {
 }
 
 function retrieve(request, reply) {
+	console.log("in this function");
 	let jobList = [];
 	// place the queries in the query file
 	// formatting the response
