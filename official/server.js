@@ -8,6 +8,10 @@ const supply_handler = require('./supplies/handlers');
 const supplier_handler = require('./suppliers/handlers');
 const task_handler = require('./tasks/handlers');
 
+server.auth.default({
+	strategy: 'base'
+})
+
 server.connection({ port: 5000, host: "0.0.0.0",
 	routes: {
 		cors: {
@@ -43,7 +47,7 @@ server.route({
 	method: 'GET',
 	path: '/logout',
 	handler: function(request, reply) {
-		return reply("login page").code(200);
+		return reply("logout page").code(200);
 	}
 })
 
