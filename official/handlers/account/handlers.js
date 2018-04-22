@@ -11,7 +11,7 @@ function login(request, reply) {
 				return reply({
 					message: 'Signin Invalid'
 				}).code(400);
-
+			}
 			return reply({
 				name: results[0].Name,
 				id: results[0].ID,
