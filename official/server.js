@@ -152,7 +152,7 @@ server.route({
 
 server.route({
 	method: 'GET',
-	path: '/jobs',
+	path: '/jobs/{id}',
 	handler: job_handler.retrieveAll
 });
 
