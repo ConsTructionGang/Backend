@@ -2,11 +2,8 @@ const database = require('../database');
 const query = require('./query');
 
 function create(request, reply) {
-	database.runQuery(query.isSupplier(request.params), function(error, results) {
+	database.runQuery(query.isSupplier(request.payload), function(error, results) {
 		if (error) throw error;
-		if(true) {
-			console.log(results);
-		}
 		if (results[0].isSupplier){
 			return reply().code(404);
 		} else {

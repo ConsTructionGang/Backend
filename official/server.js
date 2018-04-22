@@ -146,7 +146,7 @@ server.route({
 
 server.route({
 	method: "POST",
-	path: '/jobs/create',
+	path: '/jobs/create/{id}',
 	handler: job_handler.create
 });
 
