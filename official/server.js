@@ -212,7 +212,7 @@ server.route({
 
 server.route({
 	method: "GET",
-	path: '/tester',
+	path: '/user/{id}',
 	handler: account_handler.retrieve
 })
 
