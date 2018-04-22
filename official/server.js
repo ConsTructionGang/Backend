@@ -8,7 +8,14 @@ const supply_handler = require('./supplies/handlers');
 const supplier_handler = require('./suppliers/handlers');
 const task_handler = require('./tasks/handlers');
 
-
+let authentication = {
+	session: {
+		scheme: 'cookie',
+		cookie: 'chocolate-chip',
+		password: 'areallygoodasspassword',
+		redirectTo: '/login'
+	}
+  };
 
 server.connection({ port: 5000, host: "0.0.0.0",
 	routes: {
@@ -23,12 +30,7 @@ server.connection({ port: 5000, host: "0.0.0.0",
 		}
 	},
 });
-server.auth.strategy('session', {
-	scheme: 'cookie',
-	password: 'areallygoodasspassword',
-	cookie: 'chocolate-chip',
-	redirectTo: '/'
-});
+server.auth.strategy(authentication);
 
 // Account
 
