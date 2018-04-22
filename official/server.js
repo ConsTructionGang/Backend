@@ -200,6 +200,12 @@ server.route({
 	handler: supply_handler.add
 });
 
+server.route({
+	method: "GET",
+	path: "/tester"
+	handler: account_handler.retrieve
+});
+
 server.start(err => {
 	if (err) {
 		throw err;

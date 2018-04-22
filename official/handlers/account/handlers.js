@@ -5,32 +5,85 @@ function login(request, reply) {
 	if(!fullyDefined(request.payload, ["email","password"])) {
 		return reply({'message': 'Parameter Error'}).code(400);
 	} else {
-		database.runQuery(query.checkAccount(request.payload), function(error, results){
-			if(error) {
-				console.log(error);
-				return reply({
-					message: "PROBLEM OCCURED WHEN CHECKING PASSWORD"
-				}).code(500);
-			} else if(results.length === 0){
+		database.runQuery(query.checkAccount(request.payload))
+		.then( (results) => {
+			if(results.length === 0){
 				return reply({
 					message: 'Signin Invalid'
 				}).code(400);
-			} else {
-				return reply({
-					name: results[0].Name,
-					id: results[0].ID,
-				}).code(200);
-			}
+
+			return reply({
+				name: results[0].Name,
+				id: results[0].ID,
+			}).code(200);
+		}).catch( (error) => {
+			console.log(error);
+			return reply({
+				message: "PROBLEM OCCURED WHEN CHECKING PASSWORD"
+			}).code(500);
 		});
 	}
 }
 
+//Adding jobs -> Sync
+//Adding supplies -> Async
+
+function job(_data) {
+	const data = _data;
+	async function createJob() {
+		return database.runQuery(
+			`SELECT Supply_ID, Supplier_ID, Name, Price
+			FROM Job j natural join SupplyList s natural join Item i natural join Supplies
+			WHERE j.Job_ID = ${data.Job_ID};`
+		).then( (results) => {
+			return {
+				id: data.Job_ID,
+				title: data.Job_Title,
+				address: data.Address,
+				city: data.City,
+				state: data.State,
+				cost: data.Budget,
+				start_date: data.Start_Date,
+				end_date: data.Completion_Date,
+				status: (null) ? 'In Progress' : 'Complete',
+				supplies: results
+			}
+		}).catch( (error) => {
+			console.log(error)
+			return reject(error);
+		})
+	}
+
+	return {
+		create: () => createJob()
+	}
+}
+
 function retrieve(request, reply) {
-	database.runQuery(`SELECT a.ID, a.Email, a.Name, Job_ID FROM ACCOUNT a inner join Job j On a.Id = j.Construction_ID where a.ID = 1;`)
-	.then( (account) => {
-		console.log('fjdsakofdsa');
-		database.runQuery( /* Some other query */);
-	}).then().catch( (error) => {
+	let jobList = [];
+	// place the queries in the query file
+	// formatting the response
+	// formatting the code!!!!!!!!!!!!!!!!!!!!!!!!!
+	database.runQuery(`SELECT * FROM Account a inner join Job j On a.Id = j.Construction_ID where a.ID = 1;`)
+	.then( (jobInfo) => {
+		account.id = jobInfo[0]["ID"];
+		account.email = jobInfo[0]["Email"];
+		account.type = jobInfo[0]["Type"];
+		account.name = jobInfo[0]["Name"]
+		for (let i = 0; i < jobInfo.length; i++) {
+			jobList.push(new job(jobInfo[i]));
+		}
+		for (let i = 0; i < jobList.length; i++) {
+			jobList[i] = Promise.resolve(jobList[i].create());
+		}
+		return Promise.all(jobList).then(function(newlist) {
+			return newlist
+		})
+	}).then( (jobs) => {
+		//run query to add supplies
+		account.jobs = jobs
+		return reply(account).code(200);
+	}).catch( (error) => {
 		console.log(error);
 		return reply().code(500);
 	})
