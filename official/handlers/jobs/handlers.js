@@ -3,8 +3,11 @@ const query = require('./query');
 
 function create(request, reply) {
 	database.runQuery(query.isSupplier(request.payload), function(error, results) {
-		if (error) throw error;
-		if (results === undefined ||results[0].isSupplier){
+		if (error) {
+			console.log(error);
+			return reply().code(404);
+		}
+		if (results[0].isSupplier){
 			return reply().code(404);
 		} else {
 			database.runQuery(query.add(request.payload, request.params), function(error) {
@@ -30,8 +33,11 @@ function remove(request, reply) {
 
 function retrieveAll(request, reply) {
 	database.runQuery(query.isSupplier(request.params), function(error, results) {
-		if (error) throw error;
-		if (results === undefined || results[0].isSupplier){
+		if (error) {
+			console.log(error);
+			return reply().code(404);
+		}
+		if (results[0].isSupplier){
 			return reply().code(404);
 		} else {
 			database.runQuery(query.retrieveAll(request.params), function(error, results) {
