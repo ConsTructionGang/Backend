@@ -3,6 +3,7 @@ const query = require('./query');
 
 function create(request, reply) {
 	database.runQuery(query.isSupplier(request.params), function(error, results) {
+		console.log(results[0]);
 		if (results[0].isSupplier){
 			return reply().code(404);
 		} else {
