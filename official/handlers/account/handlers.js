@@ -13,7 +13,7 @@ function login(request, reply) {
 				id: results[0].ID,
 			}).code(200);
 		}).catch( (error) => {
-			if (error == 'no-mathc') {
+			if (error == 'no-match') {
 				return reply({ message: "Signin Invalid" }).code(400);
 			} else {
 				console.log(error);
@@ -31,10 +31,8 @@ function login(request, reply) {
 function job(_data) {
 	const data = _data;
 	async function createJob() {
-		return database.runQuery(
-			`SELECT Supply_ID, Supplier_ID, Name, Price
-			FROM Job j natural join SupplyList s natural join Item i natural join Supplies
-			WHERE j.Job_ID = ${data.Job_ID};`
+		return database.runQueryPromise(
+			query.retrieveJobs(data)
 		).then( (results) => {
 			return {
 				id: data.Job_ID,
@@ -60,32 +58,43 @@ function job(_data) {
 }
 
 function retrieve(request, reply) {
-	let jobList = [];
-	// place the queries in the query file
-	// formatting the response
-	// formatting the code!!!!!!!!!!!!!!!!!!!!!!!!!
-	database.runQuery(`SELECT * FROM Account a inner join Job j On a.Id = j.Construction_ID where a.ID = 1;`)
-	.then( (jobInfo) => {
-		account.id = jobInfo[0]["ID"];
-		account.email = jobInfo[0]["Email"];
-		account.type = jobInfo[0]["Type"];
-		account.name = jobInfo[0]["Name"]
-		for (let i = 0; i < jobInfo.length; i++) {
-			jobList.push(new job(jobInfo[i]));
+	database.runQuery(query.isSupplier(request.params), function(error, result){
+		if(error) throw error;
+		if(result.length != 0) {
+			console.log("return");
+			return reply().code(404);
+		} else {
+			let jobList = [];
+			account = {};
+			database.runQueryPromise(query.retrieve(request.params))
+			.then( (jobInfo) => {
+				if (jobInfo.length === 0) throw 'no-jobs';
+				account.id = jobInfo[0]["ID"];
+				account.email = jobInfo[0]["Email"];
+				account.type = jobInfo[0]["Type"];
+				account.name = jobInfo[0]["Name"]
+				for (let i = 0; i < jobInfo.length; i++) {
+					jobList.push(new job(jobInfo[i]));
+				}
+				for (let i = 0; i < jobList.length; i++) {
+					jobList[i] = Promise.resolve(jobList[i].create());
+				}
+				return Promise.all(jobList).then(function(newlist) {
+					return newlist
+				})
+			}).then( (jobs) => {
+				//run query to add supplies
+				account.jobs = jobs
+				return reply(account).code(200);
+			}).catch( (error) => {
+				console.log(error);
+				if(error === 'no-jobs') {
+					return reply({message: "no-jobs"}).code(400)
+				} else {
+					return reply().code(500);
+				}
+			})
 		}
-		for (let i = 0; i < jobList.length; i++) {
-			jobList[i] = Promise.resolve(jobList[i].create());
-		}
-		return Promise.all(jobList).then(function(newlist) {
-			return newlist
-		})
-	}).then( (jobs) => {
-		//run query to add supplies
-		account.jobs = jobs
-		return reply(account).code(200);
-	}).catch( (error) => {
-		console.log(error);
-		return reply().code(500);
 	})
 }
 
@@ -99,12 +108,12 @@ function register(request, reply) {
 		}).code(400);
 	}
 
-	database.runQuery(query.checkEmail(request.payload))
+	database.runQueryPromise(query.checkEmail(request.payload))
 		.then( (results) => {
 			if(results.length !== 0) throw 'already-exists';
 			const insert = (request.payload.type === 1) ? 
 				query.addSupplier(request.payload) : query.addUser(request.payload);
-			database.runQuery(insert);
+			database.runQueryPromise(insert);
 		}).then( () => {
 			return reply({ message: "Account created" }).code(201);
 		}).catch( (error) => {
@@ -123,10 +132,10 @@ function changePassword(request, reply) {
 		return reply("bad parameter error").code(400);
 	}
 
-	database.runQuery(query.checkAccount(request.payload))
+	database.runQueryPromise(query.checkAccount(request.payload))
 		.then( (results) => {
 			if(results.length === 0) throw 'no-match';
-			database.runQuery(query.changePassword(request.payload));
+			database.runQueryPromise(query.changePassword(request.payload));
 		}).then( () => {
 			return reply({
 				message:"Password Successfully Changed"

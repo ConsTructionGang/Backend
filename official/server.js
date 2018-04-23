@@ -1,6 +1,6 @@
+
 const Hapi = require('hapi');
 const server = new Hapi.Server();
-
 const account_handler = require('./account/handlers');
 const job_handler = require('./jobs/handlers');
 const review_handler = require('./reviews/handlers');
@@ -19,8 +19,10 @@ server.connection({ port: 5000, host: "0.0.0.0",
 			// additionalExposedHeaders: ["Access-Control-Allow-Origin","Access-Control-Allow-Headers",
 			// "Content-Type", "Origin", "Accept-Language"]
 		}
-	}
+	},
 });
+
+server.auth.strategy('session', 'cookie');
 
 // Account
 
@@ -38,6 +40,14 @@ server.route({
 	path: '/login',
 	handler: account_handler.login
 });
+
+server.route({
+	method: 'GET',
+	path: '/logout',
+	handler: function(request, reply) {
+		return reply("logout page").code(200);
+	}
+})
 
 server.route({
 	method: "GET",
@@ -146,13 +156,13 @@ server.route({
 
 server.route({
 	method: "POST",
-	path: '/jobs/create',
+	path: '/jobs/create/{id}',
 	handler: job_handler.create
 });
 
 server.route({
 	method: 'GET',
-	path: '/jobs',
+	path: '/jobs/{id}',
 	handler: job_handler.retrieveAll
 });
 
@@ -202,7 +212,7 @@ server.route({
 
 server.route({
 	method: "GET",
-	path: "/tester",
+	path: '/user/{id}',
 	handler: account_handler.retrieve
 });
 

@@ -2,10 +2,10 @@ const database = require('../database');
 const query = require('./query');
 
 function create(request, reply) {
-	database.runQuery(query.isSupplier(request.params))
+	database.runQueryPromise(query.isSupplier(request.params))
 		.then( (results) => {
 			if (results[0].isSupplier) throw 'no-page';
-			database.runQuery(query.add(request.payload, request.params));
+			database.runQueryPromise(query.add(request.payload, request.params));
 		}).then( () => {
 			return reply({
 				message: "Job created"
@@ -25,10 +25,10 @@ function remove(request, reply) {
 }
 
 function retrieveAll(request, reply) {
-	database.runQuery(query.isSupplier(request.params))
+	database.runQueryPromise(query.isSupplier(request.params))
 		.then( (results) => {
 			if (results[0].isSupplier) throw 'no-page';
-			database.runQuery(query.retrieveAll(request.params));
+			database.runQueryPromise(query.retrieveAll(request.params));
 		}).then( (results) => {
 			return reply(results).code(200);
 		}).catch( (error) => {
@@ -44,6 +44,6 @@ function retrieveAll(request, reply) {
 module.exports = {
 	create,
 	remove,
-	retrieveAll
+	retrieveAll,
 };
 

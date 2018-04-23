@@ -13,7 +13,7 @@ const database = mysql.createPool({
 
 // Function to run basic queries
 
-function runQuery(query, callback){
+function runQueryPromise(query, callback){
 	return new Promise( (resolve, reject) => {
 		database.query(query, function(error, results) {
 			if (error) reject(error);
@@ -22,7 +22,13 @@ function runQuery(query, callback){
 	});
 
 }
-
+function runQuery(query, callback){
+	console.log(query);
+	database.query(query, function(error, results) {
+		return callback(error, results);
+	});
+}
 module.exports = {
-	runQuery
+	runQuery,
+	runQueryPromise,
 };
