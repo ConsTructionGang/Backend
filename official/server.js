@@ -32,7 +32,12 @@ server.register([
 	    console.error('Failed to load a plugin:', err);
 	    throw err;
 	}
-  })
+})
+
+server.auth.strategy('session', 'cookie', {
+	password: 'oatmeal-raisin',
+	cookie: 'chocolate-chip'
+})
 // Account
 
 server.route({
