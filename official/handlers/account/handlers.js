@@ -57,7 +57,7 @@ function job(_data) {
 function retrieve(request, reply) {
 	database.runQuery(query.isSupplier(request.params), function(error, result){
 		if(error) throw error;
-		if(!(result.length === 0)) {
+		if(result.length != 0) {
 			console.log("return");
 			return reply().code(404);
 		} else {
@@ -65,6 +65,7 @@ function retrieve(request, reply) {
 			account = {};
 			database.runQueryPromise(query.retrieve(request.params))
 			.then( (jobInfo) => {
+				console.log(jobInfo)
 				account.id = jobInfo[0]["ID"];
 				account.email = jobInfo[0]["Email"];
 				account.type = jobInfo[0]["Type"];
