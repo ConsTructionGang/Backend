@@ -85,7 +85,7 @@ function retrieve(request, reply) {
 				return reply(account).code(200);
 			}).catch( (error) => {
 				console.log(error);
-				if(err === 'no-jobs') {
+				if(error === 'no-jobs') {
 					return reply({message: "no-jobs"}).code(400)
 				} else {
 					return reply().code(500);
