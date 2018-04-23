@@ -65,7 +65,7 @@ function retrieve(request, reply) {
 			account = {};
 			database.runQueryPromise(query.retrieve(request.params))
 			.then( (jobInfo) => {
-				console.log(jobInfo)
+				if (jobInfo.length === 0) throw 'no-jobs';
 				account.id = jobInfo[0]["ID"];
 				account.email = jobInfo[0]["Email"];
 				account.type = jobInfo[0]["Type"];
@@ -85,7 +85,12 @@ function retrieve(request, reply) {
 				return reply(account).code(200);
 			}).catch( (error) => {
 				console.log(error);
-				return reply().code(500);
+				if(err === 'no-jobs') {
+					return reply({message: "no-jobs"}).code(400)
+				} else {
+					return reply().code(500);
+				}
+
 			})
 		}
 	})
