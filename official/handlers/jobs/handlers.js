@@ -1,11 +1,13 @@
 const database = require('../database');
-const query = require('./query');
+
+const jobs = require('./query');
+const account = require('../account/query');
 
 function create(request, reply) {
-	database.runQueryPromise(query.isSupplier(request.params))
+	database.runQueryPromise(account.isSupplier(request.params))
 		.then( (results) => {
 			if (results[0].isSupplier) throw 'no-page';
-			database.runQueryPromise(query.add(request.payload, request.params));
+			database.runQueryPromise(jobs.add(request.payload, request.params));
 		}).then( () => {
 			return reply({
 				message: "Job created"
@@ -25,10 +27,10 @@ function remove(request, reply) {
 }
 
 function retrieveAll(request, reply) {
-	database.runQueryPromise(query.isSupplier(request.params))
+	database.runQueryPromise(account.isSupplier(request.params))
 		.then( (results) => {
 			if (results[0].isSupplier) throw 'no-page';
-			database.runQueryPromise(query.retrieveAll(request.params));
+			database.runQueryPromise(jobs.retrieveAll(request.params));
 		}).then( (results) => {
 			return reply(results).code(200);
 		}).catch( (error) => {

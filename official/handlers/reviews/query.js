@@ -37,10 +37,6 @@ const query = {
 		`DELETE FROM Review
 		WHERE Supplier_ID = '${params.supplier_id}'
 		AND Author_ID = '${payload.author_id}';`,
-	isSupplier: params =>
-		`SELECT isSupplier
-		FROM Account
-		WHERE ID = '${params.supplier_id}';`,
 	authorIsSupplier: payload =>
 		`SELECT isSupplier
 		FROM Account

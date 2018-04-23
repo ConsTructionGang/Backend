@@ -29,12 +29,12 @@ const query = {
 		`SELECT isSupplier
 		FROM Account
 		WHERE ID = '${params.supplier_id}';`,
-	retrieveAllSuppliersByName: params =>
+	retrieveAllByName: params =>
 		`SELECT Supply_ID, Supplier_ID, Price, i.Name, Email, Address, City, State
 		FROM Supplies s  NATURAL JOIN Item i INNER JOIN Account a
 		ON s.Supplier_ID = a.ID
 		Where i.Name LIKE '%${params.supply}%';`,
-	retrieveAllSuppliersByID: params =>
+	retrieveAllByID: params =>
 		`SELECT Supply_ID, Supplier_ID, Price, i.Name, Email, Address, City, State
 		FROM Supplies s  NATURAL JOIN Item i INNER JOIN Account a
 		ON s.Supplier_ID = a.ID

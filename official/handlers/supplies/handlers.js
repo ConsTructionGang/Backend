@@ -1,8 +1,8 @@
 const database = require('../database');
-const query = require('./query');
+const supplies = require('./query');
 
 function create(request, reply) {
-	database.runQuery(query.create(request.payload))
+	database.runQuery(supplies.create(request.payload))
 		.then(() => {
 			return reply({
 				message: "Supplies addded"
@@ -16,7 +16,7 @@ function create(request, reply) {
 }
 
 function view(request, reply) {
-	database.runQuery(query.view(request.payload))
+	database.runQuery(supplies.view(request.payload))
 		.then((results) => {
 			return reply({results}).code(200);
 		}).catch((error) => {
@@ -40,7 +40,7 @@ function add(request, reply){
 		}
 	}
 
-	database.runQuery(query.add(string))
+	database.runQuery(supplies.add(string))
 		.then(() => {
 			return reply({
 				message: "Supplies added"
@@ -58,7 +58,7 @@ function remove(request, reply) {
 }
 
 function viewTagged(request, reply) {
-	database.runQuery(query.viewSuppliesTagged(request.params), function(error, results) {
+	database.runQuery(supplies.viewTagged(request.params), function(error, results) {
 		if (error) {
 			console.log("ERROR VIEWING SUPPLIES");
 			console.log(error);
@@ -81,7 +81,7 @@ function viewTaggedMultiple(request, reply) {
 			string += 'OR ';
 		}
 	}
-	database.runQuery(query.viewSuppliesTaggedMultiple(string), function(error, results) {
+	database.runQuery(supplies.viewTaggedMultiple(string), function(error, results) {
 		if (error) {
 			console.log("ERROR VIEWING SUPPLIES");
 			console.log(error);
@@ -94,7 +94,7 @@ function viewTaggedMultiple(request, reply) {
 }
 
 function viewSortedASC(request, reply) {
-	database.runQuery(query.viewSuppliesSortedASC(request.params), function(error, results) {
+	database.runQuery(supplies.viewSortedASC(request.params), function(error, results) {
 		if (error) {
 			console.log("ERROR VIEWING SUPPLIES");
 			console.log(error);
@@ -107,7 +107,7 @@ function viewSortedASC(request, reply) {
 }
 
 function viewSortedDSC(request, reply) {
-	database.runQuery(query.viewSuppliesSortedDSC(request.params), function(error, results) {
+	database.runQuery(supplies.viewSortedDSC(request.params), function(error, results) {
 		if (error) {
 			console.log("ERROR VIEWING SUPPLIES");
 			console.log(error);
