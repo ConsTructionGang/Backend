@@ -54,7 +54,7 @@ const query = {
     FROM Account a inner join Job j On a.Id = j.Construction_ID 
     WHERE a.ID = ${params.id};`,
 	retrieveJobs: params =>
-    `SELECT Supply_ID, Supplier_ID, Name, Price
+    `SELECT Supply_ID as id, Supplier_ID as supplierId, Name as name
     FROM Job j natural join SupplyList s natural join Item i natural join Supplies
     WHERE j.Job_ID = ${params.Job_ID};`,
 	isSupplier: params =>
