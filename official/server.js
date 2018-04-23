@@ -22,12 +22,6 @@ server.connection({ port: 5000, host: "0.0.0.0",
 			// "Content-Type", "Origin", "Accept-Language"]
 		}
 	},
-	// auth: {
-	// 	default: {
-	// 		strategy: session
-			
-	// 	}
-	// }
 });
 
 // const scheme = function (server, options) {
@@ -238,7 +232,7 @@ server.route({
 
 server.route({
 	method: "GET",
-	path: '/user/{id}',
+	path: '/userpage/{id}',
 	handler: account_handler.retrieve
 });
 
