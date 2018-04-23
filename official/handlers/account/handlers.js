@@ -5,7 +5,7 @@ function login(request, reply) {
 	if(!fullyDefined(request.payload, ["email","password"])) {
 		return reply({'message': 'Parameter Error'}).code(400);
 	} else {
-		database.runQuery(query.checkAccount(request.payload))
+		database.runQueryPromise(query.checkAccount(request.payload))
 		.then( (results) => {
 			if(results.length === 0) throw 'no-match'
 			return reply({
