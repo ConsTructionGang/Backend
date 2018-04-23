@@ -87,10 +87,10 @@ function retrieve(request, reply) {
 				account.jobs = jobs
 				return reply(account).code(200);
 			}).catch( (error) => {
-				console.log(error);
 				if(error === 'no-jobs') {
 					return reply([]).code(400)
 				} else {
+					console.log(error);
 					return reply().code(500);
 				}
 			})
