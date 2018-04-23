@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const basicSelect = parameters =>
 	`SELECT ${parameters}
 	FROM Account
@@ -100,8 +99,7 @@ const addJob = payload =>
 		'${payload.budget}',
 		'${payload.completion_date}'
 	);`;
-=======
->>>>>>> 57c8d9bb38f7bcce76e9f432eeb8bc44f00397f2
+
 const addSupplyToSupplyList = payload  =>
 	`INSERT INTO SupplyList(
 	Job_ID,
