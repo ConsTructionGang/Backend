@@ -8,6 +8,7 @@ const supply_handler = require('./supplies/handlers');
 const supplier_handler = require('./suppliers/handlers');
 const task_handler = require('./tasks/handlers');
 const cookie = require('hapi-auth-cookie');
+const query = require('./query');
 
 server.connection({ port: 5000, host: "0.0.0.0",
 	routes: {
@@ -29,12 +30,26 @@ server.connection({ port: 5000, host: "0.0.0.0",
 	// }
 });
 
-server.auth.scheme('cookie')
+// const scheme = function (server, options) {
+// 	return {
+// 	    authenticate: function (request, h) {
+// 		  const req = request.raw.req;
+// 		  const authorization = req.headers.authorization;
+// 		  if (!authorization) {
+// 			throw Boom.unauthorized(null, 'Custom');
+// 		  }
+  
+// 		  return h.authenticated({ credentials: { user: 'john' } });
+// 	    }
+// 	};
+// };
 
-server.auth.strategy('session', 'cookie', {
-	password: 'oatmeal-raisin',
-	cookie: 'chocolate-chip'
-})
+// server.auth.scheme('cookie', scheme)
+
+// server.auth.strategy('session', 'cookie', {
+// 	password: 'oatmeal-raisin',
+// 	cookie: 'chocolate-chip'
+// })
 // Account
 
 server.route({

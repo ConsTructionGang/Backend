@@ -123,8 +123,10 @@ const addSupplyToSupplyListMultiple = payloadstring =>
 	ON DUPLICATE KEY UPDATE Quantity = Quantity + values(Quantity);
 	;`;
 
+const authenticate = payload =>
+	``
 module.exports = {
-<<<<<<< HEAD
+	authenticate,
 	basicSelect,
 	addUser,
 	addSupplier,
@@ -137,8 +139,6 @@ module.exports = {
 	changePassword,
 	addJob,
 	deleteJob,
-=======
->>>>>>> 57c8d9bb38f7bcce76e9f432eeb8bc44f00397f2
 	deleteJobSupplies,
 	addSupplyToSupplyList,
 	addSupplyToSupplyListMultiple,
