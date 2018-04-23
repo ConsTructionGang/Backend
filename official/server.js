@@ -25,14 +25,14 @@ server.connection({ port: 5000, host: "0.0.0.0",
 
 const scheme = function (server, options) {
 	return {
-	    authenticate: function (request, h) {
+		authenticate: function (request, h) {
 
-		  const authorization = request.headers.authorization;
-		  if (!authorization) {
-			throw Boom.unauthorized(null, 'Custom');
-		  }
-		  return h.authenticated({ credentials: { user: 'john' } });
-	    }
+			const authorization = request.headers.authorization;
+			if (!authorization) {
+				throw Boom.unauthorized(null, 'Custom');
+			}
+			return h.authenticated({ credentials: { user: 'john' } });
+		}
 	};
 };
 
