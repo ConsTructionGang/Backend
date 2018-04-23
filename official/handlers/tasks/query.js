@@ -1,18 +1,23 @@
 const query = {
 	retrieveAll: params =>
-		`SELECT * 
-			FROM Task
-			WHERE Job_ID = ${params.id};`,
+		`SELECT 
+			Name,
+			Description,
+			Priority,
+			Creation_Date,
+			Estimated_Date
+		FROM Task
+		WHERE Account_ID = ${params.id};`,
 	create: payload =>
 		`INSERT INTO Task (
-			Job_ID,
+			Account_ID,
 			Name,
 			Description,
 			Priority,
 			Creation_Date,
 			Estimated_Date
 		) VALUES (
-			'${payload.job_id}',
+			'${payload.account_id}',
 			'${payload.taskname}',
 			'${payload.description}',
 			'${payload.priority}',

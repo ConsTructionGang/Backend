@@ -1,6 +1,8 @@
 const database = require("../database");
 const query = require("./query");
 
+const task_query = require('../tasks/query');
+
 function login(request, reply) {
 	if(!fullyDefined(request.payload, ["email","password"])) {
 		return reply({'message': 'Parameter Error'}).code(400);
@@ -85,7 +87,11 @@ function retrieve(request, reply) {
 			}).then( (jobs) => {
 				//run query to add supplies
 				account.jobs = jobs
-				return reply(account).code(200);
+				return database.runQueryPromise(task_query.retrieveAll(request.params));
+			}).then( (tasks) => {
+				console.log(tasks);
+				account.tasks = tasks;
+				return reply(account).code(200)
 			}).catch( (error) => {
 				if(error === 'no-jobs') {
 					return reply([]).code(400)
