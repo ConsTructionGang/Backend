@@ -89,7 +89,6 @@ function retrieve(request, reply) {
 				account.jobs = jobs
 				return database.runQueryPromise(task_query.retrieveAll(request.params));
 			}).then( (tasks) => {
-				console.log(tasks);
 				account.tasks = tasks;
 				return reply(account).code(200)
 			}).catch( (error) => {
