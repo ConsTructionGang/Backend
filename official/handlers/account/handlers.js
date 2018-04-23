@@ -89,7 +89,7 @@ function retrieve(request, reply) {
 			}).catch( (error) => {
 				console.log(error);
 				if(error === 'no-jobs') {
-					return reply({message: "no-jobs"}).code(400)
+					return reply([]).code(400)
 				} else {
 					return reply().code(500);
 				}
