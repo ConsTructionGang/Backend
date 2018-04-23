@@ -1,26 +1,32 @@
+/* handlers.js
+* Construction Company
+*"function hadnlers for account managment"
+*By:Zach Banducci, Tyrone Criddle, Fernando Corral
+*/
 const database = require("../database");
 const query = require("./query");
 
 const task_query = require('../tasks/query');
 
+//attempts to login user
 function login(request, reply) {
-	if(!fullyDefined(request.payload, ["email","password"])) {
-		return reply({'message': 'Parameter Error'}).code(400);
+	if(!fullyDefined(request.payload, ["email","password"])) {//if payload received in incorrect format
+		return reply({'message': 'Parameter Error'}).code(400);//Throw error
 	} else {
 		database.runQueryPromise(query.checkAccount(request.payload))
 		.then( (results) => {
 			if(results.length === 0) throw 'no-match'
-			return reply({
+			return reply({//if success return reply with ID and name
 				"id": results[0].ID,
 				"name": results[0].Name,
 			}).code(200);
 		}).catch( (error) => {
-			if (error == 'no-match') {
-				return reply({ message: "Bad Request" }).code(400);
+			if (error == 'no-match') {//If no account found
+				return reply({ message: "Bad Request" }).code(400);//throw error
 			} else {
 				console.log(error);
 				return reply({
-					message: "PROBLEM OCCURED WHEN CHECKING PASSWORD"
+					message: "PROBLEM OCCURED WHEN CHECKING PASSWORD"//Any other error, throw error
 				}).code(500);
 			}
 		});
