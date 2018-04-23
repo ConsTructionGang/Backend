@@ -1,5 +1,3 @@
-import { request } from 'https';
-
 const Hapi = require('hapi');
 const server = new Hapi.Server();
 const account_handler = require('./account/handlers');
