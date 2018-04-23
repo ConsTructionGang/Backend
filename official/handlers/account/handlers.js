@@ -9,12 +9,12 @@ function login(request, reply) {
 		.then( (results) => {
 			if(results.length === 0) throw 'no-match'
 			return reply({
-				name: results[0].Name,
-				id: results[0].ID,
+				"id": results[0].ID,
+				"name": results[0].Name,
 			}).code(200);
 		}).catch( (error) => {
 			if (error == 'no-match') {
-				return reply({ message: "Signin Invalid" }).code(400);
+				return reply({ message: "Bad Request" }).code(400);
 			} else {
 				console.log(error);
 				return reply({
@@ -100,7 +100,6 @@ function retrieve(request, reply) {
 
 function register(request, reply) {
 	request.payload.type = (request.payload.type === "User") ? 0 : 1;
-
 	if(!fullyDefined(request.payload,
 		["name", "password", "email", "type"])) {
 		return reply({
@@ -111,11 +110,16 @@ function register(request, reply) {
 	database.runQueryPromise(query.checkEmail(request.payload))
 		.then( (results) => {
 			if(results.length !== 0) throw 'already-exists';
-			const insert = (request.payload.type === 1) ? 
+			const insert = (request.payload.type === 1) ?
 				query.addSupplier(request.payload) : query.addUser(request.payload);
 			database.runQueryPromise(insert);
 		}).then( () => {
-			return reply({ message: "Account created" }).code(201);
+			return return reply({
+				"email": request.payload.email,
+				"name":request.payload.name,
+				"password":request.payload.password,
+				"type":request.payload.type,
+			}).code(201);
 		}).catch( (error) => {
 			if (error == 'already-exists') {
 				return reply({ message: "Account already exists. Please log in" }).code(400);
