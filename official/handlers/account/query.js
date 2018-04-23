@@ -61,7 +61,7 @@ const query = {
 	`SELECT *
 	FROM Account
 	WHERE ID = ${params.id}
-	AND WHERE isSupplier = 1`
+	AND isSupplier = 1`
 };
 
 module.exports = query;
