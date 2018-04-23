@@ -60,33 +60,35 @@ function retrieve(request, reply) {
 		if(!(result.length === 0)) {
 			console.log("return");
 			return reply().code(404);
+		} else {
+			let jobList = [];
+			account = {};
+			database.runQueryPromise(query.retrieve(request.params))
+			.then( (jobInfo) => {
+				account.id = jobInfo[0]["ID"];
+				account.email = jobInfo[0]["Email"];
+				account.type = jobInfo[0]["Type"];
+				account.name = jobInfo[0]["Name"]
+				for (let i = 0; i < jobInfo.length; i++) {
+					jobList.push(new job(jobInfo[i]));
+				}
+				for (let i = 0; i < jobList.length; i++) {
+					jobList[i] = Promise.resolve(jobList[i].create());
+				}
+				return Promise.all(jobList).then(function(newlist) {
+					return newlist
+				})
+			}).then( (jobs) => {
+				//run query to add supplies
+				account.jobs = jobs
+				return reply(account).code(200);
+			}).catch( (error) => {
+				console.log(error);
+				return reply().code(500);
+			})
 		}
 	})
-	let jobList = [];
-	account = {};
-	database.runQueryPromise(query.retrieve(request.params))
-	.then( (jobInfo) => {
-		account.id = jobInfo[0]["ID"];
-		account.email = jobInfo[0]["Email"];
-		account.type = jobInfo[0]["Type"];
-		account.name = jobInfo[0]["Name"]
-		for (let i = 0; i < jobInfo.length; i++) {
-			jobList.push(new job(jobInfo[i]));
-		}
-		for (let i = 0; i < jobList.length; i++) {
-			jobList[i] = Promise.resolve(jobList[i].create());
-		}
-		return Promise.all(jobList).then(function(newlist) {
-			return newlist
-		})
-	}).then( (jobs) => {
-		//run query to add supplies
-		account.jobs = jobs
-		return reply(account).code(200);
-	}).catch( (error) => {
-		console.log(error);
-		return reply().code(500);
-	})
+
 }
 
 function register(request, reply) {
