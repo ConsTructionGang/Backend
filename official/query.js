@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const basicSelect = parameters =>
 	`SELECT ${parameters}
 	FROM Account
@@ -100,8 +99,7 @@ const addJob = payload =>
 		'${payload.budget}',
 		'${payload.completion_date}'
 	);`;
-=======
->>>>>>> 57c8d9bb38f7bcce76e9f432eeb8bc44f00397f2
+
 const addSupplyToSupplyList = payload  =>
 	`INSERT INTO SupplyList(
 	Job_ID,
@@ -123,23 +121,23 @@ const addSupplyToSupplyListMultiple = payloadstring =>
 	ON DUPLICATE KEY UPDATE Quantity = Quantity + values(Quantity);
 	;`;
 
+const authenticate = payload =>
+	``
 module.exports = {
-<<<<<<< HEAD
-	basicSelect,
-	addUser,
-	addSupplier,
-	checkUser,
-	checkAccount,
-	createSession,
-	deleteSession,
-	checkSession,
-	getSession,
-	changePassword,
-	addJob,
-	deleteJob,
-=======
->>>>>>> 57c8d9bb38f7bcce76e9f432eeb8bc44f00397f2
-	deleteJobSupplies,
-	addSupplyToSupplyList,
-	addSupplyToSupplyListMultiple,
+	// authenticate,
+	// basicSelect,
+	// addUser,
+	// addSupplier,
+	// checkUser,
+	// checkAccount,
+	// createSession,
+	// deleteSession,
+	// checkSession,
+	// getSession,
+	// changePassword,
+	// addJob,
+	// deleteJob,
+	// deleteJobSupplies,
+	// addSupplyToSupplyList,
+	// addSupplyToSupplyListMultiple,
 };
