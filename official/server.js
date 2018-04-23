@@ -22,7 +22,10 @@ server.connection({ port: 5000, host: "0.0.0.0",
 	},
 });
 
-server.auth.strategy('session', 'cookie');
+server.auth.strategy('session', 'cookie', {
+	passsord: 'oatmealraisin',
+	cookie: 'chocolate-chip'
+});
 
 // Account
 
