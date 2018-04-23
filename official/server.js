@@ -38,6 +38,8 @@ const scheme = function (server, options) {
 
 server.auth.scheme('cookie', scheme)
 
+server.auth.default('session');
+
 server.auth.strategy('session', 'cookie', {
 	password: 'oatmeal-raisin',
 	cookie: 'chocolate-chip'
