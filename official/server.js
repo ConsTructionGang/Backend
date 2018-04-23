@@ -23,7 +23,15 @@ server.connection({ port: 5000, host: "0.0.0.0",
 	},
 });
 
-server.auth.strategy('session', 'cookie', {
+server.register([
+	{register: require('hapi-auth-cookie')}], 
+	function(err) {
+	if (err) {
+	    console.error('Failed to load a plugin:', err);
+	    throw err;
+	}
+
+server.auth.strategy('session', cookie, {
 	passsord: 'oatmealraisin',
 	cookie: 'chocolate-chip'
 });
