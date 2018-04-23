@@ -2,29 +2,22 @@ const database = require('../database');
 const query = require('./query');
 
 function create(request, reply) {
-	database.runQuery(query.isSupplier(request.payload), function(error, results) {
-		if (error) {
-			console.log(error);
-			return reply({msg:"page not found"}).code(404);
-		}
-		if (results[0].isSupplier){
-			return reply({msg:"page not found"}).code(404);
-		} else {
-			database.runQuery(query.add(request.payload, request.params), function(error) {
-				let msg;
-				if (error) {
-					console.log("ERROR OCCURRED WHEN INSERTING JOB");
-					console.log(error);
-					msg = "Problem occured when creating job";
-				} else {
-					msg = "Job Created";
-				}
-				return reply({
-					message: msg
-				}).code(error ? 500 : 200);
-			});
-		}
-	});
+	database.runQueryPromise(query.isSupplier(request.params))
+		.then( (results) => {
+			if (results[0].isSupplier) throw 'no-page';
+			database.runQueryPromise(query.add(request.payload, request.params));
+		}).then( () => {
+			return reply({
+				message: "Job created"
+			}).code(200);
+		}).catch( (error) => {
+			if(error === 'no-page') {
+				return reply().code(404);
+			} else {
+				console.log(error);
+				return reply().code(500);
+			}
+		});
 }
 
 function remove(request, reply) {
@@ -32,22 +25,20 @@ function remove(request, reply) {
 }
 
 function retrieveAll(request, reply) {
-	database.runQuery(query.isSupplier(request.params), function(error, results) {
-		if (error) {
-			console.log(error);
-			return reply({msg:"page not found"}).code(404);
-		}
-		if (results[0].isSupplier){
-			return reply({msg:"page not found"}).code(404);
-		} else {
-			database.runQuery(query.retrieveAll(request.params), function(error, results) {
-				if(error) console.log(error);
-				return reply({
-					results
-				}).code(error ? 500 : 200);
-			});
-		}
-	});
+	database.runQueryPromise(query.isSupplier(request.params))
+		.then( (results) => {
+			if (results[0].isSupplier) throw 'no-page';
+			database.runQueryPromise(query.retrieveAll(request.params));
+		}).then( (results) => {
+			return reply(results).code(200);
+		}).catch( (error) => {
+			if (error === 'no-page') {
+				return reply().code(404);
+			} else {
+				console.log(error);
+				return reply().code(500);
+			}
+		});
 }
 
 module.exports = {

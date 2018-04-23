@@ -2,27 +2,29 @@ const database = require('../database');
 const query = require('./query');
 
 function create(request, reply) {
-	database.runQuery(query.create(request.payload), function(error) {
-		if (error) {
-			console.log("ERROR OCCURRED WHEN ADDING JOB");
+	database.runQuery(query.create(request.payload))
+		.then(() => {
+			return reply({
+				message: "Supplies addded"
+			}).code(200);
+		}).catch((error) => {
 			console.log(error);
-			reply("SQL QUERY ERROR").code(400);
-		} else {
-			reply("Supply Added");
-		}
-	});
+			return reply({
+				message: "Problem adding supplies"
+			}).code(500);
+		}); 
 }
 
 function view(request, reply) {
-	database.runQuery(query.view(request.payload), function(error, results) {
-		if (error) {
-			console.log("ERROR VIEWING SUPPLIES");
+	database.runQuery(query.view(request.payload))
+		.then((results) => {
+			return reply({results}).code(200);
+		}).catch((error) => {
 			console.log(error);
-			reply("SQL QUERY ERROR").code(400);
-		} else {
-			reply(results).code(200);
-		}
-	});
+			return reply({
+				message: "Problem viewing supplies"
+			}).code(500);
+		});
 }
 
 function add(request, reply){
@@ -38,15 +40,17 @@ function add(request, reply){
 		}
 	}
 
-	database.runQuery(query.add(string), function(error) {
-		if (error) {
-			console.log("ERROR OCCURRED WHEN INSERTING JOB");
+	database.runQuery(query.add(string))
+		.then(() => {
+			return reply({
+				message: "Supplies added"
+			}).code(200);
+		}).catch((error) => {
 			console.log(error);
-			reply("Problem occured when creating job").code(400);
-		} else {
-			reply("supplies added");
-		}
-	});
+			return reply({
+				message: "Problem occured when creating job"
+			}).code(500);
+		});
 }
 
 function remove(request, reply) {

@@ -1,7 +1,7 @@
 const query = {
 	checkEmail: payload =>
 		`SELECT Email
-		FROM Account 
+		FROM Account
 		WHERE Email = '${payload.email}';`,
 	checkAccount: payload =>
 		`SELECT Name, ID
@@ -47,21 +47,21 @@ const query = {
 		WHERE Email = '${payload.email}';`,
 	deleteAccount: payload =>
 		`DELETE Account
-		WHERE ID = ${payload.id} 
+		WHERE ID = ${payload.id}
 		`,
 	retrieve: params =>
-	`SELECT * 
-	FROM Account a inner join Job j On a.Id = j.Construction_ID 
-	WHERE a.ID = ${params.id};`,
+    `SELECT * 
+    FROM Account a inner join Job j On a.Id = j.Construction_ID 
+    WHERE a.ID = ${params.id};`,
 	retrieveJobs: params =>
-	`SELECT Supply_ID, Supplier_ID, Name, Price
-	FROM Job j natural join SupplyList s natural join Item i natural join Supplies
-	WHERE j.Job_ID = ${params.Job_ID};`,
+    `SELECT Supply_ID, Supplier_ID, Name, Price
+    FROM Job j natural join SupplyList s natural join Item i natural join Supplies
+    WHERE j.Job_ID = ${params.Job_ID};`,
 	isSupplier: params =>
-	`SELECT *
-	FROM Account
-	WHERE ID = ${params.id}
-	AND isSupplier = 1`
+    `SELECT *
+    FROM Account
+    WHERE ID = ${params.id}
+    AND isSupplier = 1`
 };
 
 module.exports = query;

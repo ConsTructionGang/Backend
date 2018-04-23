@@ -218,7 +218,7 @@ server.route({
 	method: "GET",
 	path: '/user/{id}',
 	handler: account_handler.retrieve
-})
+});
 
 server.start(err => {
 	if (err) {
