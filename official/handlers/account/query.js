@@ -56,7 +56,12 @@ const query = {
 	retrieveJobs: params =>
 	`SELECT Supply_ID, Supplier_ID, Name, Price
 	FROM Job j natural join SupplyList s natural join Item i natural join Supplies
-	WHERE j.Job_ID = ${params.Job_ID};`
+	WHERE j.Job_ID = ${params.Job_ID};`,
+	isSupplier: params =>
+	`SELECT *
+	FROM Account
+	WHERE ID = ${params.id}
+	AND WHERE isSupplier = 1`
 };
 
 module.exports = query;
