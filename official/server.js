@@ -1,3 +1,4 @@
+import { request } from 'https';
 
 const Hapi = require('hapi');
 const server = new Hapi.Server();
@@ -24,27 +25,25 @@ server.connection({ port: 5000, host: "0.0.0.0",
 	},
 });
 
-// const scheme = function (server, options) {
-// 	return {
-// 	    authenticate: function (request, h) {
-// 		  const req = request.raw.req;
-// 		  const authorization = req.headers.authorization;
-// 		  if (!authorization) {
-// 			throw Boom.unauthorized(null, 'Custom');
-// 		  }
-  
-// 		  return h.authenticated({ credentials: { user: 'john' } });
-// 	    }
-// 	};
-// };
+const scheme = function (server, options) {
+	return {
+	    authenticate: function (request, h) {
 
-// server.auth.scheme('cookie', scheme)
+		  const authorization = request.headers.authorization;
+		  if (!authorization) {
+			throw Boom.unauthorized(null, 'Custom');
+		  }
+		  return h.authenticated({ credentials: { user: 'john' } });
+	    }
+	};
+};
 
-// server.auth.strategy('session', 'cookie', {
-// 	password: 'oatmeal-raisin',
-// 	cookie: 'chocolate-chip'
-// })
-// Account
+server.auth.scheme('cookie', scheme)
+
+server.auth.strategy('session', 'cookie', {
+	password: 'oatmeal-raisin',
+	cookie: 'chocolate-chip'
+})
 
 server.route({
 	method: "GET",
