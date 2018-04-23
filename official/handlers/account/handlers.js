@@ -58,6 +58,7 @@ function retrieve(request, reply) {
 	database.runQuery(query.isSupplier(request.params), function(error, result){
 		if(error) throw error;
 		if(!(result.length === 0)) {
+			console.log("return");
 			return reply().code(404);
 		}
 	})
