@@ -5,25 +5,28 @@ function login(request, reply) {
 	if(!fullyDefined(request.payload, ["email","password"])) {
 		return reply({'message': 'Parameter Error'}).code(400);
 	} else {
-		database.runQuery(query.checkAccount(request.payload), function(error, results){
-			if(error) {
+		database.runQuery(query.checkAccount(request.payload))
+		.then( (results) => {
+			if(results.length === 0) throw 'no-match'
+			return reply({
+				name: results[0].Name,
+				id: results[0].ID,
+			}).code(200);
+		}).catch( (error) => {
+			if (error == 'no-match') {
+				return reply({ message: "Signin Invalid" }).code(400);
+			} else {
 				console.log(error);
 				return reply({
 					message: "PROBLEM OCCURED WHEN CHECKING PASSWORD"
 				}).code(500);
-			} else if(results.length === 0){
-				return reply({
-					message: 'Signin Invalid'
-				}).code(400);
-			} else {
-				return reply({
-					name: results[0].Name,
-					id: results[0].ID,
-				}).code(200);
 			}
 		});
 	}
 }
+
+//Adding jobs -> Sync
+//Adding supplies -> Async
 
 function job(_data) {
 	const data = _data;
@@ -90,11 +93,9 @@ function retrieve(request, reply) {
 				} else {
 					return reply().code(500);
 				}
-
 			})
 		}
 	})
-
 }
 
 function register(request, reply) {
@@ -107,36 +108,22 @@ function register(request, reply) {
 		}).code(400);
 	}
 
-	database.runQuery(query.checkEmail(request.payload), function(error, result){
-		if(error) {
-			console.log(error);
-			return reply({
-				message: "PROBLEM OCCURRED WITH QUERY"
-			}).code(500);
-		} else if(result.length !== 0) {
-			return reply({
-				message: "Account already exists. Please log in"
-			}).code(400);
-		} else {
-			insert(request.payload, reply);
-		}
-	});
-}
-
-function insert(payload, reply) {
-	const insert = (payload.type === 1) ? query.addSupplier(payload) : query.addUser(payload);
-
-	database.runQuery(insert, function(error){
-		if (error) {
-			console.log(error);
-			return reply({
-				message: "PROBLEM OCCURED WHEN INSERTING NEW USER"
-			}).code(500);
-		}
-		return reply({
-			message: "Account created"
-		}).code(201);
-	});
+	database.runQueryPromise(query.checkEmail(request.payload))
+		.then( (results) => {
+			if(results.length !== 0) throw 'already-exists';
+			const insert = (request.payload.type === 1) ? 
+				query.addSupplier(request.payload) : query.addUser(request.payload);
+			database.runQueryPromise(insert);
+		}).then( () => {
+			return reply({ message: "Account created" }).code(201);
+		}).catch( (error) => {
+			if (error == 'already-exists') {
+				return reply({ message: "Account already exists. Please log in" }).code(400);
+			} else {
+				console.log(error);
+				return reply().code(500);
+			}
+		});
 }
 
 function changePassword(request, reply) {
@@ -144,27 +131,22 @@ function changePassword(request, reply) {
 		["email", "password", "newpassword"])) {
 		return reply("bad parameter error").code(400);
 	}
-	database.runQuery(query.checkAccount(request.payload), function(error, result){
-		if(result.length !== 0) {
-			newPassword(request.payload, reply);
-		} else {
-			return reply("Passwords do not match").code(400);
-		}
-	});
-}
 
-function newPassword(payload, reply) {
-	if(!session.checkSession(request.payload)) {
-		return reply("Session Authentication Error").code(401);
-	}
-	database.runQuery(query.changePassword(payload), function(error){
-		if (error) {
-			console.log(error);
-			return reply("***PROBLEM OCCURED WITH MYSQL***").code(400);
-		} else {
-			return reply("Password Successfully Changed").code(200);
-		}
-	});
+	database.runQueryPromise(query.checkAccount(request.payload))
+		.then( (results) => {
+			if(results.length === 0) throw 'no-match';
+			database.runQueryPromise(query.changePassword(request.payload));
+		}).then( () => {
+			return reply({
+				message:"Password Successfully Changed"
+			}).code(200);
+		}).catch( (error) => {
+			if (error === 'no-match') {
+				return reply({ message: "Passwords do not match" }).code(400);
+			} else {
+				return reply().code(500);
+			}
+		});
 }
 
 function remove(request, reply) {
