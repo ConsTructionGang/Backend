@@ -21,18 +21,15 @@ server.connection({ port: 5000, host: "0.0.0.0",
 			// "Content-Type", "Origin", "Accept-Language"]
 		}
 	},
+	// auth: {
+	// 	default: {
+	// 		strategy: session
+			
+	// 	}
+	// }
 });
 
-server.register([
-	{
-	    register: require('hapi-auth-cookie')
-	}
-  ], function(err) {
-	if (err) {
-	    console.error('Failed to load a plugin:', err);
-	    throw err;
-	}
-})
+server.auth.scheme('cookie')
 
 server.auth.strategy('session', 'cookie', {
 	password: 'oatmeal-raisin',
