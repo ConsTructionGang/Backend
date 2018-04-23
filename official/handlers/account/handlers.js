@@ -7,20 +7,20 @@ function login(request, reply) {
 	} else {
 		database.runQuery(query.checkAccount(request.payload))
 		.then( (results) => {
-			if(results.length === 0){
-				return reply({
-					message: 'Signin Invalid'
-				}).code(400);
-			}
+			if(results.length === 0) throw 'no-match'
 			return reply({
 				name: results[0].Name,
 				id: results[0].ID,
 			}).code(200);
 		}).catch( (error) => {
-			console.log(error);
-			return reply({
-				message: "PROBLEM OCCURED WHEN CHECKING PASSWORD"
-			}).code(500);
+			if (error == 'no-mathc') {
+				return reply({ message: "Signin Invalid" }).code(400);
+			} else {
+				console.log(error);
+				return reply({
+					message: "PROBLEM OCCURED WHEN CHECKING PASSWORD"
+				}).code(500);
+			}
 		});
 	}
 }
@@ -101,20 +101,19 @@ function register(request, reply) {
 
 	database.runQuery(query.checkEmail(request.payload))
 		.then( (results) => {
-			if(result.length !== 0){
-				return reply({
-					message: "Account already exists. Please log in"
-				}).code(400);
-			} else {
-				const insert = (request.payload.type === 1) ? 
-					query.addSupplier(request.payload) : query.addUser(request.payload);
-				database.runQuery(insert);
-			}
+			if(results.length !== 0) throw 'already-exists';
+			const insert = (request.payload.type === 1) ? 
+				query.addSupplier(request.payload) : query.addUser(request.payload);
+			database.runQuery(insert);
 		}).then( () => {
 			return reply({ message: "Account created" }).code(201);
 		}).catch( (error) => {
-			console.log(error);
-			return reply().code(500);
+			if (error == 'already-exists') {
+				return reply({ message: "Account already exists. Please log in" }).code(400);
+			} else {
+				console.log(error);
+				return reply().code(500);
+			}
 		});
 }
 
@@ -126,29 +125,18 @@ function changePassword(request, reply) {
 
 	database.runQuery(query.checkAccount(request.payload))
 		.then( (results) => {
-			if(results.length !== 0) {
-				newPassword(request.payload, reply);
-			} else {
-				return reply({message: "Passwords do not match"}).code(400);
-			}
-		}).catch( (error) => {
-			console.log(error);
-			return reply().code(500);
-		});
-}
-
-function newPassword(payload, reply) {
-	if(!session.checkSession(request.payload)) {
-		return reply("Session Authentication Error").code(401);
-	}
-	database.runQuery(query.changePassword(payload))
-		.then( () => {
+			if(results.length === 0) throw 'no-match';
+			database.runQuery(query.changePassword(request.payload));
+		}).then( () => {
 			return reply({
 				message:"Password Successfully Changed"
 			}).code(200);
 		}).catch( (error) => {
-			console.log(error);
-			return reply().code(500);
+			if (error === 'no-match') {
+				return reply({ message: "Passwords do not match" }).code(400);
+			} else {
+				return reply().code(500);
+			}
 		});
 }
 
