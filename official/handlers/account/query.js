@@ -55,7 +55,7 @@ const query = {
 		WHERE
 			a.ID = 1
 		AND
-			a.ID = j.Construction_ID;`
+			a.ID = j.Construction_ID;`,
 	retrieveAcc: payload =>
 		`SELECT a.ID, a.Email, a.Name, Job_ID
 		FROM Account a inner join Job j
