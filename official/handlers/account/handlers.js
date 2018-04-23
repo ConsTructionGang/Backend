@@ -57,7 +57,7 @@ function job(_data) {
 function retrieve(request, reply) {
 	database.runQuery(query.isSupplier(request.params), function(error, result){
 		if(error) throw error;
-		if(!result.length === 0) {
+		if(!(result.length === 0)) {
 			return reply().code(404);
 		}
 	})
