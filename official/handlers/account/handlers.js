@@ -1,13 +1,16 @@
 const database = require("../database");
-const query = require("./query");
 
-const task_query = require('../tasks/query');
+// Queries
+const account = require("./query");
+const tasks = require('../tasks/query');
+const jobs = require('../jobs/query');
+const supplies = require('../supplies/query');
 
 function login(request, reply) {
 	if(!fullyDefined(request.payload, ["email","password"])) {
 		return reply({'message': 'Parameter Error'}).code(400);
 	} else {
-		database.runQueryPromise(query.checkAccount(request.payload))
+		database.runQueryPromise(account.checkPassword(request.payload))
 		.then( (results) => {
 			if(results.length === 0) throw 'no-match'
 			return reply({
@@ -30,74 +33,76 @@ function login(request, reply) {
 //Adding jobs -> Sync
 //Adding supplies -> Async
 
-function job(_data) {
-	const data = _data;
-	async function createJob() {
-		return database.runQueryPromise(
-			query.retrieveJobs(data)
-		).then( (results) => {
-			return {
-				id: data.Job_ID,
-				title: data.Job_Title,
-				address: data.Address,
-				city: data.City,
-				state: data.State,
-				cost: data.Budget,
-				start_date: data.Start_Date,
-				end_date: data.Completion_Date,
-				status: (null) ? 'In Progress' : 'Complete',
-				supplies: results
-			}
-		}).catch( (error) => {
-			console.log(error)
-			return reject(error);
-		})
+function job(data) {
+  	async function getSupplies() {
+		return database.runQueryPromise(supplies.retrieve(jobObj.id))
+			.then(results => {
+				jobObj.supplies = results;
+				return jobObj;
+			}).catch(error => {
+				console.log(error);
+				return reject(error);
+			});
+		}
+
+	const jobObj = {
+		id: data.ID,
+		title: data.Title,
+		address: data.Address,
+		city: data.City,
+		state: data.State,
+		cost: data.Budget,
+		start_date: data.Start_Date,
+		end_date: data.Completion_Date,
+		status: (data.Completion_Date) ? "Complete" : "In Progress"
 	}
 
 	return {
-		create: () => createJob()
-	}
+    	supplies: () => getSupplies()
+  	};
 }
 
 function retrieve(request, reply) {
-	database.runQuery(query.isSupplier(request.params), function(error, result){
-		if(error) throw error;
-		if(result.length != 0) {
-			console.log("return");
-			return reply().code(404);
-		} else {
-			let jobList = [];
-			account = {};
-			database.runQueryPromise(query.retrieve(request.params))
-			.then( (jobInfo) => {
-				if (jobInfo.length === 0) return [];
+	const accountJSON = {};
 
-				account.id = jobInfo[0]["ID"];
-				account.email = jobInfo[0]["Email"];
-				account.type = jobInfo[0]["Type"];
-				account.name = jobInfo[0]["Name"]
-				for (let i = 0; i < jobInfo.length; i++) {
-					jobList.push(new job(jobInfo[i]));
-				}
-				for (let i = 0; i < jobList.length; i++) {
-					jobList[i] = Promise.resolve(jobList[i].create());
-				}
-				return Promise.all(jobList).then(function(newlist) {
-					return newlist
-				})
-			}).then( (jobs) => {
-				//run query to add supplies
-				account.jobs = jobs
-				return database.runQueryPromise(task_query.retrieveAll(request.params));
-			}).then( (tasks) => {
-				account.tasks = tasks;
-				return reply(account).code(200)
-			}).catch( (error) => {
+	database.runQueryPromise(account.isSupplier(request.params))
+		.then( (isSupplier) => {
+			if(isSupplier.length !== 0) throw 'no-page';
+
+			return database.runQueryPromise(account.retrieveInfo(request.params));
+		}).then( (userInfo) => {
+			if (userInfo.length === 0) return [];
+
+			accountJSON.id = userInfo[0]["ID"];
+			accountJSON.email = userInfo[0]["Email"];
+			accountJSON.type = userInfo[0]["Type"];
+			accountJSON.name = userInfo[0]["Name"];
+
+			return database.runQueryPromise(jobs.retrieveAll(request.params));
+		}).then( (jobList) => {
+			console.log(jobList)
+			for (let i = 0; i < jobList.length; i++) {
+				jobList[i] = new job(jobList[i]);
+				jobList[i] = Promise.resolve(jobList[i].supplies());
+			}
+
+			return Promise.all(jobList).then(function(newlist) {
+				return newlist;
+			});
+		}).then( (jobsWithSupplies) => {
+			accountJSON.jobs = jobsWithSupplies;
+			return database.runQueryPromise(tasks.retrieveAll(request.params));
+		}).then( (tasks) => {
+			accountJSON.tasks = tasks;
+			return reply(accountJSON).code(200)
+		}).catch( (error) => {
+			if (error === 'no-page') {
+				return reply().code(404);
+			} else {
 				console.log(error);
 				return reply().code(500);
-			})
-		}
-	})
+			}
+		});
 }
 
 function register(request, reply) {
@@ -109,14 +114,16 @@ function register(request, reply) {
 		}).code(400);
 	}
 
-	database.runQueryPromise(query.checkEmail(request.payload))
+	database.runQueryPromise(account.checkEmail(request.payload))
 		.then( (results) => {
 			if(results.length !== 0) throw 'already-exists';
-			const insert = (request.payload.type === 1) ?
-				query.addSupplier(request.payload) : query.addUser(request.payload);
+		
+			const insert = (request.payload.type === 1) ? 
+				account.addSupplier(request.payload) : account.addUser(request.payload);
+
 			database.runQueryPromise(insert);
 		}).then( () => {
-			return return reply({
+			return reply({
 				"email": request.payload.email,
 				"name":request.payload.name,
 				"password":request.payload.password,
@@ -138,10 +145,10 @@ function changePassword(request, reply) {
 		return reply("bad parameter error").code(400);
 	}
 
-	database.runQueryPromise(query.checkAccount(request.payload))
+	database.runQueryPromise(account.checkPassword(request.payload))
 		.then( (results) => {
 			if(results.length === 0) throw 'no-match';
-			database.runQueryPromise(query.changePassword(request.payload));
+			database.runQueryPromise(account.changePassword(request.payload));
 		}).then( () => {
 			return reply({
 				message:"Password Successfully Changed"
@@ -178,6 +185,7 @@ function remove(request, reply) {
 		}
 	});
 }
+
 function fullyDefined(payload, parameter) {
 	for(let i = 0; i < parameter.length; i++) {
 		if(payload[parameter[i]] === undefined) {
