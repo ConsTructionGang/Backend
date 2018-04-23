@@ -70,7 +70,8 @@ function retrieve(request, reply) {
 			account = {};
 			database.runQueryPromise(query.retrieve(request.params))
 			.then( (jobInfo) => {
-				if (jobInfo.length === 0) throw 'no-jobs';
+				if (jobInfo.length === 0) return [];
+
 				account.id = jobInfo[0]["ID"];
 				account.email = jobInfo[0]["Email"];
 				account.type = jobInfo[0]["Type"];
@@ -92,12 +93,8 @@ function retrieve(request, reply) {
 				account.tasks = tasks;
 				return reply(account).code(200)
 			}).catch( (error) => {
-				if(error === 'no-jobs') {
-					return reply([]).code(400)
-				} else {
-					console.log(error);
-					return reply().code(500);
-				}
+				console.log(error);
+				return reply().code(500);
 			})
 		}
 	})
