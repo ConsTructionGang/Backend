@@ -7,6 +7,7 @@ const review_handler = require('./reviews/handlers');
 const supply_handler = require('./supplies/handlers');
 const supplier_handler = require('./suppliers/handlers');
 const task_handler = require('./tasks/handlers');
+const cookie = require('hapi-auth-cookie');
 
 server.connection({ port: 5000, host: "0.0.0.0",
 	routes: {
