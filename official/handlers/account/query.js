@@ -3,7 +3,7 @@ const query = {
 		`SELECT Email
 		FROM Account
 		WHERE Email = '${payload.email}';`,
-	checkAccount: payload =>
+	checkPassword: payload =>
 		`SELECT Name, ID
 		FROM (
 			SELECT *
@@ -45,23 +45,23 @@ const query = {
 		`UPDATE Account
 		SET Password = '${payload.newpassword}'
 		WHERE Email = '${payload.email}';`,
-	deleteAccount: payload =>
+	delete: payload =>
 		`DELETE Account
-		WHERE ID = ${payload.id}
+		WHERE ID = ${payload.id};
 		`,
-	retrieve: params =>
-    `SELECT * 
-    FROM Account a inner join Job j On a.Id = j.Construction_ID 
-    WHERE a.ID = ${params.id};`,
-	retrieveJobs: params =>
-    `SELECT Supply_ID as id, Supplier_ID as supplierId, Name as name
-    FROM Job j natural join SupplyList s natural join Item i natural join Supplies
-    WHERE j.Job_ID = ${params.Job_ID};`,
+	retrieveInfo: params =>
+		`SELECT 
+			ID, 
+			Name, 
+			Email,
+			isSupplier as Type
+		FROM Account a
+		WHERE a.ID = ${params.id};`,
 	isSupplier: params =>
-    `SELECT *
-    FROM Account
-    WHERE ID = ${params.id}
-    AND isSupplier = 1`
+		`SELECT *
+		FROM Account
+		WHERE ID = ${params.id}
+		AND isSupplier = 1`
 };
 
 module.exports = query;

@@ -1,8 +1,8 @@
 const database = require('../database');
-const query = require('./query');
+const tasks = require('./query');
 
 function retrieve(request, reply) {
-	database.runQueryPromise(query.retrieveAll(request.params))
+	database.runQueryPromise(tasks.retrieveAll(request.params))
 		.then( (results) => {
 			return reply({
 				results
@@ -17,7 +17,7 @@ function retrieve(request, reply) {
 
 function create(request, reply) {
 	request.payload.account_id = request.params.account_id;
-	database.runQueryPromise(query.create(request.payload))
+	database.runQueryPromise(tasks.create(request.payload))
 		.then( () => {
 			return reply({
 				message: "Task created"
@@ -31,7 +31,7 @@ function create(request, reply) {
 }
 
 function complete(request, reply) {
-	database.runQueryPromise(query.complete(request.payload))
+	database.runQueryPromise(tasks.complete(request.payload))
 		.then( () => {
 			return reply({
 				message: "Marked as complete"
@@ -45,7 +45,7 @@ function complete(request, reply) {
 }
 
 function remove(request, reply) {
-	database.runQueryPromise(query.remove(request.payload))
+	database.runQueryPromise(tasks.remove(request.payload))
 		.then( () => {
 			return reply({
 				message: "Task deleted"

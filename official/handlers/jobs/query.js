@@ -24,6 +24,7 @@ const query = {
 		);`,
 	retrieveAll: params =>
 		`SELECT 
+			Job_ID ID,
 			Job_Title Title,
 			Address,
 			City,

@@ -1,17 +1,19 @@
 const database = require('../database');
-const query = require('./query');
+
+const review = require('./query');
+const account = require('../account/query');
 
 function publish(request, reply){
-	database.runQuery(query.isSupplier(request.params))
+	database.runQuery(account.isSupplier(request.params))
 		.then( (results) => {
 			if(!results[0].isSupplier) throw 'not-a-Supplier';
-			database.runQuery(query.authorIsSupplier(request.payload));
+			database.runQuery(review.authorIsSupplier(request.payload));
 		}).then( (results) => {
 			if(results[0].isSupplier) throw 'author-Is-Supplier';
-			database.runQuery(query.alreadyReviewed(request.payload, request.params));
+			database.runQuery(review.alreadyReviewed(request.payload, request.params));
 		}).then( (results) => {
 			if (results.length) throw 're-review';
-			database.runQuery(query.post(request));
+			database.runQuery(review.post(request));
 		}).then( () => {
 			return reply({
 				message: "Review has been published"
@@ -22,10 +24,10 @@ function publish(request, reply){
 }
 
 function retrieveAll(request, reply) {
-	database.runQuery(query.isSupplier(request.params))
+	database.runQuery(account.isSupplier(request.params))
 		.then( (results) => {
 			if(results.length == 0 || !results[0].isSupplier) throw 'no-page';
-			database.runQuery(query.retrieve(request.params));
+			database.runQuery(review.retrieve(request.params));
 		}).then( (results) => {
 			return reply({
 				results
@@ -36,7 +38,7 @@ function retrieveAll(request, reply) {
 }
 
 function remove(request, reply) {
-	database.runQuery(query.remove(request.payload, request.params))
+	database.runQuery(review.remove(request.payload, request.params))
 		.then( () => {
 			return reply({
 				message: "Review has been deleted"
