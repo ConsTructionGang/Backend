@@ -1,6 +1,6 @@
 /* handlers.js
-* Construction Company
-*"function hadnlers for account managment"
+* Honeyscape
+*"function handlers for account managment"
 *By:Zach Banducci, Tyrone Criddle, Fernando Corral
 */
 const database = require("../database");
@@ -123,8 +123,8 @@ function register(request, reply) {
 	database.runQueryPromise(account.checkEmail(request.payload))
 		.then( (results) => {
 			if(results.length !== 0) throw 'already-exists';
-		
-			const insert = (request.payload.type === 1) ? 
+
+			const insert = (request.payload.type === 1) ?
 				account.addSupplier(request.payload) : account.addUser(request.payload);
 
 			database.runQueryPromise(insert);

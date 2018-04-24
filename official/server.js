@@ -1,3 +1,8 @@
+/* server.js
+* Honeyscape
+*"Defined routes http endpoints"
+*By:Zach Banducci, Tyrone Criddle, Fernando Corral
+*/
 const Hapi = require('hapi');
 const server = new Hapi.Server();
 const account_handler = require('./account/handlers');
