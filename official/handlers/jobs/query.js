@@ -38,7 +38,7 @@ const query = {
 	isSupplier: params =>
 		`SELECT isSupplier
 		FROM Account
-		WHERE ID = ${params.id};`
+		WHERE ID = ${params.id};`,
 	edit: (payload, params) =>
 			`UPDATE Job(
 				Job_Title,
@@ -55,8 +55,7 @@ const query = {
 				'${payload.budget}',
 				'${payload.completion_date}'
 			)
-			WHERE Job_ID = ${params.job_id};`,SET ${payload}
-		WHERE ID =
+			WHERE Job_ID = ${params.job_id};`
 };
 
 module.exports = query;

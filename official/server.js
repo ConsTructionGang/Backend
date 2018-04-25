@@ -59,6 +59,7 @@ server.route({
 	}
 });
 
+
 server.route({
 	method: 'PUT',
 	path: '/login',
@@ -191,7 +192,7 @@ server.route({
 	handler: job_handler.create
 });
 
-sever.routes({
+server.route({
 	method: "PUT",
 	path: '/jobs/{job_id}',
 	handler: job_handler.edit

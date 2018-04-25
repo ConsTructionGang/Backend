@@ -36,9 +36,6 @@ function login(request, reply) {
 	}
 }
 
-//Adding jobs -> Sync
-//Adding supplies -> Async
-
 function job(data) {
   	async function getSupplies() {
 		return database.runQueryPromise(supplies.retrieve(jobObj.id))
@@ -103,7 +100,7 @@ function retrieve(request, reply) {
 			return reply(accountJSON).code(200)
 		}).catch( (error) => {
 			if (error === 'no-page') {
-				return reply().code(404);
+				return reply().code(400);
 			} else {
 				console.log(error);
 				return reply().code(500);
@@ -131,20 +128,20 @@ function register(request, reply) {
 		}).then( () => {
 			if(request.payload.type == 'User'){
 				return reply({
-					"email": request.payload.email,
-					"name":request.payload.name,
-					"password":request.payload.password,
-					"type":request.payload.type,
+					email: request.payload.email,
+					name:request.payload.name,
+					password:request.payload.password,
+					type:request.payload.type,
 				}).code(201);
 			}
 			else{
 				return reply({
-					"companyname":request.payload.name,
-					"email": request.payload.email,
-					"location":request.payload.location
-					"name":request.payload.name,
-					"password":request.payload.password,
-					"type":request.payload.type,
+					companyname:request.payload.companyname,
+					email: request.payload.email,
+					location:request.payload.location,
+					name:request.payload.name,
+					password:request.payload.password,
+					type:request.payload.type,
 				}).code(201);
 			}
 		}).catch( (error) => {
@@ -229,5 +226,6 @@ module.exports = {
 	register,
 	changePassword,
 	remove,
-	retrieve
+	retrieve,
+	edit,
 };
