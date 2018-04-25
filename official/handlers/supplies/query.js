@@ -19,7 +19,7 @@ const query = {
 		`SELECT Supply_ID as id, Supplier_ID as supplierId, Name as name
    		FROM Job j natural join SupplyList s natural join Item i natural join Supplies
     	WHERE j.Job_ID = ${job_ID};`,
-	add: payloadstring =>
+	addToSupplyList: payloadstring =>
 		`INSERT INTO SupplyList(
 			Job_ID,
 			Quantity,
