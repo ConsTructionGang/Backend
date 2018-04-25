@@ -61,7 +61,7 @@ function job(data) {
 		start_date: data.Start_Date,
 		end_date: data.Completion_Date,
 		status: (data.Completion_Date) ? "Complete" : "In Progress"
-	}
+	};
 
 	return {
     	supplies: () => getSupplies()
@@ -84,7 +84,7 @@ function retrieve(request, reply) {
 			accountJSON.type = userInfo[0]["Type"];
 			accountJSON.name = userInfo[0]["Name"];
 
-			return database.runQueryPromise(jobs.retrieveAll(request.params));
+			return database.runQueryPromise(jobs.retrieve(request.params));
 		}).then( (jobList) => {
 			console.log(jobList)
 			for (let i = 0; i < jobList.length; i++) {
@@ -178,6 +178,16 @@ function changePassword(request, reply) {
 				return reply().code(500);
 			}
 		});
+}
+
+function edit(request, reply) {
+	database.runQueryPromise(account.edit(request.payload))
+	.then( () => {
+		return reply().code(200);
+	}).catch( (error) => {
+		console.log(error);
+		return reply().code(500);
+	})
 }
 
 function remove(request, reply) {

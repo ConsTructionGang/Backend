@@ -45,14 +45,22 @@ const query = {
 		`UPDATE Account
 		SET Password = '${payload.newpassword}'
 		WHERE Email = '${payload.email}';`,
-	delete: payload =>
+	delete: payload => /*			THIS NEEDS TO BE FINISHED			*/
 		`DELETE Account
-		WHERE ID = ${payload.id};
-		`,
+		WHERE ID = ${payload.id};`,
+	edit: payload =>
+		`UPDATE Account_ID
+		SET
+			Email = ${payload.email},
+			Name = ${payload.name},
+			Address = ${payload.address},
+			City = ${payload.city},
+			State = ${payload.state}
+		WHERE ID = ${payload.id};`,
 	retrieveInfo: params =>
-		`SELECT 
-			ID, 
-			Name, 
+		`SELECT
+			ID,
+			Name,
 			Email,
 			isSupplier as Type
 		FROM Account a

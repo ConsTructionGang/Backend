@@ -23,7 +23,7 @@ const query = {
 			'${payload.completion_date}'
 		);`,
 	retrieveAll: params =>
-		`SELECT 
+		`SELECT
 			Job_ID ID,
 			Job_Title Title,
 			Address,
@@ -39,6 +39,24 @@ const query = {
 		`SELECT isSupplier
 		FROM Account
 		WHERE ID = ${params.id};`
+	edit: (payload, params) =>
+			`UPDATE Job(
+				Job_Title,
+				Address,
+				City,
+				State,
+				Budget,
+				Completion_Date
+			) Values (
+				'${payload.job_title}',
+				'${payload.address}',
+				'${payload.city}',
+				'${payload.state}',
+				'${payload.budget}',
+				'${payload.completion_date}'
+			)
+			WHERE Job_ID = ${params.job_id};`,SET ${payload}
+		WHERE ID =
 };
 
 module.exports = query;
