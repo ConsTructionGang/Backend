@@ -1,19 +1,21 @@
 const query = {
-	createSession: payload =>
-		`INSERT INTO Session_manager(
-			session_key,
-			ID
+	create: (key, userID) =>
+		`INSERT INTO Session(
+			session_id,
+			ID,
+			login_date
 		)VALUES(
-			Rand(),
-			'${payload.ID}'
+			${key},
+			${userID},
+			CURRDATE()
 		);`,
-	checkSession: payload =>
+	check: payload =>
 		`SELECT *
-		FROM Session_manager
+		FROM Session
 		WHERE session_key = '${payload.key}' `,
-	removeSession: payload =>
-		`DELETE FROM Session_manager
-		WHERE ID = '${payload.ID}' `
+	remove: payload =>
+		`DELETE FROM Session
+		WHERE ID = '${userID}' `
 };
 
 

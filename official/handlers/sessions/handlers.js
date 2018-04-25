@@ -4,41 +4,48 @@
 *By:Zach Banducci, Tyrone Criddle, Fernando Corral
 */
 const database = require('../database');
-const query = require('./query');
+const session = require('./query');
+
+const Chance = require('chance');
+const chance = new Chance();
+
 //Creates new session and returns random key value generated for session
-function createSession(payload){
-  database.runQuery(query.createSession(payload), function(error, results){
-    connection.release();
-    if (error) throw error;
-  });
-  database.runQuery(query.getSession(payload), function(error, results){//Get values of current session
-    connection.release();
-    if (error) throw error;
-    return results[0].session_key//Returns key value of current session
-  });
+function create(userID){
+	const sessID = chance.hash();
+
+	database.runQuery(session.create(sessID, userID))
+	.then((results) => {
+		return sessID
+	}).catch((error) => {
+		throw new Error('session-not-created')
+	});
 }
+
+
 //Deletes any open session for a user
-function deleteSession(payload){
-  database.runQuery(query.deleteSession(payload), function(error, results){
-    connection.release();
-    if (error) throw error;
-  });
+function delete(userID){
+  database.runQueryPromise(session.remove(userID))
+  .then((results) => {
+	  return
+  }).catch((error) => {
+	  throw new Error('session-not-deleted')
+  })
 }
+
+
 //Checks if their is an active session for the user and returns boolean
-function checkSession(payload){
-  database.runQuery(query.checkSession(payload), function(error, results){
-    connection.release();
-    if (error) throw error;
-    if(results[0].session_key != NULL){
-      return false
-    }
-    else{
-      return true;
-    }
+function check(userID){
+  database.runQueryPromise(session.check(userID))
+  .then((results) => {
+	  return (results.length === 0) ? false, true
+  }).catch((error) => {
+	  throw new Error('session-not-checked')
   });
 }
+
+
 module.exports = {
-  createSession,
-  deleteSession,
-  checkSession
+  create,
+  delete,
+  check
 };
