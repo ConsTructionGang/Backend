@@ -51,5 +51,5 @@ module.exports = {
 	create,
 	remove,
 	retrieveAll,
-	edit,
+	editJob,
 };
