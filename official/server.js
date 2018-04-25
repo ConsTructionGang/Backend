@@ -71,7 +71,7 @@ server.route({
 	handler: function(request, reply) {
 		return reply("logout page").code(200);
 	}
-})
+});
 
 server.route({
 	method: "GET",
@@ -89,8 +89,13 @@ server.route({
 });
 
 server.route({
+	method: "POST",
+	path: "/account",
+	handler: account_handler.edit
+})
+server.route({
 	method: "DELETE",
-	path: '/deleteaccount',
+	path: '/account',
 	handler: account_handler.remove
 });
 
@@ -178,10 +183,18 @@ server.route({
 	handler: supply_handler.viewSortedDSC
 });
 
+// Jobs
+
 server.route({
 	method: "POST",
 	path: '/jobs/create/{id}',
 	handler: job_handler.create
+});
+
+sever.routes({
+	method: "PUT",
+	path: '/jobs/{job_id}',
+	handler: job_handler.edit
 });
 
 server.route({
