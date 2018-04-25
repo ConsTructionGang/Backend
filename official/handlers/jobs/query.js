@@ -14,7 +14,7 @@ const query = {
 			Completion_Date
 		) Values (
 			'${params.id}',
-			'${payload.job_title}',
+			'${payload.title}',
 			'${payload.address}',
 			'${payload.city}',
 			'${payload.state}',
