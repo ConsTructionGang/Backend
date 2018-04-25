@@ -1,6 +1,6 @@
 /* handlers.js
 * Honeyscape
-*"function handlers for job managment"
+*"function handlers for job management"
 *By:Zach Banducci, Tyrone Criddle, Fernando Corral
 */
 const database = require('../database');
@@ -46,7 +46,7 @@ function editJob(request, reply) {
 }
 function remove(request, reply) {
 	database.runQueryPromise(account.remove(request.params))
-	
+
 
 }
 

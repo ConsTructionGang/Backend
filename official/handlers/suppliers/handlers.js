@@ -1,5 +1,10 @@
-const database = require('../database');
+/* handlers.js
+* Honeyscape
+*"function handlers for suppliers management"
+*By:Zach Banducci, Tyrone Criddle, Fernando Corral
+*/
 
+const database = require('../database');
 const suppliers = require('./query');
 const account = require('../account/query');
 
@@ -10,8 +15,8 @@ function view(request, reply) {
 		database.runQuery(account.isSupplier(request.params))
 			.then((results) => {
 				if (results.length == 0 || !results[0].isSupplier){
-					return reply({ 
-						message: "Page not found" 
+					return reply({
+						message: "Page not found"
 					}).code(404);
 				} else {
 					database.runQuery(query.retrieve(request.params));
@@ -32,7 +37,7 @@ function viewAllSuppliersID(request, reply) {
 				return reply({ message: "Page not found" }).code(404);
 			} else {
 				return reply ({results}).code(200);
-			}	
+			}
 		}).catch( (error) => {
 			console.log(error);
 			return reply().code(500);
