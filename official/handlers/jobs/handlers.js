@@ -26,7 +26,7 @@ function create(request, reply) {
 		});
 }
 
-function edit(request, reply) {
+function editJob(request, reply) {
 	database.runQueryPromise(account.isSupplier(request.params))
 		.then( (results) => {
 			if (results[0].isSupplier) throw 'no-page';
