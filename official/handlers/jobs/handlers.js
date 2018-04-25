@@ -46,12 +46,14 @@ function editJob(request, reply) {
 		});
 }
 function remove(request, reply) {
-	database.runQueryPromise(jobs.remove(request.params)).then((results) => {
+	database.runQueryPromise(jobs.remove(request.params))
+	.then((results) => {
 		return reply().code(200);
-	})
-
-
-}
+	}).catch((error) => {
+		console.log(error)
+		return reply().code(500);
+	});
+};
 
 function retrieveAll(request, reply) {
 	database.runQueryPromise(account.isSupplier(request.params))
