@@ -1,7 +1,7 @@
 const query = {
 	remove: payload =>
 		`DELETE FROM Job
-		WHERE List_ID = '${payload.job_id}';`,
+		WHERE Job_ID = '${payload.job_id}';`,
 	add: (payload, params) =>
 		`INSERT INTO Job(
 			Construction_ID,
