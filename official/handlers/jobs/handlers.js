@@ -18,7 +18,7 @@ function create(request, reply) {
 			}).code(200);
 		}).catch( (error) => {
 			if(error === 'no-page') {
-				return reply().code(404);
+				return reply().code(400);
 			} else {
 				console.log(error);
 				return reply().code(500);
@@ -37,7 +37,7 @@ function editJob(request, reply) {
 			}).code(200);
 		}).catch( (error) => {
 			if(error === 'no-page') {
-				return reply().code(404);
+				return reply().code(400);
 			} else {
 				console.log(error);
 				return reply().code(500);
