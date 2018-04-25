@@ -195,7 +195,7 @@ server.route({
 server.route({
 	method: "PUT",
 	path: '/jobs/{job_id}',
-	handler: job_handler.edit
+	handler: job_handler.editJob
 });
 
 server.route({
