@@ -10,7 +10,8 @@ const account = require('../account/query');
 function create(request, reply) {
 	database.runQueryPromise(account.isSupplier(request.params))
 		.then( (results) => {
-			if (results[0].isSupplier) throw 'no-page';
+			console.log(results);
+			if (results[0]) throw 'no-page';
 			database.runQueryPromise(jobs.add(request.payload, request.params));
 		}).then( () => {
 			return reply({
