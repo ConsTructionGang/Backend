@@ -59,6 +59,7 @@ server.route({
 	}
 });
 
+
 server.route({
 	method: 'PUT',
 	path: '/login',
