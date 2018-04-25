@@ -30,7 +30,7 @@ function create(request, reply) {
 function editJob(request, reply) {
 	database.runQueryPromise(account.isSupplier(request.params))
 		.then( (results) => {
-			if (results[0].isSupplier) throw 'no-page';
+			if (results[0]) throw 'no-page';
 			database.runQueryPromise(jobs.edit(request.payload, request.params));
 		}).then( () => {
 			return reply({

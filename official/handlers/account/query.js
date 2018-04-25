@@ -68,7 +68,7 @@ const query = {
 	isSupplier: params =>
 		`SELECT *
 		FROM Account
-		WHERE ID = ${params.id}
+		WHERE ID = ${params.job_id}
 		AND isSupplier = 1`
 };
 
