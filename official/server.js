@@ -225,9 +225,15 @@ server.route({
 });
 
 server.route({
-	method: "PUT",
-	path: '/jobs/{job_id}/tasks',
+	method: "POST",
+	path: '/tasks',
 	handler: task_handler.create
+});
+
+server.route({
+	method: "PUT",
+	path: '/tasks/{task_id}',
+	handler: task_handler.edit
 });
 
 server.route({

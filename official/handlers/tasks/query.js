@@ -1,6 +1,6 @@
 const query = {
 	retrieveAll: params =>
-		`SELECT 
+		`SELECT
 			Name,
 			Description,
 			Priority,
@@ -24,6 +24,14 @@ const query = {
 			'${payload.creation_date}',
 			'${payload.estimated_date}'
 		);`,
+	edit: payload =>
+		`UPDATE Task
+			SET Name = ${payload.taskname},
+			Description = ${payload.description},
+			Priority = ${payload.priority},
+			Creation_Date = ${payload.creation_date},
+			Estimated_Date = ${payload.estimated_date}
+			WHERE ID = ${payload.id};`,
 	complete: payload =>
 		`UPDATE Task
 			SET Completion_Date = ${payload.completion_date}
