@@ -1,5 +1,5 @@
 const query = {
-	delete: payload =>
+	remove: payload =>
 		`DELETE FROM Job
 		WHERE List_ID = '${payload.list_id}';`,
 	add: (payload, params) =>

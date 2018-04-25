@@ -46,7 +46,9 @@ function editJob(request, reply) {
 		});
 }
 function remove(request, reply) {
-	database.runQueryPromise(account.remove(request.params))
+	database.runQueryPromise(jobs.remove(request.params)).then((results) => {
+		return reply().code(200);
+	})
 
 
 }
