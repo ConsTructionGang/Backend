@@ -28,23 +28,19 @@ function create(request, reply) {
 }
 
 function editJob(request, reply) {
-	database.runQueryPromise(account.isSupplier(request.params))
-		.then( (results) => {
-			if (results[0]) throw 'no-page';
-			database.runQueryPromise(jobs.edit(request.payload, request.params));
-		}).then( () => {
+	database.runQueryPromise(jobs.edit(request.payload, request.params))
+		.then( () => {
 			return reply({
 				message: "Job Modified"
 			}).code(200);
 		}).catch( (error) => {
-			if(error === 'no-page') {
-				return reply().code(400);
-			} else {
+			if(error) {
 				console.log(error);
 				return reply().code(500);
 			}
-		});
+		})
 }
+
 function remove(request, reply) {
 	database.runQueryPromise(jobs.remove(request.params))
 	.then((results) => {
