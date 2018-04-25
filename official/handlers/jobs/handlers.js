@@ -1,5 +1,9 @@
+/* handlers.js
+* Honeyscape
+*"function handlers for job managment"
+*By:Zach Banducci, Tyrone Criddle, Fernando Corral
+*/
 const database = require('../database');
-
 const jobs = require('./query');
 const account = require('../account/query');
 

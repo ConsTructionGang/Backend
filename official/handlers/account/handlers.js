@@ -36,9 +36,6 @@ function login(request, reply) {
 	}
 }
 
-//Adding jobs -> Sync
-//Adding supplies -> Async
-
 function job(data) {
   	async function getSupplies() {
 		return database.runQueryPromise(supplies.retrieve(jobObj.id))
