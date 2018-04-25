@@ -26,7 +26,27 @@ function create(request, reply) {
 		});
 }
 
+function edit(request, reply) {
+	database.runQueryPromise(account.isSupplier(request.params))
+		.then( (results) => {
+			if (results[0].isSupplier) throw 'no-page';
+			database.runQueryPromise(jobs.edit(request.payload, request.params));
+		}).then( () => {
+			return reply({
+				message: "Job Modified"
+			}).code(200);
+		}).catch( (error) => {
+			if(error === 'no-page') {
+				return reply().code(404);
+			} else {
+				console.log(error);
+				return reply().code(500);
+			}
+		});
+}
 function remove(request, reply) {
+	database.runQueryPromise(account.remove(request.params))
+	
 
 }
 
