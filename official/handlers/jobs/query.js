@@ -46,14 +46,16 @@ const query = {
 				City,
 				State,
 				Budget,
+				Start_Date,
 				Completion_Date
 			) Values (
-				'${payload.job_title}',
+				'${payload.title}',
 				'${payload.address}',
 				'${payload.city}',
 				'${payload.state}',
-				'${payload.budget}',
-				'${payload.completion_date}'
+				'${payload.cost}',
+				'${payload.startDate}'
+				'${payload.endDate}'
 			)
 			WHERE Job_ID = ${params.job_id};`
 };
