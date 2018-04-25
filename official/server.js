@@ -28,38 +28,6 @@ server.connection({ port: 5000, host: "0.0.0.0",
 	},
 });
 
-const scheme = function (server, options) {
-	return {
-		authenticate: function (request, h) {
-
-			const authorization = request.headers.authorization;
-			if (!authorization) {
-				throw Boom.unauthorized(null, 'Custom');
-			}
-			return h.authenticated({ credentials: { user: 'john' } });
-		}
-	};
-};
-
-server.auth.scheme('cookie', scheme)
-
-// server.auth.default('session');
-
-server.auth.strategy('session', 'cookie', {
-	password: 'oatmeal-raisin',
-	cookie: 'chocolate-chip',
-	validateFunc: (request, session) => {
-		const cached = server.cache({
-			segment: 'sessions',
-			expiresIn: 3 * 24 * 60 * 60 * 1000
-		}).get(session.sid);
-		const out = { valid: !!cached};
-
-		if(out.valid) out.credentials = cached.id;
-		return out;
-	}
-});
-
 server.route({
 	method: "GET",
 	path: '/login',
@@ -215,7 +183,7 @@ server.route({
 	handler: job_handler.retrieveAll
 });
 
-// We might not need this route -Zach 
+// We might not need this route -Zach
 server.route({
 	method: "DELETE",
 	path: '/jobs/{job_id}',
@@ -242,11 +210,11 @@ server.route({
 	handler: task_handler.create
 });
 
-server.route({
-	method: "POST",
-	path: '/tasks/{task_id/',
-	handler: task_handler.edit
-});
+// server.route({
+// 	method: "POST",
+// 	path: '/tasks/{task_id}',
+// 	handler: task_handler.edit
+// });
 
 server.route({
 	method: "DELETE",
@@ -271,6 +239,12 @@ server.route({
 	path: '/userpage/{id}',
 	handler: account_handler.retrieve
 });
+
+server.route({
+	method: "POST",
+	path: '/validate/{sess_id}',
+	handler: session_handler.validate
+})
 
 server.start(err => {
 	if (err) {
