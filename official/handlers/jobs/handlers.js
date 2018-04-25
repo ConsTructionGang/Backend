@@ -10,7 +10,7 @@ function create(request, reply) {
 			database.runQueryPromise(jobs.add(request.payload, request.params));
 		}).then( () => {
 			return reply({
-				message: "Job created"
+				title: "Job created"
 			}).code(200);
 		}).catch( (error) => {
 			if(error === 'no-page') {
@@ -35,7 +35,7 @@ function retrieveAll(request, reply) {
 			return reply(results).code(200);
 		}).catch( (error) => {
 			if (error === 'no-page') {
-				return reply().code(404);
+				return reply().code(400);
 			} else {
 				console.log(error);
 				return reply().code(500);
@@ -48,4 +48,3 @@ module.exports = {
 	remove,
 	retrieveAll,
 };
-
