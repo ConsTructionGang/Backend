@@ -19,8 +19,8 @@ const query = {
 			'${payload.city}',
 			'${payload.state}',
 			'${payload.cost}',
-			CURDATE(),
-			'${payload.completion_date}'
+			'${payload.startDate}',
+			'${payload.endDate}'
 		);`,
 	retrieveAll: params =>
 		`SELECT
