@@ -1,3 +1,8 @@
+/* handlers.js
+* Honeyscape
+*"function handlers for Reviews management"
+*By:Zach Banducci, Tyrone Criddle, Fernando Corral
+*/
 const database = require('../database');
 
 const review = require('./query');
@@ -50,8 +55,8 @@ function remove(request, reply) {
 
 function errorHandler(reply, error) {
 	if (error === "no-page") {
-		return reply({ 
-			message: "Page not found" 
+		return reply({
+			message: "Page not found"
 		}).code(404);
 	} else if (error === 'not-a-Supplier') {
 		return reply({
@@ -76,6 +81,3 @@ module.exports = {
 	remove,
 	retrieveAll
 };
-
-
-

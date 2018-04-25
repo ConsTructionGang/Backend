@@ -1,3 +1,8 @@
+/* handlers.js
+* Honeyscape
+*"function handlers for Task management"
+*By:Zach Banducci, Tyrone Criddle, Fernando Corral
+*/
 const database = require('../database');
 const tasks = require('./query');
 

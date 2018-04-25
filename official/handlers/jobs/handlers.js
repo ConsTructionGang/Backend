@@ -1,6 +1,6 @@
 /* handlers.js
 * Honeyscape
-*"function handlers for job managment"
+*"function handlers for job management"
 *By:Zach Banducci, Tyrone Criddle, Fernando Corral
 */
 const database = require('../database');
@@ -19,7 +19,7 @@ function create(request, reply) {
 			}).code(200);
 		}).catch( (error) => {
 			if(error === 'no-page') {
-				return reply().code(404);
+				return reply().code(400);
 			} else {
 				console.log(error);
 				return reply().code(500);
@@ -38,7 +38,7 @@ function editJob(request, reply) {
 			}).code(200);
 		}).catch( (error) => {
 			if(error === 'no-page') {
-				return reply().code(404);
+				return reply().code(400);
 			} else {
 				console.log(error);
 				return reply().code(500);
@@ -47,7 +47,7 @@ function editJob(request, reply) {
 }
 function remove(request, reply) {
 	database.runQueryPromise(account.remove(request.params))
-	
+
 
 }
 

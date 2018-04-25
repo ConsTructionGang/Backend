@@ -1,6 +1,6 @@
 /* handlers.js
 * Honeyscape
-*"function handlers for session managment"
+*"function handlers for session management"
 *By:Zach Banducci, Tyrone Criddle, Fernando Corral
 */
 const database = require('../database');
