@@ -141,7 +141,7 @@ function register(request, reply) {
 				return reply({
 					companyname:request.payload.companyname,
 					email: request.payload.email,
-					location:request.payload.location
+					location:request.payload.location,
 					name:request.payload.name,
 					password:request.payload.password,
 					type:request.payload.type,
