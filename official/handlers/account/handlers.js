@@ -4,6 +4,8 @@
 *By:Zach Banducci, Tyrone Criddle, Fernando Corral
 */
 const database = require("../database");
+const chance = require('chance')
+const Chance = new chance()
 
 // Queries
 const account = require("./query");
@@ -19,6 +21,13 @@ function login(request, reply) {
 		database.runQueryPromise(account.checkPassword(request.payload))
 		.then( (results) => {
 			if(results.length === 0) throw 'no-match'
+
+			//Session creation
+			const sessID = Chance.hash()
+
+			request.server.app.cache.set(sessID, {id: results[0].ID}, 0);
+			request.cookieAuth.set({sessID});
+
 			return reply({//if success return reply with ID and name
 				"id": results[0].ID,
 				"name": results[0].Name,

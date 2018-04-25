@@ -47,8 +47,18 @@ server.auth.scheme('cookie', scheme)
 
 server.auth.strategy('session', 'cookie', {
 	password: 'oatmeal-raisin',
-	cookie: 'chocolate-chip'
-})
+	cookie: 'chocolate-chip',
+	validateFunc: (request, session) => {
+		const cached = server.cache({
+			segment: 'sessions',
+			expiresIn: 3 * 24 * 60 * 60 * 1000
+		}).get(session.sid);
+		const out = { valid: !!cached};
+
+		if(out.valid) out.credentials = cached.id;
+		return out;
+	}
+});
 
 server.route({
 	method: "GET",
@@ -93,7 +103,8 @@ server.route({
 	method: "POST",
 	path: "/account",
 	handler: account_handler.edit
-})
+});
+
 server.route({
 	method: "DELETE",
 	path: '/account',
@@ -204,6 +215,7 @@ server.route({
 	handler: job_handler.retrieveAll
 });
 
+// We might not need this route -Zach 
 server.route({
 	method: "DELETE",
 	path: '/jobs/{job_id}',
@@ -220,25 +232,31 @@ server.route({
 
 server.route({
 	method: "GET",
-	path: '/jobs/{job_id}/tasks',
+	path: '/tasks',
 	handler: task_handler.retrieve
 });
 
 server.route({
 	method: "PUT",
-	path: '/jobs/{job_id}/tasks',
+	path: '/tasks',
 	handler: task_handler.create
 });
 
 server.route({
+	method: "POST",
+	path: '/tasks/{task_id/',
+	handler: task_handler.edit
+});
+
+server.route({
 	method: "DELETE",
-	path: '/jobs/{job_id}/tasks',
+	path: '/tasks',
 	handler: task_handler.remove
 });
 
 server.route({
 	method: "PATCH",
-	path: "/jobs/{job_id}/tasks",
+	path: "/tasks",
 	handler: task_handler.complete
 });
 
