@@ -129,12 +129,24 @@ function register(request, reply) {
 
 			database.runQueryPromise(insert);
 		}).then( () => {
-			return reply({
-				"email": request.payload.email,
-				"name":request.payload.name,
-				"password":request.payload.password,
-				"type":request.payload.type,
-			}).code(201);
+			if(request.payload.type == 'User'){
+				return reply({
+					"email": request.payload.email,
+					"name":request.payload.name,
+					"password":request.payload.password,
+					"type":request.payload.type,
+				}).code(201);
+			}
+			else{
+				return reply({
+					"companyname":request.payload.name,
+					"email": request.payload.email,
+					"location":request.payload.location
+					"name":request.payload.name,
+					"password":request.payload.password,
+					"type":request.payload.type,
+				}).code(201);
+			}
 		}).catch( (error) => {
 			if (error == 'already-exists') {
 				return reply({ message: "Account already exists. Please log in" }).code(400);

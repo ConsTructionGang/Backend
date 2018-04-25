@@ -1,3 +1,8 @@
+/* handlers.js
+* Honeyscape
+*"function handlers for supplies"
+*By:Zach Banducci, Tyrone Criddle, Fernando Corral
+*/
 const database = require('../database');
 const supplies = require('./query');
 
@@ -12,7 +17,7 @@ function create(request, reply) {
 			return reply({
 				message: "Problem adding supplies"
 			}).code(500);
-		}); 
+		});
 }
 
 function view(request, reply) {
