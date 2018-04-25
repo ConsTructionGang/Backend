@@ -16,6 +16,7 @@
 	},
 	"homepage": "https://github.com/ConsTructionGang/Backend#readme",
 	"dependencies": {
+		"chance": "^1.0.13",
 		"express": "^4.16.3",
 		"express-session": "^1.15.6",
 		"hapi": "^16.6.3",
