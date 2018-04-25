@@ -45,8 +45,8 @@ function job(data) {
 			}).catch(error => {
 				console.log(error);
 				return reject(error);
-			});
-		}
+		});
+	}
 
 	const jobObj = {
 		id: data.ID,
@@ -57,7 +57,7 @@ function job(data) {
 		cost: data.Budget,
 		start_date: data.Start_Date,
 		end_date: data.Completion_Date,
-		status: (data.Completion_Date) ? "Complete" : "In Progress"
+		status: (data.Completed) ? "Complete" : "In Progress"
 	};
 
 	return {
@@ -83,7 +83,6 @@ function retrieve(request, reply) {
 
 			return database.runQueryPromise(jobs.retrieveAll(request.params));
 		}).then( (jobList) => {
-			console.log(jobList)
 			for (let i = 0; i < jobList.length; i++) {
 				jobList[i] = new job(jobList[i]);
 				jobList[i] = Promise.resolve(jobList[i].supplies());
