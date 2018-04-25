@@ -42,13 +42,13 @@ const query = {
 	edit: (payload, params) =>
 			`UPDATE Job
 			SET
-				Job_Title = ${payload.title},
-				Address = ${payload.address},
-				City = ${payload.city},
-				State = ${payload.state},
+				Job_Title = '${payload.title}',
+				Address = '${payload.address}',
+				City = '${payload.city}',
+				State = '${payload.state}',
 				Budget = ${payload.cost},
-				Start_Date = ${payload.startDate},
-				Completion_Date = ${payload.endDate}
+				Start_Date = '${payload.startDate}',
+				Completion_Date = '${payload.endDate}'
 			WHERE Job_ID = ${params.job_id};`
 };
 
