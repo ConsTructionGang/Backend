@@ -13,39 +13,38 @@ const chance = new Chance();
 function create(userID){
 	const sessID = chance.hash();
 
-	database.runQuery(session.create(sessID, userID))
-	.then((results) => {
-		return sessID
-	}).catch((error) => {
-		throw new Error('session-not-created')
+	database.runQueryPromise(session.create(sessID, userID))
+	.then().catch((error) => {
+		console.log(error)
 	});
+	return sessID;
 }
 
 
 //Deletes any open session for a user
-function delete(userID){
-  database.runQueryPromise(session.remove(userID))
-  .then((results) => {
+function remove(userID){
+  	database.runQueryPromise(session.remove(userID))
+  	.then((results) => {
 
-  }).catch((error) => {
-	  throw new Error('session-not-deleted')
-  })
+  	}).catch((error) => {
+	  	throw new Error('session-not-deleted')
+  	})
 }
 
 
 //Checks if their is an active session for the user and returns boolean
 function validate(request, reply){
-  database.runQueryPromise(session.check(request.params.sess_id))
-  .then((results) => {
-	  return reply().code(results.length === 0 ? 400 : 200)
-  }).catch((error) => {
-	  return reply(). code(500)
-  });
+	database.runQueryPromise(session.check(request.params.sess_id))
+	.then((results) => {
+		return reply().code(results.length === 0 ? 400 : 200)
+	}).catch((error) => {
+	  	return reply().code(500)
+	});
 }
 
 
 module.exports = {
   create,
-  delete,
-  check
+  remove,
+  validate
 };

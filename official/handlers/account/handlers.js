@@ -12,6 +12,7 @@ const account = require("./query");
 const tasks = require('../tasks/query');
 const jobs = require('../jobs/query');
 const supplies = require('../supplies/query');
+const session = require('../sessions/handlers')
 
 //attempts to login user
 function login(request, reply) {
@@ -23,14 +24,11 @@ function login(request, reply) {
 			if(results.length === 0) throw 'no-match'
 
 			//Session creation
-			const sessID = Chance.hash()
-
-			console.log(request.cookieAuth);
-			request.cookieAuth.set({sessID});
 
 			return reply({//if success return reply with ID and name
 				"id": results[0].ID,
 				"name": results[0].Name,
+				"session": session.create(results[0].ID)
 			}).code(200);
 		}).catch( (error) => {
 			if (error == 'no-match') {//If no account found
@@ -45,9 +43,14 @@ function login(request, reply) {
 	}
 }
 
+function logout(request, reply) {
+	session.remove(request.payload.userID);
+	return reply().200
+}
+
 function job(data) {
   	async function getSupplies() {
-		return database.runQueryPromise(supplies.retrieve(jobObj.id))
+		return database.runQueryPromise(supplies.retrieveList(jobObj.id))
 			.then(results => {
 				jobObj.supplies = results;
 				return jobObj;
@@ -232,6 +235,7 @@ function fullyDefined(payload, parameter) {
 
 module.exports = {
 	login,
+	logout,
 	register,
 	changePassword,
 	remove,

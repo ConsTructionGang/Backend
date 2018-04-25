@@ -1,20 +1,21 @@
 const query = {
 	create: (key, userID) =>
-		`INSERT INTO Session(
+		`INSERT INTO Sessions(
 			session_id,
 			ID,
 			login_date
 		)VALUES(
-			${key},
+			'${key}',
 			${userID},
-			CURRDATE()
-		);`,
-	check: payload =>
+			CURDATE()
+		) ON DUPLICATE KEY
+		UPDATE session_id = '${key}';`,
+	check: key =>
 		`SELECT *
-		FROM Session
-		WHERE session_key = '${payload.key}' `,
+		FROM Sessions
+		WHERE session_id = '${key}' `,
 	remove: payload =>
-		`DELETE FROM Session
+		`DELETE FROM Sessions
 		WHERE ID = '${userID}' `
 };
 

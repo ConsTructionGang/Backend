@@ -5,13 +5,15 @@
 */
 const Hapi = require('hapi');
 const server = new Hapi.Server();
+
 const account_handler = require('./account/handlers');
 const job_handler = require('./jobs/handlers');
 const review_handler = require('./reviews/handlers');
 const supply_handler = require('./supplies/handlers');
 const supplier_handler = require('./suppliers/handlers');
 const task_handler = require('./tasks/handlers');
-const cookie = require('hapi-auth-cookie');
+const session_handler = require('./sessions/handlers');
+
 const query = require('./query');
 
 server.connection({ port: 5000, host: "0.0.0.0",
@@ -135,32 +137,8 @@ server.route({
 
 server.route({
 	method: "GET",
-	path: '/suppliers/{supplier_id}/supplies',
-	handler: supply_handler.view
-});
-
-server.route({
-	method: "GET",
-	path: '/supplies/{tag}/m=1',
-	handler: supply_handler.viewTaggedMultiple
-});
-
-server.route({
-	method: "GET",
-	path: '/view/supplies/{tag}',
-	handler: supply_handler.viewTagged
-});
-
-server.route({
-	method: "GET",
-	path: '/view/supplies/s=0{tag}',
-	handler: supply_handler.viewSortedASC
-});
-
-server.route({
-	method: "GET",
-	path: '/view/supplies/s=1{tag}',
-	handler: supply_handler.viewSortedDSC
+	path: '/supplies',
+	handler: supply_handler.viewAll
 });
 
 // Jobs
