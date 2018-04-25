@@ -48,7 +48,7 @@ const query = {
 				State = ${payload.state},
 				Budget = ${payload.cost},
 				Start_Date = ${payload.startDate},
-				Completion_Date = ${payload.endDate};
+				Completion_Date = ${payload.endDate}
 			WHERE Job_ID = ${params.job_id};`
 };
 
