@@ -18,7 +18,7 @@ const query = {
 			'${payload.address}',
 			'${payload.city}',
 			'${payload.state}',
-			'${payload.budget}',
+			'${payload.cost}',
 			CURDATE(),
 			'${payload.completion_date}'
 		);`,
