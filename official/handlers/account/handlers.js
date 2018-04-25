@@ -81,7 +81,7 @@ function retrieve(request, reply) {
 			accountJSON.type = userInfo[0]["Type"];
 			accountJSON.name = userInfo[0]["Name"];
 
-			return database.runQueryPromise(jobs.retrieve(request.params));
+			return database.runQueryPromise(jobs.retrieveAll(request.params));
 		}).then( (jobList) => {
 			console.log(jobList)
 			for (let i = 0; i < jobList.length; i++) {
