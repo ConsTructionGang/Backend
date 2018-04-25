@@ -226,5 +226,6 @@ module.exports = {
 	register,
 	changePassword,
 	remove,
-	retrieve
+	retrieve,
+	edit,
 };
