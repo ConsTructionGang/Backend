@@ -25,7 +25,7 @@ function login(request, reply) {
 			//Session creation
 			const sessID = Chance.hash()
 
-			request.server.app.cache.set(sessID, {id: results[0].ID}, 0);
+			console.log(request.cookieAuth);
 			request.cookieAuth.set({sessID});
 
 			return reply({//if success return reply with ID and name

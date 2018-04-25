@@ -26,7 +26,7 @@ function create(userID){
 function delete(userID){
   database.runQueryPromise(session.remove(userID))
   .then((results) => {
-	  return
+
   }).catch((error) => {
 	  throw new Error('session-not-deleted')
   })
@@ -34,12 +34,12 @@ function delete(userID){
 
 
 //Checks if their is an active session for the user and returns boolean
-function check(userID){
-  database.runQueryPromise(session.check(userID))
+function validate(request, reply){
+  database.runQueryPromise(session.check(request.params.sess_id))
   .then((results) => {
-	  return (results.length === 0) ? false, true
+	  return reply().code(results.length === 0 ? 400 : 200)
   }).catch((error) => {
-	  throw new Error('session-not-checked')
+	  return reply(). code(500)
   });
 }
 
