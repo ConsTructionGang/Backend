@@ -13,7 +13,7 @@ const supplies = require('../supplies/query');
 
 //attempts to login user
 function login(request, reply) {
-	if(!fullyDefined(request.payload, ["email","password"])) {//if payload received in incorrect format
+	if(!fullyDefined(request.payload, ["email","password"])) {// if payload received in incorrect format
 		return reply({'message': 'Parameter Error'}).code(400);//Throw error
 	} else {
 		database.runQueryPromise(account.checkPassword(request.payload))
