@@ -83,4 +83,5 @@ module.exports = {
 	complete,
 	remove,
 	retrieve,
+	edit,
 };
