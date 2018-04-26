@@ -4,7 +4,7 @@ const query = {
 		FROM Account
 		WHERE Email = '${payload.email}';`,
 	checkPassword: payload =>
-		`SELECT Name, ID
+		`SELECT Name, ID, isSupplier
 		FROM (
 			SELECT *
 			FROM Account

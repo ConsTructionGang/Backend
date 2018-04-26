@@ -22,6 +22,7 @@ function login(request, reply) {
 			return reply({//if success return reply with ID and name
 				"id": results[0].ID,
 				"name": results[0].Name,
+				"type": (results[0].isSupplier) ? 'Supplier' : 'User',
 			}).code(200);
 		}).catch( (error) => {
 			if (error == 'no-match') {//If no account found
