@@ -19,7 +19,6 @@ function login(request, reply) {
 		database.runQueryPromise(account.checkPassword(request.payload))
 		.then( (results) => {
 			if(results.length === 0) throw 'no-match'
-			console.log(results)
 			return reply({//if success return reply with ID and name
 				"id": results[0].ID,
 				"name": results[0].Name,
