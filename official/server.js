@@ -256,7 +256,7 @@ server.route({
 
 server.route({
 	method: "GET",
-	path: '/userpage/{job_id}',
+	path: '/userpage/{id}',
 	handler: account_handler.retrieve
 });
 
