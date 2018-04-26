@@ -6,23 +6,22 @@
 
 const database = require('../database');
 const suppliers = require('./query');
-const account = require('../account/query');
 
 function view(request, reply) {
 	if (!request.params.supplier_id) {
 		viewAll(request, reply);
 	} else {
-		database.runQuery(account.isSupplier(request.params))
+		database.runQueryPromise(suppliers.isSupplier(request.params))
 			.then((results) => {
 				if (results.length == 0 || !results[0].isSupplier){
 					return reply({
 						message: "Page not found"
 					}).code(404);
 				} else {
-					database.runQuery(query.retrieve(request.params));
+					return database.runQueryPromise(suppliers.retrieve(request.params));
 				}
 			}).then( (results) => {
-				return reply({results}).code(200);
+				return reply(results).code(200);
 			}).catch((error) => {
 				console.log(error);
 				return reply().code(500);
@@ -31,7 +30,7 @@ function view(request, reply) {
 }
 
 function viewAllSuppliersID(request, reply) {
-	database.runQuery(suppliers.retrieveAllByID(request.params))
+	database.runQueryPromise(suppliers.retrieveAllByID(request.params))
 		.then( (results) => {
 			if (results.length == 0 ) {
 				return reply({ message: "Page not found" }).code(404);
@@ -45,7 +44,7 @@ function viewAllSuppliersID(request, reply) {
 }
 
 function viewAllSuppliersName(request, reply) {
-	database.runQuery(suppliers.retrieveAllByName(request.params))
+	database.runQueryPromise(suppliers.retrieveAllByName(request.params))
 		.then( (results) => {
 			if (results.length == 0) {
 				return reply({ message: "Page not found" }).code(404);
@@ -59,7 +58,7 @@ function viewAllSuppliersName(request, reply) {
 }
 
 function viewAll(request, reply) {
-	database.runQuery(suppliers.retrieveAll())
+	database.runQueryPromise(suppliers.retrieveAll())
 		.then( (results) => {
 			return reply({results}).code(200);
 		}).catch( (error) => {

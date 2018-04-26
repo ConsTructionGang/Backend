@@ -18,12 +18,12 @@ const query = {
 		`SELECT
 			ID,
 			Name,
-			(
-				SELECT AVG(Rating)
+            Avg Rating
+		FROM Account JOIN (
+				SELECT Supplier_ID, Avg(Rating) Avg
 				FROM Review
-				WHERE Supplier_ID = ${params.supplier_id}
-			) Rating,
-		FROM Account
+				GROUP BY Supplier_ID
+			) Rating ON Account.ID = Rating.Supplier_ID
 		WHERE isSupplier = true;`,
 	isSupplier: params =>
 		`SELECT isSupplier
