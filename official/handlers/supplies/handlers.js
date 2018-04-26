@@ -46,7 +46,7 @@ function add(request, reply){
 		}
 	}
 
-	database.runQuery(supplies.addToSupplyList(string))
+	database.runQuery(supplies.addToList(string))
 		.then(() => {
 			return reply({
 				message: "Supplies added"
