@@ -14,11 +14,9 @@ function view(request, reply) {
 	const supplier = {};
 	database.runQueryPromise(suppliers.isSupplier(request.params))
 		.then((results) => {
-			if (results.length == 0 || !results[0].isSupplier){
-				throw 'no-page';
-			} else {
-				return database.runQueryPromise(suppliers.retrieve(request.params));
-			}
+			if (results.length == 0 || !results[0].isSupplier) throw 'no-page';
+			
+			return database.runQueryPromise(suppliers.retrieve(request.params));
 		}).then( (supplierInfo) => {
 			supplier.name = supplierInfo[0]["Name"];
 			supplier.email = supplierInfo[0]["Email"];
@@ -34,36 +32,44 @@ function view(request, reply) {
 			supplier.supplies = supplies;
 			return reply(supplier).code(200);
 		}).catch((error) => {
-			console.log(error);
-			return reply().code(500);
+			if (error === "no-page") {
+				return reply({ message: "Page not found" }).code(404);
+			} else {
+				console.log(error);
+				return reply().code(500);
+			}
 		});
 }
 
 function viewAllSuppliersID(request, reply) {
 	database.runQueryPromise(suppliers.retrieveAllByID(request.params))
 		.then( (results) => {
-			if (results.length == 0 ) {
+			if (results.length == 0 ) throw 'no-page';
+
+			return reply ({results}).code(200);
+		}).catch( (error) => {
+			if (error === 'no-page') {
 				return reply({ message: "Page not found" }).code(404);
 			} else {
-				return reply ({results}).code(200);
+				console.log(error);
+				return reply().code(500);
 			}
-		}).catch( (error) => {
-			console.log(error);
-			return reply().code(500);
 		});
 }
 
 function viewAllSuppliersName(request, reply) {
 	database.runQueryPromise(suppliers.retrieveAllByName(request.params))
 		.then( (results) => {
-			if (results.length == 0) {
+			if (results.length == 0 ) throw 'no-page';
+			
+			return reply ({results}).code(200);
+		}).catch( (error) => {
+			if (error === 'no-page') {
 				return reply({ message: "Page not found" }).code(404);
 			} else {
-				return reply({results}).code(200);
+				console.log(error);
+				return reply().code(500);
 			}
-		}).catch( (error) => {
-			console.log(error);
-			return reply().code(500);
 		});
 }
 

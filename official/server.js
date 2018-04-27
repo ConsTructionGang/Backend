@@ -160,30 +160,6 @@ server.route({
 	handler: supply_handler.view
 });
 
-server.route({
-	method: "GET",
-	path: '/supplies/{tag}/m=1',
-	handler: supply_handler.viewTaggedMultiple
-});
-
-server.route({
-	method: "GET",
-	path: '/view/supplies/{tag}',
-	handler: supply_handler.viewTagged
-});
-
-server.route({
-	method: "GET",
-	path: '/view/supplies/s=0{tag}',
-	handler: supply_handler.viewSortedASC
-});
-
-server.route({
-	method: "GET",
-	path: '/view/supplies/s=1{tag}',
-	handler: supply_handler.viewSortedDSC
-});
-
 // Jobs
 
 server.route({
