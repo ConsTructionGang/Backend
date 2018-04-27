@@ -33,7 +33,7 @@ function view(request, reply) {
 		});
 }
 
-function add(request, reply){
+function addToJob(request, reply){
 	let string = "";
 	let data = JSON.parse(request.payload.supplies);
 	for (let i = 0; i < data.length; i++) {
@@ -54,8 +54,18 @@ function add(request, reply){
 		}).catch((error) => {
 			console.log(error);
 			return reply({
-				message: "Problem occured when creating job"
+				message: "Problem occured when adding supply"
 			}).code(500);
+		});
+}
+
+function retrieveTypes(request, reply) {
+	database.runQueryPromise(supplies.retrieveAll())
+		.then((results) => {
+			return reply({results}).code(200);
+		}).catch((error) => {
+			console.log(error);
+			return reply().code(500);
 		});
 }
 
@@ -128,7 +138,8 @@ function viewSortedDSC(request, reply) {
 module.exports = {
 	create,
 	view,
-	add,
+	retrieveTypes,
+	addToJob,
 	remove,
 	viewTagged,
 	viewTaggedMultiple,

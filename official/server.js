@@ -187,9 +187,15 @@ server.route({
 });
 
 server.route({
+	method: "GET",
+	path: '/supplies',
+	handler: supplier_handler.retrieveTypes
+});
+
+server.route({
 	method: "POST",
 	path: '/supplies/add',
-	handler: supply_handler.create
+	handler: supply_handler.addToJob
 });
 
 // Task manager for jobs
