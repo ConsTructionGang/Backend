@@ -15,9 +15,7 @@ function view(request, reply) {
 	database.runQueryPromise(suppliers.isSupplier(request.params))
 		.then((results) => {
 			if (results.length == 0 || !results[0].isSupplier){
-				return reply({
-					message: "Page not found"
-				}).code(404);
+				throw 'no-page';
 			} else {
 				return database.runQueryPromise(suppliers.retrieve(request.params));
 			}
