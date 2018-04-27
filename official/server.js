@@ -116,13 +116,13 @@ server.route({
 
 server.route({
 	method: "GET",
-	path: "/supplies/name={supply}",
+	path: "/suppliers/supply={supply_name}",
 	handler: supplier_handler.viewAllSuppliersName
 });
 
 server.route({
 	method: "GET",
-	path: "/supplies/id={supply_id}",
+	path: "/suppliers/supplyID={supply_id}",
 	handler: supplier_handler.viewAllSuppliersID
 });
 

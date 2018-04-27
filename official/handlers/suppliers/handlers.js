@@ -10,7 +10,7 @@ const reviews = require('../reviews/query');
 const supplies = require('../supplies/query');
 
 function view(request, reply) {
-	if (request.params.id) request.params.supplier_id = request.params.id
+	if (request.params.id) request.params.supplier_id = request.params.id;
 	const supplier = {};
 	database.runQueryPromise(suppliers.isSupplier(request.params))
 		.then((results) => {
@@ -78,11 +78,6 @@ function viewAll(request, reply) {
 			return reply().code(500);
 		});
 }
-
-function reRouteAccount(request, reply) {
-
-}
-
 module.exports = {
 	viewAll,
 	viewAllSuppliersID,
