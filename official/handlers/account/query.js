@@ -4,10 +4,12 @@
 *By:Zach Banducci, Tyrone Criddle, Fernando Corral
 */
 const query = {
+	//Retrieves email. If exists, will return email, else NULL
 	checkEmail: payload =>
 		`SELECT Email
 		FROM Account
 		WHERE Email = '${payload.email}';`,
+		//Determines if password is correct. Else NULL
 	checkPassword: payload =>
 		`SELECT Name, ID, isSupplier
 		FROM (
@@ -16,6 +18,7 @@ const query = {
 			WHERE Email = '${payload.email}'
 		) AS t
 		WHERE Password = '${payload.password}';`,
+		//Add supplier account
 	addSupplier: payload =>
 		`INSERT INTO Account(
 			Name,
@@ -34,6 +37,7 @@ const query = {
 			'${payload.address}',
 			${payload.type}
 		);`,
+		//Add regular use account
 	addUser: payload =>
 		`INSERT INTO Account(
 			Name,
@@ -46,13 +50,21 @@ const query = {
 			'${payload.password}',
 			${payload.type}
 		);`,
+		//Changes user password based on email
 	changePassword: payload =>
 		`UPDATE Account
 		SET Password = '${payload.newpassword}'
 		WHERE Email = '${payload.email}';`,
+
+
+
+		//********************************************************
 	delete: payload => /*			THIS NEEDS TO BE FINISHED			*/
 		`DELETE Account
 		WHERE ID = ${payload.id};`,
+			//********************************************************
+
+//Updates user information based on changes
 	edit: payload =>
 		`UPDATE Account_ID
 		SET
@@ -62,6 +74,8 @@ const query = {
 			City = ${payload.city},
 			State = ${payload.state}
 		WHERE ID = ${payload.id};`,
+
+	//Returns user info
 	retrieveInfo: params =>
 		`SELECT
 			ID,
@@ -70,6 +84,8 @@ const query = {
 			isSupplier as Type
 		FROM Account a
 		WHERE a.ID = ${params.id};`,
+
+	//If supplier exists returns info , else NULL
 	isSupplier: params =>
 		`SELECT *
 		FROM Account
