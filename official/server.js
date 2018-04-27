@@ -226,7 +226,7 @@ server.route({
 
 server.route({
 	method: "POST",
-	path: '/tasks',
+	path: '/tasks/{account_id}',
 	handler: task_handler.create
 });
 

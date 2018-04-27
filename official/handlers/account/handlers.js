@@ -1,6 +1,6 @@
 /* handlers.js
 * Honeyscape
-*"function handlers for account managment"
+*"function handlers for account management"
 *By:Zach Banducci, Tyrone Criddle, Fernando Corral
 */
 const database = require("../database");

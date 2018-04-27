@@ -36,7 +36,7 @@ function create(request, reply) {
 }
 
 function edit(request, reply) {
-	request.payload.account_id = request.params.account_id;
+	request.payload.task_id = request.params.task_id;
 	database.runQueryPromise(tasks.edit(request.payload))
 		.then( () => {
 			return reply({

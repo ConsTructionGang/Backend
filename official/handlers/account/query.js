@@ -1,3 +1,8 @@
+/* query.js
+* Honeyscape
+*"Database queries for account managment"
+*By:Zach Banducci, Tyrone Criddle, Fernando Corral
+*/
 const query = {
 	checkEmail: payload =>
 		`SELECT Email

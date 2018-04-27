@@ -31,7 +31,7 @@ const query = {
 			Priority = ${payload.priority},
 			Creation_Date = ${payload.creation_date},
 			Estimated_Date = ${payload.estimated_date}
-			WHERE ID = ${payload.id};`,
+			WHERE Task_ID = ${payload.task_id};`,
 	complete: payload =>
 		`UPDATE Task
 			SET Completion_Date = ${payload.completion_date}
