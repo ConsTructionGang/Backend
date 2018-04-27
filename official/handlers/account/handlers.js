@@ -11,6 +11,8 @@ const tasks = require('../tasks/query');
 const jobs = require('../jobs/query');
 const supplies = require('../supplies/query');
 
+const suppliers = require('../suppliers/handlers')
+
 //attempts to login user
 function login(request, reply) {
 	if(!fullyDefined(request.payload, ["email","password"])) {// if payload received in incorrect format
@@ -100,7 +102,7 @@ function retrieve(request, reply) {
 			return reply(accountJSON).code(200)
 		}).catch( (error) => {
 			if (error === 'no-page') {
-				return reply().code(400);
+				suppliers.view(request,reply);
 			} else {
 				console.log(error);
 				return reply().code(500);
