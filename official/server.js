@@ -189,7 +189,7 @@ server.route({
 server.route({
 	method: "GET",
 	path: '/supplies',
-	handler: supplier_handler.retrieveTypes
+	handler: supply_handler.retrieveTypes
 });
 
 server.route({
