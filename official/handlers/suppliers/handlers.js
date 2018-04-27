@@ -39,7 +39,6 @@ function view(request, reply) {
 			console.log(error);
 			return reply().code(500);
 		});
-	}
 }
 
 function viewAllSuppliersID(request, reply) {
