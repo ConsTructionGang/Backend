@@ -116,7 +116,7 @@ server.route({
 
 server.route({
 	method: "GET",
-	path: "/suppliers/supply={supply_name}",
+	path: "/suppliers?supply={supply_name}",
 	handler: supplier_handler.viewAllSuppliersName
 });
 
