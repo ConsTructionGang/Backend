@@ -102,7 +102,7 @@ function retrieve(request, reply) {
 			return reply(accountJSON).code(200)
 		}).catch( (error) => {
 			if (error === 'no-page') {
-				suppliers.view(request,reply);
+				suppliers.view(request, reply);
 			} else {
 				console.log(error);
 				return reply().code(500);
