@@ -60,8 +60,8 @@ function viewAllSuppliersID(request, reply) {
 function viewAllSuppliersName(request, reply) {
 	database.runQueryPromise(suppliers.retrieveAllByName(request.params))
 		.then( (results) => {
+			console.log(results);
 			if (results.length == 0 ) throw 'no-page';
-			
 			return reply ({results}).code(200);
 		}).catch( (error) => {
 			if (error === 'no-page') {
