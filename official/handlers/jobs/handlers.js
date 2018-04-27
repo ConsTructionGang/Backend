@@ -7,6 +7,7 @@ const database = require('../database');
 const jobs = require('./query');
 const account = require('../account/query');
 
+//Function handler for creating a user job
 function create(request, reply) {
 	database.runQueryPromise(account.isSupplier(request.params))
 		.then( (results) => {
@@ -16,27 +17,28 @@ function create(request, reply) {
 		}).then( () => {
 			return reply({
 				title: "Job created"
-			}).code(200);
+			}).code(200);//Returns code 200 if job creation is successful
 		}).catch( (error) => {
 			if(error === 'no-page') {
-				return reply().code(400);
+				return reply().code(400);//Returns code 400 if unable to create job because of a bad request
 			} else {
 				console.log(error);
-				return reply().code(500);
+				return reply().code(400);//If server runs into an error return code 400
 			}
 		});
 }
 
+//Function handler for editing a user job
 function editJob(request, reply) {
 	database.runQueryPromise(jobs.edit(request.payload, request.params))
 		.then( () => {
 			return reply({
 				message: "Job Modified"
-			}).code(200);
+			}).code(200);//Returns code 200 if succcesful job edit
 		}).catch( (error) => {
 			if(error) {
 				console.log(error);
-				return reply().code(500);
+				return reply().code(400);//If server runs into an error return code 400
 			}
 		})
 }
@@ -47,7 +49,7 @@ function remove(request, reply) {
 		return reply().code(200);
 	}).catch((error) => {
 		console.log(error)
-		return reply().code(500);
+		return reply().code(400);//If server runs into an error return code 400
 	});
 };
 
@@ -63,7 +65,7 @@ function retrieveAll(request, reply) {
 				return reply().code(400);
 			} else {
 				console.log(error);
-				return reply().code(500);
+				return reply().code(400);
 			}
 		});
 }
