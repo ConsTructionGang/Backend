@@ -10,38 +10,35 @@ const reviews = require('../reviews/query');
 const supplies = require('../supplies/query');
 
 function view(request, reply) {
-	if (!request.params.supplier_id) {
-		viewAll(request, reply);
-	} else {
-		const supplier = {};
-		database.runQueryPromise(suppliers.isSupplier(request.params))
-			.then((results) => {
-				if (results.length == 0 || !results[0].isSupplier){
-					return reply({
-						message: "Page not found"
-					}).code(404);
-				} else {
-					return database.runQueryPromise(suppliers.retrieve(request.params));
-				}
-			}).then( (supplierInfo) => {
-				supplier.name = supplierInfo[0]["Name"];
-				supplier.email = supplierInfo[0]["Email"];
-				supplier.address = supplierInfo[0]["Address"];
-				supplier.city = supplierInfo[0]["City"];
-				supplier.state = supplierInfo[0]["State"];
-				supplier.rating = supplierInfo[0]["Rating"];
-				return database.runQueryPromise(reviews.retrieve(request.params));
-			}).then( (reviews) => {
-				supplier.reviews = reviews;
-				return database.runQueryPromise(supplies.retrieveBySupplier(request.params));
-			}).then( (supplies) => {
-				supplier.supplies = supplies;
-				return reply(supplier).code(200);
-			}).catch((error) => {
-				console.log(error);
-				return reply().code(500);
-			});
-	}
+	if (request.params.id) request.params.supplier_id = request.params.id
+	const supplier = {};
+	database.runQueryPromise(suppliers.isSupplier(request.params))
+		.then((results) => {
+			if (results.length == 0 || !results[0].isSupplier){
+				return reply({
+					message: "Page not found"
+				}).code(404);
+			} else {
+				return database.runQueryPromise(suppliers.retrieve(request.params));
+			}
+		}).then( (supplierInfo) => {
+			supplier.name = supplierInfo[0]["Name"];
+			supplier.email = supplierInfo[0]["Email"];
+			supplier.address = supplierInfo[0]["Address"];
+			supplier.city = supplierInfo[0]["City"];
+			supplier.state = supplierInfo[0]["State"];
+			supplier.rating = supplierInfo[0]["Rating"];
+			return database.runQueryPromise(reviews.retrieve(request.params));
+		}).then( (reviews) => {
+			supplier.reviews = reviews;
+			return database.runQueryPromise(supplies.retrieveBySupplier(request.params));
+		}).then( (supplies) => {
+			supplier.supplies = supplies;
+			return reply(supplier).code(200);
+		}).catch((error) => {
+			console.log(error);
+			return reply().code(500);
+		});
 }
 
 function viewAllSuppliersID(request, reply) {
@@ -80,6 +77,10 @@ function viewAll(request, reply) {
 			console.log(error);
 			return reply().code(500);
 		});
+}
+
+function reRouteAccount(request, reply) {
+
 }
 
 module.exports = {
