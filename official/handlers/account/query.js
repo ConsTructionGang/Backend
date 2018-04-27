@@ -9,7 +9,7 @@ const query = {
 		FROM Account
 		WHERE Email = '${payload.email}';`,
 	checkPassword: payload =>
-		`SELECT Name, ID
+		`SELECT Name, ID, isSupplier
 		FROM (
 			SELECT *
 			FROM Account
@@ -73,7 +73,7 @@ const query = {
 	isSupplier: params =>
 		`SELECT *
 		FROM Account
-		WHERE ID = ${params.job_id}
+		WHERE ID = ${params.id}
 		AND isSupplier = 1`
 };
 

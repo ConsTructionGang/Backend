@@ -11,9 +11,11 @@ const tasks = require('../tasks/query');
 const jobs = require('../jobs/query');
 const supplies = require('../supplies/query');
 
+const suppliers = require('../suppliers/handlers')
+
 //attempts to login user
 function login(request, reply) {
-	if(!fullyDefined(request.payload, ["email","password"])) {//if payload received in incorrect format
+	if(!fullyDefined(request.payload, ["email","password"])) {// if payload received in incorrect format
 		return reply({'message': 'Parameter Error'}).code(400);//Throw error
 	} else {
 		database.runQueryPromise(account.checkPassword(request.payload))
@@ -22,6 +24,7 @@ function login(request, reply) {
 			return reply({//if success return reply with ID and name
 				"id": results[0].ID,
 				"name": results[0].Name,
+				"type": (results[0].isSupplier) ? 'Supplier' : 'User',
 			}).code(200);
 		}).catch( (error) => {
 			if (error == 'no-match') {//If no account found
@@ -99,7 +102,7 @@ function retrieve(request, reply) {
 			return reply(accountJSON).code(200)
 		}).catch( (error) => {
 			if (error === 'no-page') {
-				return reply().code(400);
+				suppliers.view(request,reply);
 			} else {
 				console.log(error);
 				return reply().code(500);

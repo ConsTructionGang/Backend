@@ -2,6 +2,7 @@ const query = {
 	retrieve: params =>
 		`SELECT
 			Name,
+			Email,
 			Address,
 			City,
 			State,
@@ -9,8 +10,7 @@ const query = {
 				SELECT AVG(Rating)
 				FROM Review
 				WHERE Supplier_ID = ${params.supplier_id}
-			) Rating,
-			Count(Review.Supplier_ID) Reviews
+			) Rating
 		FROM Account JOIN Review
 		ON Account.ID = Review.Supplier_ID
 		WHERE Account.ID = ${params.supplier_id};`,
@@ -18,12 +18,12 @@ const query = {
 		`SELECT
 			ID,
 			Name,
-			(
-				SELECT AVG(Rating)
+            Avg Rating
+		FROM Account JOIN (
+				SELECT Supplier_ID, Avg(Rating) Avg
 				FROM Review
-				WHERE Supplier_ID = ${params.supplier_id}
-			) Rating,
-		FROM Account
+				GROUP BY Supplier_ID
+			) Rating ON Account.ID = Rating.Supplier_ID
 		WHERE isSupplier = true;`,
 	isSupplier: params =>
 		`SELECT isSupplier

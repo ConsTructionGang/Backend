@@ -18,8 +18,12 @@ const query = {
 	retrieve: job_ID =>
 		`SELECT Supply_ID as id, Supplier_ID as supplierId, Name as name
    		FROM Job j natural join SupplyList s natural join Item i natural join Supplies
-    	WHERE j.Job_ID = ${job_ID};`,
-	addToSupplyList: payloadstring =>
+		WHERE j.Job_ID = ${job_ID};`,
+	retrieveBySupplier: payload =>
+		`SELECT Supply_ID as id, Name as name
+   		FROM Item i natural join Supplies
+		WHERE Supplies.Supplier_ID = ${payload.supplier_id};`,
+	addToList: payloadstring =>
 		`INSERT INTO SupplyList(
 			Job_ID,
 			Quantity,

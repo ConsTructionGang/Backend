@@ -28,7 +28,7 @@ const query = {
 			Comment.Date_Created Date
 		FROM (
 			SELECT Review_ID, Author_ID, Name, Date_Created, Title, Body, Review.Rating
-			FROM Review JOIN Account ON Account.ID = Review_ID 
+			FROM Review JOIN Account ON Account.ID = Review.Author_ID
 			WHERE Supplier_ID = '${payload.supplier_id}'
 		) t LEFT JOIN Comment 
 		ON t.Review_ID = Comment.Review_ID
