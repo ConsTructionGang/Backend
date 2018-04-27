@@ -18,19 +18,19 @@ const query = {
 			Estimated_Date
 		) VALUES (
 			'${payload.account_id}',
-			'${payload.taskname}',
+			'${payload.title}',
 			'${payload.description}',
 			'${payload.priority}',
-			'${payload.creation_date}',
-			'${payload.estimated_date}'
+			'${payload.startDate}',
+			'${payload.endDate}'
 		);`,
 	edit: payload =>
 		`UPDATE Task
-			SET Name = ${payload.taskname},
+			SET Name = ${payload.title},
 			Description = ${payload.description},
 			Priority = ${payload.priority},
-			Creation_Date = ${payload.creation_date},
-			Estimated_Date = ${payload.estimated_date}
+			Creation_Date = ${payload.startDate},
+			Estimated_Date = ${payload.endDate}
 			WHERE Task_ID = ${payload.task_id};`,
 	complete: payload =>
 		`UPDATE Task
