@@ -192,12 +192,6 @@ server.route({
 	handler: supply_handler.retrieveTypes
 });
 
-server.route({
-	method: "POST",
-	path: '/supplies/add',
-	handler: supply_handler.addToJob
-});
-
 // Task manager for jobs
 
 server.route({
@@ -232,8 +226,8 @@ server.route({
 
 server.route({
 	method: "POST",
-	path: '/user/{job_id}/addsupplies',
-	handler: supply_handler.add
+	path: '/jobs/{job_id}/addsupplies',
+	handler: supply_handler.addToJob
 });
 
 server.route({
