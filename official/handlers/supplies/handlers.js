@@ -70,8 +70,17 @@ function retrieveTypes(request, reply) {
 }
 
 function remove(request, reply) {
+	database.runQueryPromise(supplies.removeAsSupplier(request.payload))
+	.then(() => {
+		return database.runQueryPromise(supplies.removeFromSupplyListAsSupplier(request.payload))
+	}).then(() => {
+		return reply({message: "supplies deleted"}).code(200);
+	}).catch((error) => {
+		console.log(error);
+		return reply().code(400);
+	})
 
-}
+};
 
 function viewTagged(request, reply) {
 	database.runQuery(supplies.viewTagged(request.params), function(error, results) {
