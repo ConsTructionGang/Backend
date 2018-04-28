@@ -140,6 +140,12 @@ server.route({
 
 server.route({
 	method: "DELETE",
+	path: '/suppliers/remove',
+	handler: supply_handler.remove
+})
+
+server.route({
+	method: "DELETE",
 	path: '/suppliers/{supplier_id}/reviews',
 	handler: review_handler.remove
 });
