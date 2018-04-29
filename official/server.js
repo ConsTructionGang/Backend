@@ -20,10 +20,6 @@ server.connection({ port: 5000, host: "0.0.0.0",
 			origin: ["*"],
 			headers: ["Access-Control-Allow-Origin","Access-Control-Allow-Headers","Content-Type"],
 			credentials: true
-			// additionalHeaders: ["Access-Control-Allow-Origin","Access-Control-Allow-Headers",
-			// "Content-Type", "Accept-Language"],
-			// additionalExposedHeaders: ["Access-Control-Allow-Origin","Access-Control-Allow-Headers",
-			// "Content-Type", "Origin", "Accept-Language"]
 		}
 	},
 });
@@ -43,8 +39,6 @@ const scheme = function (server, options) {
 
 server.auth.scheme('cookie', scheme)
 
-// server.auth.default('session');
-
 server.auth.strategy('session', 'cookie', {
 	password: 'oatmeal-raisin',
 	cookie: 'chocolate-chip'
@@ -59,7 +53,6 @@ server.route({
 		return reply("Login page").code(200);
 	}
 });
-
 
 server.route({
 	method: 'PUT',
@@ -116,7 +109,6 @@ server.route({
 
 
 // Supplier Management routes********************************************************************************
-
 server.route({
 	method: "GET",
 	path: "/suppliers/{supplier_id?}",
@@ -135,6 +127,7 @@ server.route({
 	handler: supplier_handler.viewAllSuppliersID
 });
 // End of Supplier Management routes********************************************************************************
+
 
 // Supply Management routes ********************************************************************************
 server.route({
@@ -187,15 +180,6 @@ server.route({
 	path: '/suppliers/{id}/reviews',
 	handler: review_handler.remove
 });
-
-/*server.route({
-	method: "PUT",
-	path: '/suppliers/{id}/dispute',
-	handler: function() {
-		console.log('do something');
-	}
-});*/
-
 //End of Reviews Management routes ********************************************************************************
 
 
@@ -231,8 +215,9 @@ server.route({
 });
 //End of Jobs Management routes ********************************************************************************
 
-//Tasks Management routes ********************************************************************************
 
+
+//Tasks Management routes ********************************************************************************
 server.route({
 	method: "GET",
 	path: '/jobs/{job_id}/tasks',
