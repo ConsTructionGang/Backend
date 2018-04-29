@@ -157,7 +157,7 @@ server.route({
 
 server.route({
 	method: "GET",
-	path: '/suppliers/{supplier_id}/supplies',
+	path: '/suppliers/{id}/supplies',
 	handler: supply_handler.view
 });
 // End of Supply Management routes ********************************************************************************
@@ -165,26 +165,26 @@ server.route({
 //Reviews Management routes ********************************************************************************
 server.route({
 	method: "GET",
-	path: '/suppliers/{supplier_id}/reviews',
+	path: '/suppliers/{id}/reviews',
 	handler: review_handler.retrieveAll
 });
 
 server.route({
 	method: "PUT",
-	path: '/suppliers/{supplier_id}/reviews',
+	path: '/suppliers/{id}/reviews',
 	handler: review_handler.publish
 });
 
 
 server.route({
 	method: "DELETE",
-	path: '/suppliers/{supplier_id}/reviews',
+	path: '/suppliers/{id}/reviews',
 	handler: review_handler.remove
 });
 
 /*server.route({
 	method: "PUT",
-	path: '/suppliers/{supplier_id}/dispute',
+	path: '/suppliers/{id}/dispute',
 	handler: function() {
 		console.log('do something');
 	}
