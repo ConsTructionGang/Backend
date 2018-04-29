@@ -9,8 +9,8 @@ const query = {
 			Rating
 		) VALUES (
 			${request.payload.author_id},
-			${request.params.supplier_id},
-			"${request.payload.date}",
+			${request.params.id},
+			CURDATE(),
 			"${request.payload.title}",
 			"${request.payload.body}",
 			${request.payload.rating}
