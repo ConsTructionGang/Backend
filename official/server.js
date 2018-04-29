@@ -132,6 +132,12 @@ server.route({
 
 // Supply Management routes ********************************************************************************
 server.route({
+	method: "GET",
+	path: '/supplies',
+	handler: supply_handler.retrieveTypes
+});
+
+server.route({
 	method: "POST",
 	path: "/suppliers/addsupplies",
 	handler: supply_handler.create
@@ -156,7 +162,7 @@ server.route({
 });
 // End of Supply Management routes ********************************************************************************
 
-
+//Reviews Management routes ********************************************************************************
 server.route({
 	method: "GET",
 	path: '/suppliers/{supplier_id}/reviews',
@@ -176,21 +182,18 @@ server.route({
 	handler: review_handler.remove
 });
 
-
-//Reviews - Dispute
-
-server.route({
+/*server.route({
 	method: "PUT",
 	path: '/suppliers/{supplier_id}/dispute',
 	handler: function() {
 		console.log('do something');
 	}
-});
+});*/
+
+//End of Reviews Management routes ********************************************************************************
 
 
-
-// Jobs
-
+//Jobs Management routes ********************************************************************************
 server.route({
 	method: "POST",
 	path: '/jobs/create/{id}',
@@ -215,11 +218,6 @@ server.route({
 	handler: job_handler.remove
 });
 
-server.route({
-	method: "GET",
-	path: '/supplies',
-	handler: supply_handler.retrieveTypes
-});
 
 // Task manager for jobs
 
