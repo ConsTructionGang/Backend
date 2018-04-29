@@ -145,7 +145,7 @@ function viewSortedDSC(request, reply) {
 }
 
 function editPrice(request, reply) {
-	database.runQueryPromise(supplies.editPrice(request.params))
+	database.runQueryPromise(supplies.editPrice(request.payload))
 	.then(() => {
 		return reply({message: "price changed"}).code(200);
 	}).catch((error) => {
