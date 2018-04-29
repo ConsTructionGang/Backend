@@ -8,7 +8,7 @@ const database = require('../database');
 const supplies = require('./query');
 
 function create(request, reply) {
-	database.runQuery(supplies.create(request.payload))
+	database.runQueryPromise(supplies.create(request.payload))
 		.then(() => {
 			return reply({
 				message: "Supplies addded"

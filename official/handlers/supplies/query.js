@@ -1,14 +1,12 @@
 const query = {
 	create: payload =>
 		`INSERT INTO Supplies (
+			Supply_ID,
 			Supplier_ID,
-			Name,
-			Tags,
 			Price
 		)  Values (
+			'${payload.supply_id}',
 			'${payload.supplier_id}',
-			'${payload.name}',
-			'${payload.tags}',
 			'${payload.price}'
 		);`,
 	view: params =>
