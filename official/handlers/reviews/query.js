@@ -29,7 +29,7 @@ const query = {
 		FROM (
 			SELECT Review_ID, Author_ID, Name, Date_Created, Title, Body, Review.Rating
 			FROM Review JOIN Account ON Account.ID = Review.Author_ID
-			WHERE Supplier_ID = '${payload.supplier_id}'
+			WHERE Supplier_ID = '${payload.id}'
 		) t LEFT JOIN Comment 
 		ON t.Review_ID = Comment.Review_ID
 		Order By t.Date_Created;`,
