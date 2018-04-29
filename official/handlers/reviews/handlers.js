@@ -9,7 +9,7 @@ const review = require('./query');
 const account = require('../account/query');
 
 function publish(request, reply){
-	database.runQuery(account.isSupplier(request.params))
+	database.runQueryPromise(account.isSupplier(request.params))
 		.then( (results) => {
 			if(!results[0].isSupplier) throw 'not-a-Supplier';
 			database.runQuery(review.authorIsSupplier(request.payload));
@@ -29,7 +29,7 @@ function publish(request, reply){
 }
 
 function retrieveAll(request, reply) {
-	database.runQuery(account.isSupplier(request.params))
+	database.runQueryPromise(account.isSupplier(request.params))
 		.then( (results) => {
 			if(results.length == 0 || !results[0].isSupplier) throw 'no-page';
 			database.runQuery(review.retrieve(request.params));
@@ -43,7 +43,7 @@ function retrieveAll(request, reply) {
 }
 
 function remove(request, reply) {
-	database.runQuery(review.remove(request.payload, request.params))
+	database.runQueryPromise(review.remove(request.payload, request.params))
 		.then( () => {
 			return reply({
 				message: "Review has been deleted"
