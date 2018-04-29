@@ -157,10 +157,17 @@ server.route({
 })
 
 server.route({
+	method: "GET",
+	path: '/suppliers/{supplier_id}/supplies',
+	handler: supply_handler.view
+});
+server.route({
 	method: "DELETE",
 	path: '/suppliers/{supplier_id}/reviews',
 	handler: review_handler.remove
 });
+
+
 
 //Reviews - Dispute
 
@@ -172,11 +179,7 @@ server.route({
 	}
 });
 
-server.route({
-	method: "GET",
-	path: '/suppliers/{supplier_id}/supplies',
-	handler: supply_handler.view
-});
+
 
 // Jobs
 
