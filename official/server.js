@@ -109,12 +109,6 @@ server.route({
 // Suppliers + Reviews
 
 server.route({
-	method: "POST",
-	path: "/suppliers/addsupplies",
-	handler: supply_handler.create
-})
-
-server.route({
 	method: "GET",
 	path: "/suppliers/{supplier_id?}",
 	handler: supplier_handler.view
@@ -145,9 +139,21 @@ server.route({
 });
 
 server.route({
+	method: "POST",
+	path: "/suppliers/addsupplies",
+	handler: supply_handler.create
+})
+
+server.route({
 	method: "DELETE",
 	path: '/suppliers/remove',
 	handler: supply_handler.remove
+})
+
+server.route({
+	method: "POST",
+	path: "/suppliers/edit",
+	handler: supply_handler.editPrice
 })
 
 server.route({

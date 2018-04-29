@@ -156,6 +156,7 @@ function editPrice(request, reply) {
 
 module.exports = {
 	create,
+	editPrice,
 	view,
 	retrieveTypes,
 	addToJob,
