@@ -109,6 +109,12 @@ server.route({
 // Suppliers + Reviews
 
 server.route({
+	method: "POST",
+	path: "/suppliers/addsupplies",
+	handler: supply_handler.create
+})
+
+server.route({
 	method: "GET",
 	path: "/suppliers/{supplier_id?}",
 	handler: supplier_handler.view
