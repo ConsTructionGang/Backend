@@ -146,12 +146,12 @@ function viewSortedDSC(request, reply) {
 
 function editPrice(request, reply) {
 	database.runQueryPromise(supplies.editPrice(request.payload))
-	.then(() => {
-		return reply({message: "price changed"}).code(200);
-	}).catch((error) => {
-		console.log(error)
-		return reply().code(400);
-	})
+		.then(() => {
+			return reply({message: "price changed"}).code(200);
+		}).catch((error) => {
+			console.log(error)
+			return reply().code(400);
+		})
 }
 
 module.exports = {
