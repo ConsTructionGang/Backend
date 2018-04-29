@@ -12,13 +12,13 @@ function publish(request, reply){
 	database.runQueryPromise(account.isSupplier(request.params))
 		.then( (results) => {
 			if(!results[0].isSupplier) throw 'not-a-Supplier';
-			database.runQuery(review.authorIsSupplier(request.payload));
+			return database.runQueryPromise(review.authorIsSupplier(request.payload));
 		}).then( (results) => {
 			if(results[0].isSupplier) throw 'author-Is-Supplier';
-			database.runQuery(review.alreadyReviewed(request.payload, request.params));
+			return database.runQueryPromise(review.alreadyReviewed(request.payload, request.params));
 		}).then( (results) => {
 			if (results.length) throw 're-review';
-			database.runQuery(review.post(request));
+			return database.runQueryPromise(review.post(request));
 		}).then( () => {
 			return reply({
 				message: "Review has been published"
