@@ -22,7 +22,7 @@ function create(request, reply) {
 }
 
 function view(request, reply) {
-	database.runQuery(supplies.view(request.payload))
+	database.runQueryPromise(supplies.view(request.payload))
 		.then((results) => {
 			return reply({results}).code(200);
 		}).catch((error) => {
