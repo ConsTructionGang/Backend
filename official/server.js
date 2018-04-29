@@ -106,6 +106,12 @@ server.route({
 	path: '/changepassword',
 	handler: account_handler.changePassword
 });
+
+server.route({
+	method: "GET",
+	path: '/userpage/{id}',
+	handler: account_handler.retrieve
+});
 // End of Account Management Routes***************************************************************************
 
 
@@ -218,8 +224,14 @@ server.route({
 	handler: job_handler.remove
 });
 
+server.route({
+	method: "POST",
+	path: '/jobs/{job_id}/addsupplies',
+	handler: supply_handler.addToJob
+});
+//End of Jobs Management routes ********************************************************************************
 
-// Task manager for jobs
+//Tasks Management routes ********************************************************************************
 
 server.route({
 	method: "GET",
@@ -250,18 +262,7 @@ server.route({
 	path: "/jobs/{job_id}/tasks",
 	handler: task_handler.complete
 });
-
-server.route({
-	method: "POST",
-	path: '/jobs/{job_id}/addsupplies',
-	handler: supply_handler.addToJob
-});
-
-server.route({
-	method: "GET",
-	path: '/userpage/{id}',
-	handler: account_handler.retrieve
-});
+//End of Tasks Management routes ********************************************************************************
 
 server.start(err => {
 	if (err) {
