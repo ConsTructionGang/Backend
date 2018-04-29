@@ -39,11 +39,11 @@ const query = {
 		WHERE JobList_ID = '${payload.list_id}';`,
 	removeAsSupplier: payload =>
 		`DELETE FROM Supplies
-		WHERE Supplier_ID = ${payload.id}
+		WHERE Supplier_ID = ${payload.supplier_id}
 		AND Supply_ID = ${payload.supply_id};`,
 	removeFromSupplyListAsSupplier: payload =>
 		`DELETE FROM SupplyList
-		WHERE Supplier_ID = ${payload.id}
+		WHERE Supplier_ID = ${payload.supplier_id}
 		AND Supply_ID = ${payload.supply_id};`
 };
 
