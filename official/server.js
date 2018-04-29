@@ -50,6 +50,7 @@ server.auth.strategy('session', 'cookie', {
 	cookie: 'chocolate-chip'
 })
 
+//Account Management Routes***************************************************************************
 server.route({
 	method: "GET",
 	path: '/login',
@@ -105,8 +106,10 @@ server.route({
 	path: '/changepassword',
 	handler: account_handler.changePassword
 });
+// End of Account Management Routes***************************************************************************
 
-// Suppliers + Reviews
+
+// Supplier Management routes********************************************************************************
 
 server.route({
 	method: "GET",
@@ -125,6 +128,34 @@ server.route({
 	path: "/suppliers/supplyID/{supply_id}",
 	handler: supplier_handler.viewAllSuppliersID
 });
+// End of Supplier Management routes********************************************************************************
+
+// Supply Management routes ********************************************************************************
+server.route({
+	method: "POST",
+	path: "/suppliers/addsupplies",
+	handler: supply_handler.create
+});
+
+server.route({
+	method: "DELETE",
+	path: '/suppliers/remove',
+	handler: supply_handler.remove
+});
+
+server.route({
+	method: "POST",
+	path: "/suppliers/edit",
+	handler: supply_handler.editPrice
+});
+
+server.route({
+	method: "GET",
+	path: '/suppliers/{supplier_id}/supplies',
+	handler: supply_handler.view
+});
+// End of Supply Management routes ********************************************************************************
+
 
 server.route({
 	method: "GET",
@@ -138,35 +169,12 @@ server.route({
 	handler: review_handler.publish
 });
 
-server.route({
-	method: "POST",
-	path: "/suppliers/addsupplies",
-	handler: supply_handler.create
-})
 
-server.route({
-	method: "DELETE",
-	path: '/suppliers/remove',
-	handler: supply_handler.remove
-})
-
-server.route({
-	method: "POST",
-	path: "/suppliers/edit",
-	handler: supply_handler.editPrice
-})
-
-server.route({
-	method: "GET",
-	path: '/suppliers/{supplier_id}/supplies',
-	handler: supply_handler.view
-});
 server.route({
 	method: "DELETE",
 	path: '/suppliers/{supplier_id}/reviews',
 	handler: review_handler.remove
 });
-
 
 
 //Reviews - Dispute
