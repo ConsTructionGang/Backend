@@ -32,7 +32,7 @@ function retrieveAll(request, reply) {
 	database.runQueryPromise(account.isSupplier(request.params))
 		.then( (results) => {
 			if(results.length == 0 || !results[0].isSupplier) throw 'no-page';
-			database.runQuery(review.retrieve(request.params));
+			return database.runQueryPromise(review.retrieve(request.params));
 		}).then( (results) => {
 			return reply({
 				results

@@ -109,7 +109,7 @@ server.route({
 // End of Account Management Routes***************************************************************************
 
 
-// Supplier Management********************************************************************************
+// Supplier Management routes********************************************************************************
 
 server.route({
 	method: "GET",
@@ -128,9 +128,9 @@ server.route({
 	path: "/suppliers/supplyID/{supply_id}",
 	handler: supplier_handler.viewAllSuppliersID
 });
-// End of Supplier Management********************************************************************************
+// End of Supplier Management routes********************************************************************************
 
-// Supply Management********************************************************************************
+// Supply Management routes ********************************************************************************
 server.route({
 	method: "POST",
 	path: "/suppliers/addsupplies",
@@ -154,7 +154,7 @@ server.route({
 	path: '/suppliers/{id}/supplies',
 	handler: supply_handler.view
 });
-// End of Supply Management********************************************************************************
+// End of Supply Management routes ********************************************************************************
 
 
 server.route({
