@@ -47,7 +47,7 @@ const query = {
 		AND Supply_ID = ${payload.supply_id};`,
 	editPrice: payload =>
 		`UPDATE Supplies
-		SET price = ${payload.price}
+		SET Price = ${payload.price}
 		WHERE Supplier_ID = ${payload.supplier_id}
 		AND Supply_ID = ${payload.supply_id};`
 };
