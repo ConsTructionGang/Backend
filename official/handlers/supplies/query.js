@@ -10,7 +10,7 @@ const query = {
 			'${payload.price}'
 		);`,
 	view: params =>
-		`SELECT Supplier_ID supplier_id, i.Name product_name, Price, a.name supplier_name
+		`SELECT Supplier_ID supplier_id, i.Name product_name, Price, a.name supplier_name, i.supply_id
 		FROM Supplies s NATURAL JOIN Item i INNER JOIN Account a
 		ON s.Supplier_ID = a.ID
 		WHERE a.ID = ${params.supplier_id};`,
