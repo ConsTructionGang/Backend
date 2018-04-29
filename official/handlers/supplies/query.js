@@ -11,10 +11,11 @@ const query = {
 			'${payload.tags}',
 			'${payload.price}'
 		);`,
-	view: () =>
-		`Select Supplier_ID, s.Name AS product_name, Price, a.Name AS supplier_name
-		FROM Supplies s inner join Account a
-		ON s.Supplier_ID = a.ID;`,
+	view: params =>
+		`SELECT Supplier_ID supplier_id, i.Name product_name, Price, a.name supplier_name
+		FROM Supplies s NATURAL JOIN Item i INNER JOIN Account a
+		ON s.Supplier_ID = a.ID
+		WHERE a.ID = ${params.supplier_id};`,
 	retrieve: job_ID =>
 		`SELECT Supply_ID as id, Supplier_ID as supplierId, Name as name
    		FROM Job j natural join SupplyList s natural join Item i natural join Supplies
