@@ -46,7 +46,7 @@ function addToJob(request, reply){
 		}
 	}
 
-	database.runQuery(supplies.addToList(string))
+	database.runQueryPromise(supplies.addToList(string))
 		.then(() => {
 			return reply({
 				message: "Supplies added"
@@ -142,6 +142,16 @@ function viewSortedDSC(request, reply) {
 		}
 	});
 	return;
+}
+
+function editPrice(request, reply) {
+	database.runQueryPromise(supplies.editPrice(request.params))
+	.then(() => {
+		return reply({message: "price changed"}).code(200);
+	}).catch((error) => {
+		console.log(error)
+		return reply().code(400);
+	})
 }
 
 module.exports = {
