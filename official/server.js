@@ -45,61 +45,43 @@ server.auth.strategy('session', 'cookie', {
 })
 
 //Account Management Routes***************************************************************************
-server.route({
-	method: "GET",
-	path: '/login',
-	handler: function(request, reply, err) {
-		if(err) throw err;
-		return reply("Login page").code(200);
-	}
-});
 
+//Login route
 server.route({
 	method: 'PUT',
 	path: '/login',
 	handler: account_handler.login
 });
 
-server.route({
-	method: 'GET',
-	path: '/logout',
-	handler: function(request, reply) {
-		return reply("logout page").code(200);
-	}
-});
-
-server.route({
-	method: "GET",
-	path: "/signup",
-	handler: function(request, reply, err) {
-		if (err) throw err;
-		return reply("Signup page").code(200);
-	}
-});
-
+//Creates account
 server.route({
 	method: "POST",
 	path: "/signup",
 	handler: account_handler.register
 });
 
+//Makes changes to user account
 server.route({
 	method: "POST",
 	path: "/account",
 	handler: account_handler.edit
 })
+
+//Deletes account
 server.route({
 	method: "DELETE",
 	path: '/account',
 	handler: account_handler.remove
 });
 
+//Changes user password
 server.route({
 	method: "POST",
 	path: '/changepassword',
 	handler: account_handler.changePassword
 });
 
+//Returns info about user based on user ID
 server.route({
 	method: "GET",
 	path: '/userpage/{id}',
