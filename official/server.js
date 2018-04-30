@@ -67,13 +67,6 @@ server.route({
 	handler: account_handler.edit
 })
 
-//Deletes account
-server.route({
-	method: "DELETE",
-	path: '/account',
-	handler: account_handler.remove
-});
-
 //Changes user password
 server.route({
 	method: "POST",

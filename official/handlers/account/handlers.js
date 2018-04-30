@@ -10,7 +10,6 @@ const account = require("./query");
 const tasks = require('../tasks/query');
 const jobs = require('../jobs/query');
 const supplies = require('../supplies/query');
-
 const suppliers = require('../suppliers/handlers')
 
 //attempts to login user
