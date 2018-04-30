@@ -30,7 +30,7 @@ function view(request, reply) {
 			return database.runQueryPromise(reviews.retrieve(request.params));
 		}).then( (reviews) => {
 			supplier.reviews = reviews;
-			return database.runQueryPromise(supplies.retrieve(request.params));
+			return database.runQueryPromise(suppliers.retrieve(request.params));
 		}).then( (supplies) => {
 			supplier.supplies = supplies;
 			return reply(supplier).code(200);
