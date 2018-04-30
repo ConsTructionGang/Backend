@@ -13,7 +13,7 @@ const reviews = require('../reviews/query');
 const supplies = require('../supplies/query');
 
 function view(request, reply) {
-	//if (request.params.id) request.params.supplier_id = request.params.id;
+	if (request.params.id) request.params.supplier_id = request.params.id;
 	const supplier = {};
 	database.runQueryPromise(suppliers.isSupplier(request.params))
 		.then((results) => {
@@ -37,7 +37,7 @@ function view(request, reply) {
 			if (error === "no-page") {
 				return reply({ message: "Page not found" }).code(404);
 			} else {
-				console.log(request.params.supplier_id);
+				console.log(error);
 				return reply().code(500);
 			}
 		});
