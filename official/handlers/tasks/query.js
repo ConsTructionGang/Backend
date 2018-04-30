@@ -29,10 +29,10 @@ const query = {
 	complete: payload =>
 		`UPDATE Task
 			SET Status = 1
-			WHERE ID = ${payload.id};`,
+			WHERE Task_ID = ${payload.id};`,
 	remove: payload =>
 		`DELETE FROM Task
-			WHERE ID = ${payload.id};`
+			WHERE Task_ID = ${payload.id};`
 };
 
 module.exports = query;
