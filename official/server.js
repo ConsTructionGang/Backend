@@ -165,30 +165,36 @@ server.route({
 
 
 //Jobs Management routes ********************************************************************************
+
+// Create a job given an id.
 server.route({
 	method: "POST",
 	path: '/jobs/create/{id}',
 	handler: job_handler.create
 });
 
+// Edit a jobs information.
 server.route({
 	method: "PUT",
 	path: '/jobs/{job_id}',
 	handler: job_handler.editJob
 });
 
+// View all jobs related to a single id.
 server.route({
 	method: 'GET',
 	path: '/jobs/{id}',
 	handler: job_handler.retrieveAll
 });
 
+// Delete a job given a job_id
 server.route({
 	method: "DELETE",
 	path: '/jobs/{job_id}',
 	handler: job_handler.remove
 });
 
+// Add a supply to a jobs supply-list.
 server.route({
 	method: "POST",
 	path: '/jobs/{job_id}/addsupplies',
