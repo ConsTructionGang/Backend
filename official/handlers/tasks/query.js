@@ -1,13 +1,15 @@
 const query = {
 	retrieveAll: params =>
 		`SELECT
+			Task_ID id,
 			Name,
 			Description,
 			Priority,
 			Creation_Date,
-			Estimated_Date
+			Estimated_Date,
+			Status
 		FROM Task
-		WHERE Account_ID = ${params.id};`,
+		WHERE Account_ID = ${params.user_id};`,
 	create: payload =>
 		`INSERT INTO Task (
 			Account_ID,
@@ -17,7 +19,7 @@ const query = {
 			Creation_Date,
 			Estimated_Date
 		) VALUES (
-			'${payload.account_id}',
+			'${payload.user_id}',
 			'${payload.title}',
 			'${payload.description}',
 			'${payload.priority}',
@@ -26,11 +28,11 @@ const query = {
 		);`,
 	complete: payload =>
 		`UPDATE Task
-			SET Completion_Date = ${payload.completion_date}
-			WHERE ID = ${payload.id};`,
+			SET Status = 1
+			WHERE Task_ID = ${payload.id};`,
 	remove: payload =>
 		`DELETE FROM Task
-			WHERE ID = ${payload.id};`
+			WHERE Task_ID = ${payload.id};`
 };
 
 module.exports = query;
