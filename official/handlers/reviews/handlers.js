@@ -3,8 +3,11 @@
 *"function handlers for Reviews management"
 *By:Zach Banducci, Tyrone Criddle, Fernando Corral
 */
+
+//Important query handler for database
 const database = require('../database');
 
+//Import neccesary query files
 const review = require('./query');
 const account = require('../account/query');
 

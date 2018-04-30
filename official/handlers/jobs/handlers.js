@@ -3,7 +3,11 @@
 *"function handlers for job management"
 *By:Zach Banducci, Tyrone Criddle, Fernando Corral
 */
+
+//Important query handler for database
 const database = require('../database');
+
+//Import neccesary query files
 const jobs = require('./query');
 const account = require('../account/query');
 

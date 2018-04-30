@@ -4,7 +4,10 @@
 *By:Zach Banducci, Tyrone Criddle, Fernando Corral
 */
 
+//Important query handler for database
 const database = require('../database');
+
+//Import neccesary query files
 const suppliers = require('./query');
 const reviews = require('../reviews/query');
 const supplies = require('../supplies/query');
@@ -15,7 +18,7 @@ function view(request, reply) {
 	database.runQueryPromise(suppliers.isSupplier(request.params))
 		.then((results) => {
 			if (results.length == 0 || !results[0].isSupplier) throw 'no-page';
-			
+
 			return database.runQueryPromise(suppliers.retrieve(request.params));
 		}).then( (supplierInfo) => {
 			supplier.name = supplierInfo[0]["Name"];
