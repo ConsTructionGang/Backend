@@ -111,30 +111,36 @@ server.route({
 
 
 // Supply Management routes ********************************************************************************
+
+// Returns all items 
 server.route({
 	method: "GET",
 	path: '/supplies',
 	handler: supply_handler.retrieveTypes
 });
 
+// 
 server.route({
 	method: "POST",
-	path: "/suppliers/addsupplies",
+	path: "/suppliers/{id}/supplies",
 	handler: supply_handler.create
 });
 
+// Deletes a supply from a supplier
 server.route({
 	method: "DELETE",
-	path: '/suppliers/remove',
+	path: '/suppliers/{id}/supplies',
 	handler: supply_handler.remove
 });
 
+// Edits the price of a given supply  
 server.route({
 	method: "POST",
-	path: "/suppliers/edit",
+	path: "/suppliers/{id}/supplies",
 	handler: supply_handler.editPrice
 });
 
+// Views all supplies that a supplier offers
 server.route({
 	method: "GET",
 	path: '/suppliers/{id}/supplies',
@@ -165,30 +171,36 @@ server.route({
 
 
 //Jobs Management routes ********************************************************************************
+
+// Create a job given an id.
 server.route({
 	method: "POST",
 	path: '/jobs/create/{id}',
 	handler: job_handler.create
 });
 
+// Edit a jobs information.
 server.route({
 	method: "PUT",
 	path: '/jobs/{job_id}',
 	handler: job_handler.editJob
 });
 
+// View all jobs related to a single id.
 server.route({
 	method: 'GET',
 	path: '/jobs/{id}',
 	handler: job_handler.retrieveAll
 });
 
+// Delete a job given a job_id
 server.route({
 	method: "DELETE",
 	path: '/jobs/{job_id}',
 	handler: job_handler.remove
 });
 
+// Add a supply to a jobs supply-list.
 server.route({
 	method: "POST",
 	path: '/jobs/{job_id}/addsupplies',
