@@ -41,7 +41,7 @@ server.auth.scheme('cookie', scheme)
 server.auth.strategy('session', 'cookie', {
 	password: 'oatmeal-raisin',
 	cookie: 'chocolate-chip'
-})
+});
 
 //Account Management Routes***************************************************************************
 
@@ -64,7 +64,7 @@ server.route({
 	method: "POST",
 	path: "/account",
 	handler: account_handler.edit
-})
+});
 
 //Changes user password
 server.route({
@@ -202,34 +202,29 @@ server.route({
 // Add a supply to a jobs supply-list.
 server.route({
 	method: "POST",
-	path: '/jobs/{job_id}/addsupplies',
+	path: '/jobs/{job_id}/supplies',
 	handler: supply_handler.addToJob
 });
 //End of Jobs Management routes ********************************************************************************
 
 
 //Tasks Management routes ********************************************************************************
-server.route({
-	method: "GET",
-	path: '/jobs/{job_id}/tasks',
-	handler: task_handler.retrieve
-});
 
 server.route({
 	method: "POST",
-	path: '/tasks/{account_id}',
+	path: '/tasks/{user_id}',
 	handler: task_handler.create
 });
 
 server.route({
 	method: "DELETE",
-	path: '/jobs/{job_id}/tasks',
+	path: '/tasks/{id}',
 	handler: task_handler.remove
 });
 
 server.route({
-	method: "PATCH",
-	path: "/jobs/{job_id}/tasks",
+	method: "PUT",
+	path: "/tasks/{id}",
 	handler: task_handler.complete
 });
 //End of Tasks Management routes ********************************************************************************

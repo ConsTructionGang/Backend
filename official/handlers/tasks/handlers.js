@@ -25,7 +25,7 @@ function retrieve(request, reply) {
 }
 
 function create(request, reply) {
-	request.payload.account_id = request.params.account_id;
+	request.payload.user_id = request.params.user_id;
 	database.runQueryPromise(tasks.create(request.payload))
 		.then( () => {
 			return reply({
@@ -40,7 +40,7 @@ function create(request, reply) {
 }
 
 function complete(request, reply) {
-	database.runQueryPromise(tasks.complete(request.payload))
+	database.runQueryPromise(tasks.complete(request.params))
 		.then( () => {
 			return reply({
 				message: "Marked as complete"
@@ -54,7 +54,7 @@ function complete(request, reply) {
 }
 
 function remove(request, reply) {
-	database.runQueryPromise(tasks.remove(request.payload))
+	database.runQueryPromise(tasks.remove(request.params))
 		.then( () => {
 			return reply({
 				message: "Task deleted"
