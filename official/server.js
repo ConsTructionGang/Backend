@@ -119,7 +119,7 @@ server.route({
 	handler: supply_handler.retrieveTypes
 });
 
-// 
+// Adds a supply to a supplier
 server.route({
 	method: "POST",
 	path: "/suppliers/{id}/supplies",

@@ -11,6 +11,7 @@ const database = require('../database');
 const supplies = require('./query');
 
 function create(request, reply) {
+	request.payload.id = request.params.id;
 	database.runQueryPromise(supplies.create(request.payload))
 		.then(() => {
 			return reply({
@@ -25,6 +26,7 @@ function create(request, reply) {
 }
 
 function view(request, reply) {
+	request.payload.id = request.params.id;
 	database.runQueryPromise(supplies.view(request.params))
 		.then((results) => {
 			return reply(results).code(200);
@@ -37,6 +39,7 @@ function view(request, reply) {
 }
 
 function addToJob(request, reply){
+	request.payload.id = request.params.id;
 	let string = "";
 	let data = JSON.parse(request.payload.supplies);
 	for (let i = 0; i < data.length; i++) {
@@ -63,6 +66,7 @@ function addToJob(request, reply){
 }
 
 function retrieveTypes(request, reply) {
+	request.payload.id = request.params.id;
 	database.runQueryPromise(supplies.retrieveAll())
 		.then((results) => {
 			return reply({results}).code(200);
@@ -73,78 +77,16 @@ function retrieveTypes(request, reply) {
 }
 
 function remove(request, reply) {
+	request.payload.id = request.params.id;
 	database.runQueryPromise(supplies.removeAsSupplier(request.payload))
-	.then(() => {
-		return database.runQueryPromise(supplies.removeFromSupplyListAsSupplier(request.payload))
-	}).then(() => {
-		return reply({message: "supplies deleted"}).code(200);
-	}).catch((error) => {
-		console.log(error);
-		return reply().code(400);
-	})
-
-};
-
-function viewTagged(request, reply) {
-	database.runQuery(supplies.viewTagged(request.params), function(error, results) {
-		if (error) {
-			console.log("ERROR VIEWING SUPPLIES");
+		.then(() => {
+			return database.runQueryPromise(supplies.removeFromSupplyListAsSupplier(request.payload))
+		}).then(() => {
+			return reply({message: "supplies deleted"}).code(200);
+		}).catch((error) => {
 			console.log(error);
-			return reply("SQL QUERY ERROR").code(400);
-		} else {
-			return reply(results).code(200);
-		}
-	});
-	return;
-}
-
-function viewTaggedMultiple(request, reply) {
-	let arr = request.params.tag.split('_');
-	let string = "";
-	for(let i = 0; i < arr.length; i++) {
-		string += "Tags LIKE '%";
-		string += arr[i];
-		string += "%' ";
-		if(i != arr.length - 1) {
-			string += 'OR ';
-		}
-	}
-	database.runQuery(supplies.viewTaggedMultiple(string), function(error, results) {
-		if (error) {
-			console.log("ERROR VIEWING SUPPLIES");
-			console.log(error);
-			return reply("SQL QUERY ERROR").code(400);
-		} else {
-			return reply(results).code(200);
-		}
-	});
-	return;
-}
-
-function viewSortedASC(request, reply) {
-	database.runQuery(supplies.viewSortedASC(request.params), function(error, results) {
-		if (error) {
-			console.log("ERROR VIEWING SUPPLIES");
-			console.log(error);
-			return reply("SQL QUERY ERROR").code(400);
-		} else {
-			return reply(results).code(200);
-		}
-	});
-	return;
-}
-
-function viewSortedDSC(request, reply) {
-	database.runQuery(supplies.viewSortedDSC(request.params), function(error, results) {
-		if (error) {
-			console.log("ERROR VIEWING SUPPLIES");
-			console.log(error);
-			return reply("SQL QUERY ERROR").code(400);
-		} else {
-			return reply(results).code(200);
-		}
-	});
-	return;
+			return reply().code(400);
+		});
 }
 
 function editPrice(request, reply) {
@@ -154,7 +96,7 @@ function editPrice(request, reply) {
 		}).catch((error) => {
 			console.log(error)
 			return reply().code(400);
-		})
+		});
 }
 
 module.exports = {
@@ -164,8 +106,4 @@ module.exports = {
 	retrieveTypes,
 	addToJob,
 	remove,
-	viewTagged,
-	viewTaggedMultiple,
-	viewSortedASC,
-	viewSortedDSC,
 };
