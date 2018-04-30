@@ -1,6 +1,7 @@
 const query = {
 	retrieveAll: params =>
 		`SELECT
+			Task_ID id,
 			Name,
 			Description,
 			Priority,
