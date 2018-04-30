@@ -18,7 +18,7 @@ function view(request, reply) {
 	database.runQueryPromise(suppliers.isSupplier(request.params))
 		.then((results) => {
 			if (results.length == 0 || !results[0].isSupplier) throw 'no-page';
-
+			console.log(request.params.supplier_id)
 			return database.runQueryPromise(suppliers.retrieve(request.params));
 		}).then( (supplierInfo) => {
 			supplier.name = supplierInfo[0]["Name"];
@@ -30,7 +30,6 @@ function view(request, reply) {
 			return database.runQueryPromise(reviews.retrieve(request.params));
 		}).then( (reviews) => {
 			supplier.reviews = reviews;
-			console.log(request.params)
 			return database.runQueryPromise(supplies.retrieveBySupplier(request.params));
 		}).then( (supplies) => {
 			supplier.supplies = supplies;
