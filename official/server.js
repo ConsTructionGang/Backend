@@ -84,6 +84,8 @@ server.route({
 
 
 // Supplier Management routes********************************************************************************
+
+// Views a supplier's page if a supplier id is provided and shows all 
 server.route({
 	method: "GET",
 	path: "/suppliers/{supplier_id?}",
