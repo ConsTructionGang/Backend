@@ -57,13 +57,6 @@ const query = {
 		WHERE Email = '${payload.email}';`,
 
 
-
-		//********************************************************
-	delete: payload => /*			THIS NEEDS TO BE FINISHED			*/
-		`DELETE Account
-		WHERE ID = ${payload.id};`,
-			//********************************************************
-
 //Updates user information based on changes
 	edit: payload =>
 		`UPDATE Account_ID
