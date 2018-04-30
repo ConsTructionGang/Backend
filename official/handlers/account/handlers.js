@@ -113,6 +113,7 @@ function retrieve(request, reply) {
 			});
 		}).then( (jobsWithSupplies) => {
 			accountJSON.jobs = jobsWithSupplies;
+			request.params.user_id = request.params.id
 			return database.runQueryPromise(tasks.retrieveAll(request.params));
 		}).then( (tasks) => {
 			accountJSON.tasks = tasks;
