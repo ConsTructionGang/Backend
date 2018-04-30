@@ -89,7 +89,7 @@ server.route({
 // and their average rating if no id is specified
 server.route({
 	method: "GET",
-	path: "/suppliers/{supplier_id?}",
+	path: "/suppliers/{supplierId}",
 	handler: supplier_handler.view
 });
 
@@ -112,14 +112,14 @@ server.route({
 
 // Supply Management routes ********************************************************************************
 
-// Returns all items 
+// Returns all items
 server.route({
 	method: "GET",
 	path: '/supplies',
 	handler: supply_handler.retrieveTypes
 });
 
-// 
+//
 server.route({
 	method: "PUT",
 	path: "/suppliers/{id}/supplies",
@@ -133,7 +133,7 @@ server.route({
 	handler: supply_handler.remove
 });
 
-// Edits the price of a given supply  
+// Edits the price of a given supply
 server.route({
 	method: "POST",
 	path: "/suppliers/{id}/supplies",
