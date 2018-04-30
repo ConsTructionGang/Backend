@@ -18,10 +18,10 @@ const query = {
 		`SELECT Supply_ID as id, Supplier_ID as supplierId, Name as name
    		FROM Job j natural join SupplyList s natural join Item i natural join Supplies
 		WHERE j.Job_ID = ${job_ID};`,
-	retrieveBySupplier: payload =>
+	retrieveBySupplier: params =>
 		`SELECT Supply_ID as id, Name as name
    		FROM Item i natural join Supplies
-		WHERE Supplies.Supplier_ID = ${payload.id};`,
+		WHERE Supplies.Supplier_ID = ${params.supplier_id};`,
 	addToList: payloadstring =>
 		`INSERT INTO SupplyList(
 			Job_ID,
@@ -31,7 +31,7 @@ const query = {
 		${payloadstring}
 		ON DUPLICATE KEY UPDATE Quantity = Quantity + values(Quantity);
 		;`,
-	retrieveAll: () => 
+	retrieveAll: () =>
 		`SELECT *
 		FROM Item;`,
 	remove: payload =>
