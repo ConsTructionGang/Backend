@@ -1,7 +1,7 @@
 /* handlers.js
 * Honeyscape
-*"function handlers for supplies management"
-*By:Zach Banducci, Tyrone Criddle, Fernando Corral
+* "function handlers for supplies management"
+* By:Zach Banducci, Tyrone Criddle, Fernando Corral
 */
 
 //Important query handler for database
