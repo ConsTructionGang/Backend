@@ -111,30 +111,36 @@ server.route({
 
 
 // Supply Management routes ********************************************************************************
+
+// Returns all items 
 server.route({
 	method: "GET",
 	path: '/supplies',
 	handler: supply_handler.retrieveTypes
 });
 
+// 
 server.route({
 	method: "POST",
-	path: "/suppliers/addsupplies",
+	path: "/suppliers/{id}/supplies",
 	handler: supply_handler.create
 });
 
+// Deletes a supply from a supplier
 server.route({
 	method: "DELETE",
-	path: '/suppliers/remove',
+	path: '/suppliers/{id}/supplies',
 	handler: supply_handler.remove
 });
 
+// Edits the price of a given supply  
 server.route({
 	method: "POST",
-	path: "/suppliers/edit",
+	path: "/suppliers/{id}/supplies",
 	handler: supply_handler.editPrice
 });
 
+// Views all supplies that a supplier offers
 server.route({
 	method: "GET",
 	path: '/suppliers/{id}/supplies',
