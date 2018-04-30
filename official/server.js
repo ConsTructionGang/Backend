@@ -89,7 +89,7 @@ server.route({
 // and their average rating if no id is specified
 server.route({
 	method: "GET",
-	path: "/suppliers/{supplierId}",
+	path: "/suppliers/{supplier_id}",
 	handler: supplier_handler.view
 });
 
