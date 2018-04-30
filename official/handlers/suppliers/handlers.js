@@ -18,7 +18,6 @@ function view(request, reply) {
 	database.runQueryPromise(suppliers.isSupplier(request.params))
 		.then((results) => {
 			if (results.length == 0 || !results[0].isSupplier) throw 'no-page';
-			console.log(request.params.supplier_id)
 			return database.runQueryPromise(suppliers.retrieve(request.params));
 		}).then( (supplierInfo) => {
 			supplier.name = supplierInfo[0]["Name"];
@@ -38,7 +37,7 @@ function view(request, reply) {
 			if (error === "no-page") {
 				return reply({ message: "Page not found" }).code(404);
 			} else {
-				console.log(error);
+				console.log(request.params.supplier_id);
 				return reply().code(500);
 			}
 		});
