@@ -26,7 +26,6 @@ function create(request, reply) {
 }
 
 function view(request, reply) {
-	request.payload.id = request.params.id;
 	database.runQueryPromise(supplies.view(request.params))
 		.then((results) => {
 			return reply(results).code(200);

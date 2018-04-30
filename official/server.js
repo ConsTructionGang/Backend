@@ -12,7 +12,6 @@ const supply_handler = require('./supplies/handlers');
 const supplier_handler = require('./suppliers/handlers');
 const task_handler = require('./tasks/handlers');
 const cookie = require('hapi-auth-cookie');
-const query = require('./query');
 
 server.connection({ port: 5000, host: "0.0.0.0",
 	routes: {
@@ -121,7 +120,7 @@ server.route({
 
 // Adds a supply to a supplier
 server.route({
-	method: "POST",
+	method: "PUT",
 	path: "/suppliers/{id}/supplies",
 	handler: supply_handler.create
 });
