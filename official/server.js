@@ -85,7 +85,7 @@ server.route({
 
 // Supplier Management routes********************************************************************************
 
-// Views a supplier's page if a supplier id is provided and shows all 
+// Views a supplier's page if a supplier id is provided and shows all
 server.route({
 	method: "GET",
 	path: "/suppliers/{supplier_id?}",
@@ -205,12 +205,6 @@ server.route({
 	method: "POST",
 	path: '/tasks/{account_id}',
 	handler: task_handler.create
-});
-
-server.route({
-	method: "PUT",
-	path: '/tasks/{task_id}',
-	handler: task_handler.edit
 });
 
 server.route({

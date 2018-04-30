@@ -12,7 +12,7 @@ const jobs = require('../jobs/query');
 const supplies = require('../supplies/query');
 const suppliers = require('../suppliers/handlers')
 
-//attempts to login user
+
 function login(request, reply) {
 	if(!fullyDefined(request.payload, ["email","password"])) {// if payload received in incorrect format
 		return reply({'message': 'Parameter Error'}).code(400);//Throw error
@@ -226,7 +226,6 @@ module.exports = {
 	login,
 	register,
 	changePassword,
-	remove,
 	retrieve,
 	edit,
 };

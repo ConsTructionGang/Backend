@@ -24,14 +24,6 @@ const query = {
 			'${payload.startDate}',
 			'${payload.endDate}'
 		);`,
-	edit: payload =>
-		`UPDATE Task
-			SET Name = ${payload.title},
-			Description = ${payload.description},
-			Priority = ${payload.priority},
-			Creation_Date = ${payload.startDate},
-			Estimated_Date = ${payload.endDate}
-			WHERE Task_ID = ${payload.task_id};`,
 	complete: payload =>
 		`UPDATE Task
 			SET Completion_Date = ${payload.completion_date}

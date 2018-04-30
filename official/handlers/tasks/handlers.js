@@ -36,21 +36,6 @@ function create(request, reply) {
 		});
 }
 
-function edit(request, reply) {
-	request.payload.task_id = request.params.task_id;
-	database.runQueryPromise(tasks.edit(request.payload))
-		.then( () => {
-			return reply({
-				message: "Task created"
-			}).code(200);
-		}).catch( (error) => {
-			console.log(error);
-			return reply({
-				message: "PROBLEM CREATING TASK"
-			}).code(400);
-		});
-}
-
 function complete(request, reply) {
 	database.runQueryPromise(tasks.complete(request.payload))
 		.then( () => {
@@ -84,5 +69,4 @@ module.exports = {
 	complete,
 	remove,
 	retrieve,
-	edit,
 };
