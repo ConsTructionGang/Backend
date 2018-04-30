@@ -81,7 +81,7 @@ function job(data) {
 
 /**
 *"Retrieves account information"
-*@param request Contains email and password for loging into account inside of payload
+*@param request Contains user ID in payload
 *@param reply Empty reply object that is utilized to return account info and reply code
 *@return parameter reply
 */
