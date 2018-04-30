@@ -121,7 +121,7 @@ server.route({
 
 // 
 server.route({
-	method: "POST",
+	method: "PUT",
 	path: "/suppliers/{id}/supplies",
 	handler: supply_handler.create
 });
