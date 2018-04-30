@@ -85,24 +85,28 @@ server.route({
 
 // Supplier Management routes********************************************************************************
 
-// Views a supplier's page if a supplier id is provided and shows all
+// Views a supplier's page if a supplier id is provided and shows all suppliers
+// and their average rating if no id is specified
 server.route({
 	method: "GET",
 	path: "/suppliers/{supplier_id?}",
 	handler: supplier_handler.view
 });
 
+// View supplies from all suppliers given a supply name
 server.route({
 	method: "GET",
 	path: "/suppliers/supply/{supply_name}",
 	handler: supplier_handler.viewAllSuppliersName
 });
 
+// View supplies from all suppliers given a supply id
 server.route({
 	method: "GET",
 	path: "/suppliers/supplyID/{supply_id}",
 	handler: supplier_handler.viewAllSuppliersID
 });
+
 // End of Supplier Management routes********************************************************************************
 
 
