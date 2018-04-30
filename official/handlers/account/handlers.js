@@ -14,7 +14,12 @@ const jobs = require('../jobs/query');
 const supplies = require('../supplies/query');
 const suppliers = require('../suppliers/handlers')
 
-
+/**
+*"Account Login Handler"
+*@param request Contains email and password for loging into account inside of payload
+*@param reply Empty reply object that is utilized to return account info and reply code
+*@return parameter reply
+*/
 function login(request, reply) {
 	if(!fullyDefined(request.payload, ["email","password"])) {// if payload received in incorrect format
 		return reply({'message': 'Parameter Error'}).code(400);//Throw error
@@ -40,6 +45,11 @@ function login(request, reply) {
 	}
 }
 
+/**
+*"Job object: Utilized in account information retrieval"
+*@param data contains data from database to form job object
+*@returns supplies from job
+*/
 function job(data) {
   	async function getSupplies() {
 		return database.runQueryPromise(supplies.retrieve(jobObj.id))
@@ -69,6 +79,12 @@ function job(data) {
   	};
 }
 
+/**
+*"Retrieves account information"
+*@param request Contains email and password for loging into account inside of payload
+*@param reply Empty reply object that is utilized to return account info and reply code
+*@return parameter reply
+*/
 function retrieve(request, reply) {
 	const accountJSON = {};
 
