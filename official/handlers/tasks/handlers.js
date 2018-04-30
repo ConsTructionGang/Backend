@@ -4,7 +4,10 @@
 *By:Zach Banducci, Tyrone Criddle, Fernando Corral
 */
 
+//Important query handler for database
 const database = require('../database');
+
+//Import neccesary query files
 const tasks = require('./query');
 
 function retrieve(request, reply) {
