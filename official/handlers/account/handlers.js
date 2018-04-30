@@ -3,16 +3,18 @@
 *"function handlers for account management"
 *By:Zach Banducci, Tyrone Criddle, Fernando Corral
 */
+
+//Important query handler for database
 const database = require("../database");
 
-// Queries
+//Import neccesary query files
 const account = require("./query");
 const tasks = require('../tasks/query');
 const jobs = require('../jobs/query');
 const supplies = require('../supplies/query');
 const suppliers = require('../suppliers/handlers')
 
-//attempts to login user
+
 function login(request, reply) {
 	if(!fullyDefined(request.payload, ["email","password"])) {// if payload received in incorrect format
 		return reply({'message': 'Parameter Error'}).code(400);//Throw error
@@ -226,7 +228,6 @@ module.exports = {
 	login,
 	register,
 	changePassword,
-	remove,
 	retrieve,
 	edit,
 };

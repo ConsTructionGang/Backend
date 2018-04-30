@@ -3,11 +3,15 @@
 *"function handlers for job management"
 *By:Zach Banducci, Tyrone Criddle, Fernando Corral
 */
+
+// Important query handler for database
 const database = require('../database');
+
+// Import neccesary query files
 const jobs = require('./query');
 const account = require('../account/query');
 
-//Function handler for creating a user job
+// Function handler for creating a user job
 function create(request, reply) {
 	database.runQueryPromise(account.isSupplier(request.params))
 		.then( (results) => {
@@ -43,13 +47,15 @@ function editJob(request, reply) {
 		})
 }
 
+// Delete job related to job_id
 function remove(request, reply) {
 	database.runQueryPromise(jobs.remove(request.params))
 	.then((results) => {
 		return reply().code(200);
 	}).catch((error) => {
 		console.log(error)
-		return reply().code(400);//If server runs into an error return code 400
+		return reply().code(400);
+		// If server runs into an error return code 400
 	});
 };
 

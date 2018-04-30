@@ -4,7 +4,10 @@
 *By:Zach Banducci, Tyrone Criddle, Fernando Corral
 */
 
+//Important query handler for database
 const database = require('../database');
+
+//Import neccesary query files
 const tasks = require('./query');
 
 function retrieve(request, reply) {
@@ -33,21 +36,6 @@ function create(request, reply) {
 			return reply({
 				message: "PROBLEM CREATING TASK"
 			}).code(500);
-		});
-}
-
-function edit(request, reply) {
-	request.payload.task_id = request.params.task_id;
-	database.runQueryPromise(tasks.edit(request.payload))
-		.then( () => {
-			return reply({
-				message: "Task created"
-			}).code(200);
-		}).catch( (error) => {
-			console.log(error);
-			return reply({
-				message: "PROBLEM CREATING TASK"
-			}).code(400);
 		});
 }
 
@@ -84,5 +72,4 @@ module.exports = {
 	complete,
 	remove,
 	retrieve,
-	edit,
 };

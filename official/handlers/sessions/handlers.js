@@ -3,8 +3,14 @@
 *"function handlers for session management"
 *By:Zach Banducci, Tyrone Criddle, Fernando Corral
 */
+
+//Important query handler for database
 const database = require('../database');
+
+//Import neccesary query files
 const query = require('./query');
+
+
 //Creates new session and returns random key value generated for session
 function createSession(payload){
   database.runQuery(query.createSession(payload), function(error, results){
