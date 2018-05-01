@@ -25,7 +25,6 @@ const query = {
 	addToList: payloadstring =>
 		`INSERT INTO SupplyList(
 			Job_ID,
-			Quantity,
 			Supply_ID
 		) Values
 		${payloadstring}
