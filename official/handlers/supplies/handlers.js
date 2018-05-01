@@ -41,6 +41,7 @@ function addToJob(request, reply){
 	request.payload.id = request.params.id;
 	let string = "";
 	let data = JSON.parse(request.payload.supplies);
+	console.log(data)
 	for (let i = 0; i < data.length; i++) {
 		string += '(';
 		string += request.params.job_id + ', ';
