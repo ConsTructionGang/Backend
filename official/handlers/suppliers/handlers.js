@@ -51,7 +51,7 @@ function viewAllSuppliersID(request, reply) {
 			return reply ({results}).code(200);
 		}).catch( (error) => {
 			if (error === 'no-page') {
-				return reply([]]).code(200);
+				return reply([]).code(200);
 			} else {
 				console.log(error);
 				return reply().code(500);
