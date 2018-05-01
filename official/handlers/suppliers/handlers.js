@@ -51,7 +51,7 @@ function viewAllSuppliersID(request, reply) {
 			return reply ({results}).code(200);
 		}).catch( (error) => {
 			if (error === 'no-page') {
-				return reply({ message: "Page not found" }).code(404);
+				return reply([]]).code(200);
 			} else {
 				console.log(error);
 				return reply().code(500);
@@ -67,7 +67,7 @@ function viewAllSuppliersName(request, reply) {
 			return reply ({results}).code(200);
 		}).catch( (error) => {
 			if (error === 'no-page') {
-				return reply({ message: "Page not found" }).code(404);
+				return reply([]).code(200);
 			} else {
 				console.log(error);
 				return reply().code(500);
