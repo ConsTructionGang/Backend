@@ -40,10 +40,11 @@ function view(request, reply) {
 function addToJob(request, reply){
 	request.payload.id = request.params.id;
 	let string = "";
+	let data;
 	try {
-		let data = JSON.parse(request.payload.supplies);
+		data = JSON.parse(request.payload.supplies);
 	} catch (error) {
-		let data = request.payload.supplies;
+		data = request.payload.supplies;
 	}
 	for (let i = 0; i < data.length; i++) {
 		string += '(';
