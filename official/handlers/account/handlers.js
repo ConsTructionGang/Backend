@@ -180,26 +180,10 @@ function changePassword(request, reply) {
 		return reply("bad parameter error").code(400);
 	}
 
-	database.runQueryPromise(account.checkEmail(request.payload))
+	database.runQueryPromise(account.changePassword(request.payload))
 		.then((results)=>{
-			if(results.length === 0) throw 'no-account';
-			return database.runQueryPromise(account.checkPassword(request.payload));
-		}).then( (results) => {
-			if(results.length === 0) throw 'no-match';
-			database.runQueryPromise(account.changePassword(request.payload));
-		}).then( () => {
-			return reply({
-				message:"Password Successfully Changed"
-			}).code(200);
-		}).catch( (error) => {
-			if (error === 'no-match') {
-				return reply({ message: "Passwords do not match" }).code(400);
-			} else if (error === 'no-account'){
-				return reply({ message: "Account doesn't exist"}).code(400);
-			} else {
-				return reply().code(500);
-			}
-		});
+			return reply({message: "password changed"}).code(200);
+		})
 }
 
 function edit(request, reply) {
