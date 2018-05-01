@@ -41,12 +41,10 @@ function addToJob(request, reply){
 	request.payload.id = request.params.id;
 	let string = "";
 	let data = JSON.parse(request.payload.supplies);
-	console.log(data)
 	for (let i = 0; i < data.length; i++) {
 		string += '(';
 		string += request.params.job_id + ', ';
-		0 + ', ';
-		string += data[i] + ')';
+		string += data[i]['supply_id'] + ')';
 		if(i != data.length-1) {
 			string += ',';
 		}
@@ -66,6 +64,7 @@ function addToJob(request, reply){
 }
 
 function retrieveTypes(request, reply) {
+
 	database.runQueryPromise(supplies.retrieveAll())
 		.then((results) => {
 			return reply({results}).code(200);
