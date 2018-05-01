@@ -65,7 +65,6 @@ function addToJob(request, reply){
 }
 
 function retrieveTypes(request, reply) {
-	request.payload.id = request.params.id;
 	database.runQueryPromise(supplies.retrieveAll())
 		.then((results) => {
 			return reply({results}).code(200);
