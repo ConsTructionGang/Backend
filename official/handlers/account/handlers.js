@@ -175,10 +175,6 @@ function register(request, reply) {
 }
 
 function changePassword(request, reply) {
-	if(!fullyDefined(request.payload,
-		["email", "password", "newpassword"])) {
-		return reply("bad parameter error").code(400);
-	}
 
 	database.runQueryPromise(account.changePassword(request.payload))
 		.then((results)=>{
