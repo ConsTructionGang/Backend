@@ -180,8 +180,11 @@ function changePassword(request, reply) {
 		return reply("bad parameter error").code(400);
 	}
 
-	database.runQueryPromise(account.checkPassword(request.payload))
-		.then( (results) => {
+	database.runQueryPromise(account.checkEmail(request.payload))
+		.then((results)=>{
+			if(results.length === 0) throw 'no-account';
+			return database.runQueryPromise(account.checkPassword(request.payload));
+		}).then( (results) => {
 			if(results.length === 0) throw 'no-match';
 			database.runQueryPromise(account.changePassword(request.payload));
 		}).then( () => {
@@ -191,6 +194,8 @@ function changePassword(request, reply) {
 		}).catch( (error) => {
 			if (error === 'no-match') {
 				return reply({ message: "Passwords do not match" }).code(400);
+			} else if (error === 'no-account'){
+				return reply({ message: "Account doesn't exist"}).code(400);
 			} else {
 				return reply().code(500);
 			}
