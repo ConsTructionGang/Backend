@@ -45,7 +45,7 @@ function addToJob(request, reply){
 		string += '(';
 		string += request.params.job_id + ', ';
 		0 + ', ';
-		string += data[i]['supply_id'] + ')';
+		string += data[i] + ')';
 		if(i != data.length-1) {
 			string += ',';
 		}
