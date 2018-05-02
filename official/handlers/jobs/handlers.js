@@ -35,7 +35,7 @@ function create(request, reply) {
 
 //Function handler for editing a user job
 function editJob(request, reply) {
-	return database.runQueryPromise(jobs.edit(request.payload, results.params))
+	database.runQueryPromise(jobs.edit(request.payload, request.params))
 	.then((results) => {
 		let string = "";
 		let data;
