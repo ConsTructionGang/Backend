@@ -33,6 +33,11 @@ const query = {
 		) t LEFT JOIN Comment 
 		ON t.Review_ID = Comment.Review_ID
 		Order By t.Date_Created;`,
+	dispute: payload => 
+		`UPDATE Comment 
+		SET Body = '${payload.comment}',
+		Date_Created = CURDATE()
+		WHERE ${payload.review_id}`,
 	remove: (params) =>
 		`DELETE FROM Review
 		WHERE Supplier_ID = '${params.id}'

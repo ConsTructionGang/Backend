@@ -160,6 +160,11 @@ server.route({
 	handler: review_handler.publish
 });
 
+server.route({
+	method: "POST",
+	path: '/suppliers/{id}/reviews',
+	handler: review_handler.dispute
+});
 
 server.route({
 	method: "DELETE",
@@ -227,6 +232,7 @@ server.route({
 	path: "/tasks/{task_id}",
 	handler: task_handler.complete
 });
+
 //End of Tasks Management routes ********************************************************************************
 
 server.start(err => {

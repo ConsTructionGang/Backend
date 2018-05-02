@@ -31,6 +31,10 @@ function publish(request, reply){
 		});
 }
 
+function dispute(request, reply) {
+	database.runQueryPromise(review.dispute(request.payload))
+}
+
 function retrieveAll(request, reply) {
 	database.runQueryPromise(account.isSupplier(request.params))
 		.then( (results) => {
