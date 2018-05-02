@@ -162,7 +162,7 @@ server.route({
 
 
 server.route({
-	method: "POST",
+	method: "DELETE",
 	path: '/suppliers/{id}/reviews/{author_id}',
 	handler: review_handler.remove
 });
