@@ -94,6 +94,7 @@ function remove(request, reply) {
 }
 
 function editPrice(request, reply) {
+	request.payload.id = request.params.id;
 	database.runQueryPromise(supplies.editPrice(request.payload))
 		.then(() => {
 			return reply({message: "price changed"}).code(200);
