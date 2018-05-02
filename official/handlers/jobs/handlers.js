@@ -59,9 +59,7 @@ function editJob(request, reply) {
 		.then(() => {})
 		.catch((error) => {
 			console.log(error);
-			return reply({
-				message: "Problem occured when adding supply"
-			}).code(500);
+			throw error;
 		});
 			return reply({
 				message: "Job Modified"
