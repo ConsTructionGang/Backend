@@ -37,6 +37,7 @@ function create(request, reply) {
 function editJob(request, reply) {
 	database.runQueryPromise(jobs.edit(request.payload, request.params))
 	.then( () => {
+
 		let string = "";
 		let data;
 		try {
@@ -52,16 +53,16 @@ function editJob(request, reply) {
 				string += ',';
 			}
 		}
-		console.log(string);
-			database.runQueryPromise(supplies.addToList(string))
-			.then(() => {
 
-			}).catch((error) => {
-				console.log(error);
-				return reply({
-					message: "Problem occured when adding supply"
-				}).code(500);
-			});
+		console.log(string);
+		database.runQueryPromise(supplies.addToList(string))
+		.then(() => {})
+		.catch((error) => {
+			console.log(error);
+			return reply({
+				message: "Problem occured when adding supply"
+			}).code(500);
+		});
 			return reply({
 				message: "Job Modified"
 			}).code(200);//Returns code 200 if succcesful job edit
