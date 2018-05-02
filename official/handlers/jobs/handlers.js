@@ -80,7 +80,7 @@ function retrieveAll(request, reply) {
 	database.runQueryPromise(account.isSupplier(request.params))
 		.then( (results) => {
 			if (results.length != 0) throw 'no-page';
-			database.runQueryPromise(jobs.retrieveAll(request.params));
+			return database.runQueryPromise(jobs.retrieveAll(request.params));
 		}).then( (results) => {
 			return reply(results).code(200);
 		}).catch( (error) => {
