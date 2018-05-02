@@ -12,7 +12,6 @@ const supply_handler = require('./supplies/handlers');
 const supplier_handler = require('./suppliers/handlers');
 const task_handler = require('./tasks/handlers');
 const cookie = require('hapi-auth-cookie');
-const query = require('./query');
 
 server.connection({ port: 5000, host: "0.0.0.0",
 	routes: {
@@ -210,27 +209,22 @@ server.route({
 
 
 //Tasks Management routes ********************************************************************************
-server.route({
-	method: "GET",
-	path: '/jobs/{job_id}/tasks',
-	handler: task_handler.retrieve
-});
 
 server.route({
 	method: "POST",
-	path: '/tasks/{account_id}',
+	path: '/tasks/{user_id}',
 	handler: task_handler.create
 });
 
 server.route({
 	method: "DELETE",
-	path: '/jobs/{job_id}/tasks',
+	path: '/tasks/{task_id}',
 	handler: task_handler.remove
 });
 
 server.route({
-	method: "PATCH",
-	path: "/jobs/{job_id}/tasks",
+	method: "PUT",
+	path: "/tasks/{task_id}",
 	handler: task_handler.complete
 });
 //End of Tasks Management routes ********************************************************************************
