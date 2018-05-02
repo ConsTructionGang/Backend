@@ -40,6 +40,7 @@ function create(request, reply) {
 }
 
 function complete(request, reply) {
+	request.params.status = request.payload.status;
 	database.runQueryPromise(tasks.complete(request.params))
 		.then( () => {
 			return reply({

@@ -7,7 +7,7 @@ const query = {
 			Priority,
 			Creation_Date,
 			Estimated_Date,
-			Status status
+			Status
 		FROM Task
 		WHERE Account_ID = ${params.user_id};`,
 	create: payload =>
@@ -28,7 +28,7 @@ const query = {
 		);`,
 	complete: payload =>
 		`UPDATE Task
-			SET Status = 1
+			SET Status = {payload.status}
 			WHERE Task_ID = ${payload.task_id};`,
 	remove: payload =>
 		`DELETE FROM Task
