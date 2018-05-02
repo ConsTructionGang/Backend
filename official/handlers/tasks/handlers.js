@@ -41,7 +41,7 @@ function create(request, reply) {
 
 function complete(request, reply) {
 	request.params.status = request.payload.status;
-	database.runQueryPromise(tasks.complete(request.params))
+	database.runQueryPromise(tasks.changeStatus(request.params))
 		.then( () => {
 			return reply({
 				message: "Marked as complete"

@@ -17,16 +17,18 @@ const query = {
 			Description,
 			Priority,
 			Creation_Date,
-			Estimated_Date
+			Estimated_Date,
+			Status
 		) VALUES (
 			'${payload.user_id}',
 			'${payload.title}',
 			'${payload.description}',
 			'${payload.priority}',
 			'${payload.startDate}',
-			'${payload.endDate}'
+			'${payload.endDate}',
+			'${payload.status}'
 		);`,
-	complete: payload =>
+	changeStatus: payload =>
 		`UPDATE Task
 			SET Status = ${payload.status}
 			WHERE Task_ID = ${payload.task_id};`,
