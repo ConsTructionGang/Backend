@@ -28,7 +28,7 @@ const query = {
 			Job_ID,
 			Supply_ID
 		) Values
-		${payloadstring}
+		(${payloadstring})
 		ON DUPLICATE KEY UPDATE Quantity = Quantity + values(Quantity);`,
 	retrieveAll: () =>
 		`SELECT *
