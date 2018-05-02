@@ -10,6 +10,7 @@ const database = require('../database');
 // Import neccesary query files
 const jobs = require('./query');
 const account = require('../account/query');
+const supplies = require('../supplies/query');
 
 // Function handler for creating a user job
 function create(request, reply) {
