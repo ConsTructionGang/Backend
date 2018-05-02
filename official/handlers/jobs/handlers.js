@@ -36,33 +36,33 @@ function create(request, reply) {
 //Function handler for editing a user job
 function editJob(request, reply) {
 	database.runQueryPromise(jobs.edit(request.payload, request.params))
-		.then( () => {
-			let string = "";
-			let data;
-			try {
-				data = JSON.parse(request.payload.supplies);
-			} catch (error) {
-				data = request.payload.supplies;
+	.then( () => {
+
+		let string = "";
+		let data;
+		try {
+			data = JSON.parse(request.payload.supplies);
+		} catch (error) {
+			data = request.payload.supplies;
+		}
+		for (let i = 0; i < data.length; i++) {
+			string += '(';
+			string += request.params.job_id + ', ';
+			string += data[i]['supply_id'] + ')';
+			if(i != data.length-1) {
+				string += ',';
 			}
-			for (let i = 0; i < data.length; i++) {
-				string += '(';
-				string += request.params.job_id + ', ';
-				string += data[i]['supply_id'] + ')';
-				if(i != data.length-1) {
-					string += ',';
-				}
-			}
-			database.runQueryPromise(supplies.addToList(string))
-				.then(() => {
-					return reply({
-						message: "Supplies added"
-					}).code(200);
-				}).catch((error) => {
-					console.log(error);
-					return reply({
-						message: "Problem occured when adding supply"
-					}).code(500);
-				});
+		}
+
+		console.log(string);
+		database.runQueryPromise(supplies.addToList(string))
+		.then(() => {})
+		.catch((error) => {
+			console.log(error);
+			return reply({
+				message: "Problem occured when adding supply"
+			}).code(500);
+		});
 			return reply({
 				message: "Job Modified"
 			}).code(200);//Returns code 200 if succcesful job edit
@@ -71,7 +71,7 @@ function editJob(request, reply) {
 				console.log(error);
 				return reply().code(400);//If server runs into an error return code 400
 			}
-		})
+	})
 }
 
 // Delete job related to job_id
