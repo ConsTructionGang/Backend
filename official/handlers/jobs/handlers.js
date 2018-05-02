@@ -53,16 +53,16 @@ function editJob(request, reply) {
 				}
 			}
 			database.runQueryPromise(supplies.addToList(string))
-			.then(() => {
-			return reply({
-				message: "Supplies added"
-			}).code(200);
-			}).catch((error) => {
-				console.log(error);
-			return reply({
-				message: "Problem occured when adding supply"
-			}).code(500);
-			});
+				.then(() => {
+					return reply({
+						message: "Supplies added"
+					}).code(200);
+				}).catch((error) => {
+					console.log(error);
+					return reply({
+						message: "Problem occured when adding supply"
+					}).code(500);
+				});
 			return reply({
 				message: "Job Modified"
 			}).code(200);//Returns code 200 if succcesful job edit

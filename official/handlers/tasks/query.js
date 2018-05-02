@@ -7,7 +7,7 @@ const query = {
 			Priority,
 			Creation_Date,
 			Estimated_Date,
-			Status
+			Status status
 		FROM Task
 		WHERE Account_ID = ${params.user_id};`,
 	create: payload =>
