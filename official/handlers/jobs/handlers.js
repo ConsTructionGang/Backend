@@ -79,7 +79,7 @@ function remove(request, reply) {
 function retrieveAll(request, reply) {
 	database.runQueryPromise(account.isSupplier(request.params))
 		.then( (results) => {
-			if (results[0].isSupplier) throw 'no-page';
+			if (!results[0]) throw 'no-page';
 			database.runQueryPromise(jobs.retrieveAll(request.params));
 		}).then( (results) => {
 			return reply(results).code(200);
