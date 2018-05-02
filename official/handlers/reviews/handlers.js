@@ -86,5 +86,6 @@ function errorHandler(reply, error) {
 module.exports = {
 	publish,
 	remove,
-	retrieveAll
+	retrieveAll,
+	dispute
 };
