@@ -41,7 +41,8 @@ const query = {
 		WHERE Supplier_ID = ${payload.id}
 		AND Supply_ID = ${payload.supply_id};`,
 	removeFromSupplyListAsSupplier: payload =>
-		`DELETE FROM SupplyList
+		`UPDATE SupplyList
+		SET Supplier_ID = NULL
 		WHERE Supplier_ID = ${payload.id}
 		AND Supply_ID = ${payload.supply_id};`,
 	editPrice: payload =>
