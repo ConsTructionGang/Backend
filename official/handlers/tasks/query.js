@@ -28,7 +28,7 @@ const query = {
 		);`,
 	complete: payload =>
 		`UPDATE Task
-			SET Status = {payload.status}
+			SET Status = ${payload.status}
 			WHERE Task_ID = ${payload.task_id};`,
 	remove: payload =>
 		`DELETE FROM Task
