@@ -9,7 +9,7 @@ const query = {
 		`SELECT Email
 		FROM Account
 		WHERE Email = '${payload.email}';`,
-		//Determines if password is correct. Else NULL
+	//Determines if password is correct. Else NULL
 	checkPassword: payload =>
 		`SELECT Name, ID, isSupplier
 		FROM (
@@ -18,7 +18,7 @@ const query = {
 			WHERE Email = '${payload.email}'
 		) AS t
 		WHERE Password = '${payload.password}';`,
-		//Add supplier account
+	//Add supplier account
 	addSupplier: payload =>
 		`INSERT INTO Account(
 			Name,
@@ -37,7 +37,7 @@ const query = {
 			'${payload.address}',
 			${payload.type}
 		);`,
-		//Add regular use account
+	//Add regular use account
 	addUser: payload =>
 		`INSERT INTO Account(
 			Name,
