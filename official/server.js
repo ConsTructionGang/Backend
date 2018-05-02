@@ -128,8 +128,8 @@ server.route({
 
 // Deletes a supply from a supplier
 server.route({
-	method: "DELETE",
-	path: '/suppliers/{id}/supplies',
+	method: "POST",
+	path: '/suppliers/{id}/supplies/remove',
 	handler: supply_handler.remove
 });
 
