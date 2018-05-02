@@ -33,10 +33,10 @@ const query = {
 		) t LEFT JOIN Comment 
 		ON t.Review_ID = Comment.Review_ID
 		Order By t.Date_Created;`,
-	remove: (payload, params) =>
+	remove: (params) =>
 		`DELETE FROM Review
-		WHERE Supplier_ID = '${params.supplier_id}'
-		AND Author_ID = '${payload.author_id}';`,
+		WHERE Supplier_ID = '${params.id}'
+		AND Author_ID = '${params.author_id}';`,
 	authorIsSupplier: payload =>
 		`SELECT isSupplier
 		FROM Account
