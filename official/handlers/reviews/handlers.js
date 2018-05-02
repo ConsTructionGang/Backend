@@ -46,7 +46,7 @@ function retrieveAll(request, reply) {
 }
 
 function remove(request, reply) {
-	database.runQueryPromise(review.remove(request.payload, request.params))
+	database.runQueryPromise(review.remove(request.params))
 		.then( () => {
 			return reply({
 				message: "Review has been deleted"

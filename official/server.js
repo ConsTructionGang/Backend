@@ -162,8 +162,8 @@ server.route({
 
 
 server.route({
-	method: "DELETE",
-	path: '/suppliers/{id}/reviews',
+	method: "POST",
+	path: '/suppliers/{id}/reviews/{author_id}',
 	handler: review_handler.remove
 });
 //End of Reviews Management routes ********************************************************************************
