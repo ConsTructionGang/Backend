@@ -35,9 +35,8 @@ function create(request, reply) {
 
 //Function handler for editing a user job
 function editJob(request, reply) {
-	database.runQueryPromise(jobs.edit(request.payload, request.params))
-	.then( () => {
-
+	database.runQueryPromise(jobs.edit(request.payload, results.params))
+	.then((results) => {
 		let string = "";
 		let data;
 		try {
@@ -53,23 +52,16 @@ function editJob(request, reply) {
 				string += ',';
 			}
 		}
-
 		console.log(string);
-		database.runQueryPromise(supplies.addToList(string))
-		.then(() => {})
-		.catch((error) => {
-			console.log(error);
-			throw error;
-		});
-			return reply({
-				message: "Job Modified"
-			}).code(200);//Returns code 200 if succcesful job edit
-		}).catch( (error) => {
-			if(error) {
-				console.log(error);
-				return reply().code(400);//If server runs into an error return code 400
-			}
-	})
+		return string;
+	}).then((string) => {
+		database.runQueryPromise(supplies.addToList(string));
+	}).then(() => {
+		reply({"message": "supplies added"}).code(200);
+	}).catch((error) => {
+		console.log(error);
+		return reply().code(400);
+	});
 }
 
 // Delete job related to job_id
