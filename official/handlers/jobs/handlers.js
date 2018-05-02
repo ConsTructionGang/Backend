@@ -47,7 +47,7 @@ function editJob(request, reply) {
 		for (let i = 0; i < data.length; i++) {
 			string += '(';
 			string += request.params.job_id + ', ';
-			string += data[i]['supply_id'] + ')';
+			string += data[i]['id'] + ')';
 			if(i != data.length-1) {
 				string += ',';
 			}
