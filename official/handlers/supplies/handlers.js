@@ -12,6 +12,7 @@ const supplies = require('./query');
 
 function create(request, reply) {
 	request.payload.id = request.params.id;
+	request.payload.price = request.payload.cost;
 	database.runQueryPromise(supplies.create(request.payload))
 		.then(() => {
 			return reply({
