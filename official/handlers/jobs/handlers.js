@@ -55,9 +55,7 @@ function editJob(request, reply) {
 		console.log(string);
 			database.runQueryPromise(supplies.addToList(string))
 			.then(() => {
-				return reply({
-					message: "Supplies added"
-				}).code(200);
+
 			}).catch((error) => {
 				console.log(error);
 				return reply({
