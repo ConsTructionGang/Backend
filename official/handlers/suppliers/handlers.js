@@ -14,14 +14,13 @@ const supplies = require('../supplies/query');
 
 function view(request, reply) {
 	if (request.params.id) request.params.supplier_id = request.params.id;
-	console.log(request.param);
 	const supplier = {};
+	console.log(request.params)
 	database.runQueryPromise(suppliers.isSupplier(request.params))
 		.then((results) => {
 			if (results.length == 0 || !results[0].isSupplier) throw 'no-page';
 			return database.runQueryPromise(suppliers.retrieve(request.params));
 		}).then( (supplierInfo) => {
-			console.log(supplierInfo)
 			supplier.name = supplierInfo[0]["Name"];
 			supplier.email = supplierInfo[0]["Email"];
 			supplier.address = supplierInfo[0]["Address"];
