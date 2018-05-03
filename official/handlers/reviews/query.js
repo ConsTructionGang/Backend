@@ -34,10 +34,15 @@ const query = {
 		ON t.Review_ID = Comment.Review_ID
 		Order By t.Date_Created;`,
 	dispute: payload => 
-		`UPDATE Comment 
-		SET Body = '${payload.comment}',
-		Date_Created = CURDATE()
-		WHERE Review_ID = ${payload.review_id}`,
+		`Insert Into Comment (
+			Review_ID
+			Body,
+			Date_Created
+		) Values (
+			${payload.review_id}
+			${payload.comment}',
+			CURDATE()
+		);`,
 	remove: (params) =>
 		`DELETE FROM Review
 		WHERE Supplier_ID = '${params.id}'
