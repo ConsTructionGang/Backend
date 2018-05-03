@@ -37,6 +37,25 @@ function create(request, reply) {
 function editJob(request, reply) {
 	database.runQueryPromise(jobs.edit(request.payload, request.params))
 		.then(() => {
+			if (!request.payload.supplies) {
+				let string = "";
+				let data;
+				try {
+					data = JSON.parse(request.payload.supplies);
+				} catch (error) {
+					data = request.payload.supplies;
+				}
+				for (let i = 0; i < data.length; i++) {
+					string += '(';
+					string += request.params.job_id + ', ';
+					string += data[i]['id'] + ')';
+					if(i != data.length-1) {
+						string += ',';
+					}
+				}
+				return database.runQueryPromise(supplies.addToList(string));
+			}
+		}).then(() => {
 			return reply().code(200);
 		}).catch((error) => {
 			console.log(error);
@@ -44,26 +63,6 @@ function editJob(request, reply) {
 		});
 }
 
-/*
-yo idk about this
-.then(() => {
-			let string = "";
-			let data;
-			try {
-				data = JSON.parse(request.payload.supplies);
-			} catch (error) {
-				data = request.payload.supplies;
-			}
-			for (let i = 0; i < data.length; i++) {
-				string += '(';
-				string += request.params.job_id + ', ';
-				string += data[i]['id'] + ')';
-				if(i != data.length-1) {
-					string += ',';
-				}
-			}
-			return database.runQueryPromise(supplies.addToList(string));
-		}).then(() => {*/
 // Delete job related to job_id
 function remove(request, reply) {
 	database.runQueryPromise(jobs.remove(request.params))
