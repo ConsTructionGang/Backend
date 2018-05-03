@@ -82,7 +82,7 @@ function retrieveTypes(request, reply) {
 }
 
 function remove(request, reply) {
-	request.payload.task_id = request.params.task_id;
+	request.payload.id = request.params.id;
 	database.runQueryPromise(supplies.removeAsSupplier(request.payload))
 		.then(() => {
 			return database.runQueryPromise(supplies.removeFromSupplyListAsSupplier(request.payload))
