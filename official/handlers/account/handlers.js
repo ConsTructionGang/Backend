@@ -120,6 +120,7 @@ function retrieve(request, reply) {
 			return reply(accountJSON).code(200)
 		}).catch( (error) => {
 			if (error === 'no-page') {
+				console.log('FdsaHJKLHJKLHJKLHJKLH')
 				suppliers.view(request, reply);
 			} else {
 				console.log(error);

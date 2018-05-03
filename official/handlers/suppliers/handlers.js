@@ -15,7 +15,6 @@ const supplies = require('../supplies/query');
 function view(request, reply) {
 	if (request.params.id) request.params.supplier_id = request.params.id;
 	const supplier = {};
-	console.log(request.params)
 	database.runQueryPromise(suppliers.isSupplier(request.params))
 		.then((results) => {
 			if (results.length == 0 || !results[0].isSupplier) throw 'no-page';
