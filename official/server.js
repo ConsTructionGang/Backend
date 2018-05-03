@@ -43,7 +43,7 @@ server.auth.strategy('session', 'cookie', {
 	cookie: 'chocolate-chip'
 })
 
-//Account Management Routes***************************************************************************
+// ------ Account Management Routes ------
 
 //Login route
 server.route({
@@ -64,7 +64,7 @@ server.route({
 	method: "POST",
 	path: "/account",
 	handler: account_handler.edit
-})
+});
 
 //Changes user password
 server.route({
@@ -79,10 +79,10 @@ server.route({
 	path: '/userpage/{id}',
 	handler: account_handler.retrieve
 });
-// End of Account Management Routes***************************************************************************
+// ------ End of Account Management Routes ------
 
 
-// Supplier Management routes********************************************************************************
+// ------ Supplier Management routes ------
 
 // Views a supplier's page if a supplier id is provided and shows all suppliers
 // and their average rating if no id is specified
@@ -106,10 +106,10 @@ server.route({
 	handler: supplier_handler.viewAllSuppliersID
 });
 
-// End of Supplier Management routes********************************************************************************
+// ------ End of Supplier Management routes ------
 
 
-// Supply Management routes ********************************************************************************
+// ------ Supply Management routes ------
 
 // Returns all items
 server.route({
@@ -145,9 +145,9 @@ server.route({
 	path: '/suppliers/{id}/supplies',
 	handler: supply_handler.view
 });
-// End of Supply Management routes ********************************************************************************
+// ------ End of Supply Management routes ------
 
-//Reviews Management routes ********************************************************************************
+// ------ Reviews Management routes ------
 server.route({
 	method: "GET",
 	path: '/suppliers/{id}/reviews',
@@ -171,10 +171,10 @@ server.route({
 	path: '/suppliers/{id}/reviews/{author_id}',
 	handler: review_handler.remove
 });
-//End of Reviews Management routes ********************************************************************************
+// ------ End of Reviews Management routes ------
 
 
-//Jobs Management routes ********************************************************************************
+// ------ Jobs Management routes ------
 
 // Create a job given an id.
 server.route({
@@ -210,10 +210,10 @@ server.route({
 	path: '/jobs/{job_id}/addsupplies',
 	handler: supply_handler.addToJob
 });
-//End of Jobs Management routes ********************************************************************************
+//------ End of Jobs Management routes ------
 
 
-//Tasks Management routes ********************************************************************************
+// ------ Tasks Management routes ------
 
 server.route({
 	method: "POST",
@@ -233,7 +233,7 @@ server.route({
 	handler: task_handler.complete
 });
 
-//End of Tasks Management routes ********************************************************************************
+// ------ End of Tasks Management routes ------
 
 server.start(err => {
 	if (err) {

@@ -15,10 +15,10 @@ const query = {
 		ON s.Supplier_ID = a.ID
 		WHERE a.ID = ${payload.id};`,
 	retrieve: job_ID =>
-	`SELECT sl.Supply_ID as id, Name as name, Supplier_ID as SupplierID
-	FROM SupplyList sl inner join Item i 
-	ON sl.Supply_ID = i.Supply_ID
-	WHERE sl.Job_ID = ${job_ID};`,
+		`SELECT sl.Supply_ID as id, Name as name, Supplier_ID as SupplierID
+		FROM SupplyList sl inner join Item i 
+		ON sl.Supply_ID = i.Supply_ID
+		WHERE sl.Job_ID = ${job_ID};`,
 	retrieveBySupplier: params =>
 		`SELECT Supply_ID as id, Name as name
    		FROM Item i natural join Supplies

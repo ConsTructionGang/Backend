@@ -36,7 +36,7 @@ function dispute(request, reply) {
 		.then( () => {
 			return reply().code(200);
 		}).catch((error) => {
-			console.log(error)
+			console.log(error);
 			return reply().code(400);
 		});
 }

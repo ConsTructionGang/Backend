@@ -15,7 +15,7 @@ const supplies = require('../supplies/query');
 const suppliers = require('../suppliers/handlers')
 
 /**
-*"Account Login Handler"
+*Account Login Handler
 *@param request Contains email and password for loging into account inside of payload
 *@param reply Empty reply object that is utilized to return account info and reply code
 *@return parameter reply
@@ -46,7 +46,7 @@ function login(request, reply) {
 }
 
 /**
-*"Job object: Utilized in account information retrieval"
+*Job object: Utilized in account information retrieval
 *@param data contains data from database to form job object
 *@returns supplies from job
 */
@@ -80,10 +80,10 @@ function job(data) {
 }
 
 /**
-*"Retrieves account information"
+*Retrieves account information
 *@param request Contains user ID in payload
 *@param reply Empty reply object that is utilized to return account info and reply code
-*@return parameter reply
+*@return reply object containing the information for a user 
 */
 function retrieve(request, reply) {
 	const accountJSON = {};

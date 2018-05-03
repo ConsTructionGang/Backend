@@ -16,7 +16,6 @@ const supplies = require('../supplies/query');
 function create(request, reply) {
 	database.runQueryPromise(account.isSupplier(request.params))
 		.then( (results) => {
-			console.log(results);
 			if (results[0]) throw 'no-page';
 			database.runQueryPromise(jobs.add(request.payload, request.params));
 		}).then( () => {
@@ -48,9 +47,9 @@ function editJob(request, reply) {
 				}
 				for (let i = 0; i < data.length; i++) {
 					string += '(';
-				string += request.params.job_id + ', ';
-				string += data[i]['id'] + ', '; 
-				string += (!(data[i]['SupplierID']) ? 'NULL' : data[i]['SupplierID'])  + ')';
+					string += request.params.job_id + ', ';
+					string += data[i]['id'] + ', '; 
+					string += (!(data[i]['SupplierID']) ? 'NULL' : data[i]['SupplierID'])  + ')';
 					if(i != data.length-1) {
 						string += ',';
 					}
@@ -71,7 +70,7 @@ function remove(request, reply) {
 		.then(() => {
 			return reply().code(200);
 		}).catch((error) => {
-			console.log(error)
+			console.log(error);
 			return reply().code(400);
 			// If server runs into an error return code 400
 		});
