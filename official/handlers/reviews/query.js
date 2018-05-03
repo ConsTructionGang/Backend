@@ -40,7 +40,7 @@ const query = {
 			Date_Created
 		) Values (
 			${payload.review_id},
-			'${payload.comment}',
+			"${payload.comment}",
 			CURDATE()
 		);`,
 	remove: (params) =>
