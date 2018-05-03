@@ -11,13 +11,21 @@ const database = require('../database');
 const jobs = require('./query');
 const account = require('../account/query');
 const supplies = require('../supplies/query');
+const supply_handlers = require('../supplies/handlers')
 
 // Function handler for creating a user job
 function create(request, reply) {
 	database.runQueryPromise(account.isSupplier(request.params))
 		.then( (results) => {
 			if (results[0]) throw 'no-page';
-			database.runQueryPromise(jobs.add(request.payload, request.params));
+			return database.runQueryPromise(jobs.add(request.payload, request.params));
+		}).then(() => {
+			return database.runQueryPromise(jobs.getLastID());
+		}).then((results) => {
+			if(request.payload.supplies) {
+				request.params.job_id = results[0].job_ID;
+				throw 'add-supplies';
+			}
 		}).then( () => {
 			return reply({
 				title: "Job created"
@@ -25,6 +33,8 @@ function create(request, reply) {
 		}).catch( (error) => {
 			if(error === 'no-page') {
 				return reply().code(400);//Returns code 400 if unable to create job because of a bad request
+			} else if (error === 'add-supplies') {
+				supply_handlers.addToJob(request, reply);
 			} else {
 				console.log(error);
 				return reply().code(400);//If server runs into an error return code 400

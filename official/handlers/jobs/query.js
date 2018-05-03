@@ -65,7 +65,12 @@ const query = {
 			Start_Date = '${payload.startDate}',
 			Completion_Date = '${payload.endDate}',
 			Completed = ${payload.status}
-		WHERE Job_ID = ${params.job_id};`
+		WHERE Job_ID = ${params.job_id};`,
+	getLastID: () =>
+		`SELECT Job_ID 
+		FROM Job 
+		ORDER BY Job_ID DESC
+		LIMIT 1;`
 };
 
 module.exports = query;
