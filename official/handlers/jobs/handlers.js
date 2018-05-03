@@ -37,6 +37,16 @@ function create(request, reply) {
 function editJob(request, reply) {
 	database.runQueryPromise(jobs.edit(request.payload, request.params))
 		.then(() => {
+			return reply().code(200);
+		}).catch((error) => {
+			console.log(error);
+			return reply().code(400);
+		});
+}
+
+/*
+yo idk about this
+.then(() => {
 			let string = "";
 			let data;
 			try {
@@ -53,14 +63,7 @@ function editJob(request, reply) {
 				}
 			}
 			return database.runQueryPromise(supplies.addToList(string));
-		}).then(() => {
-			return reply({"message": "supplies added"}).code(200);
-		}).catch((error) => {
-			console.log(error);
-			return reply().code(400);
-		});
-}
-
+		}).then(() => {*/
 // Delete job related to job_id
 function remove(request, reply) {
 	database.runQueryPromise(jobs.remove(request.params))
