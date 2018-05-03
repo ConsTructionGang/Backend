@@ -38,7 +38,6 @@ function editJob(request, reply) {
 	request.payload.status = (request.payload.status === 'In Progress') ? false : true;
 	database.runQueryPromise(jobs.edit(request.payload, request.params))
 		.then(() => {
-			console.log(request.payload.supplies)
 			if (request.payload.supplies && request.payload.supplies.length != 0) {
 				let string = "";
 				let data;
@@ -57,7 +56,6 @@ function editJob(request, reply) {
 						string += ',';
 					}
 				}
-				console.log(string);
 				return database.runQueryPromise(supplies.addToList(string));
 			}
 		}).then(() => {
