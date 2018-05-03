@@ -39,7 +39,7 @@ const query = {
 			Body,
 			Date_Created
 		) Values (
-			${payload.review_id}
+			${payload.review_id},
 			${payload.comment}',
 			CURDATE()
 		);`,
