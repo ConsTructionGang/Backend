@@ -30,8 +30,9 @@ const query = {
 			Supplier_ID
 		) Values
 		${payloadstring}
-		ON DUPLICATE KEY UPDATE Quantity = Quantity + values(Quantity)
-		AND Supplier_ID = values(Supplier_ID)`,
+		ON DUPLICATE KEY UPDATE 
+			Quantity = Quantity + values(Quantity),
+			Supplier_ID = values(Supplier_ID);`,
 	retrieveAll: () =>
 		`SELECT *
 		FROM Item;`,
