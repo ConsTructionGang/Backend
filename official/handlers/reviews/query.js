@@ -35,7 +35,7 @@ const query = {
 		Order By t.Date_Created;`,
 	dispute: payload => 
 		`Insert Into Comment (
-			Review_ID
+			Review_ID,
 			Body,
 			Date_Created
 		) Values (
