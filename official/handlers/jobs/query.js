@@ -64,7 +64,7 @@ const query = {
 			Budget = ${payload.cost},
 			Start_Date = '${payload.startDate}',
 			Completion_Date = '${payload.endDate}',
-			Status = ${payload.status}
+			Completed = ${payload.status}
 		WHERE Job_ID = ${params.job_id};`
 };
 
