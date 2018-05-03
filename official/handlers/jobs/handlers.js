@@ -35,46 +35,46 @@ function create(request, reply) {
 
 //Function handler for editing a user job
 function editJob(request, reply) {
+	request.payload.status = (request.payload.status === 'In Progress') ? false : true;
 	database.runQueryPromise(jobs.edit(request.payload, request.params))
-	.then((results) => {
-		let string = "";
-		let data;
-		try {
-			data = JSON.parse(request.payload.supplies);
-		} catch (error) {
-			data = request.payload.supplies;
-		}
-		for (let i = 0; i < data.length; i++) {
-			string += '(';
-			string += request.params.job_id + ', ';
-			string += data[i]['id'] + ', '; 
-			string += ((data[i]['SupplierID'] === 'null') ? 'NULL' : data[i]['SupplierID'])  + ')';
-			if(i != data.length-1) {
-				string += ',';
+		.then(() => {
+			if (!request.payload.supplies) {
+				let string = "";
+				let data;
+				try {
+					data = JSON.parse(request.payload.supplies);
+				} catch (error) {
+					data = request.payload.supplies;
+				}
+				for (let i = 0; i < data.length; i++) {
+					string += '(';
+				string += request.params.job_id + ', ';
+				string += data[i]['id'] + ', '; 
+				string += ((data[i]['SupplierID'] === 'null') ? 'NULL' : data[i]['SupplierID'])  + ')';
+					if(i != data.length-1) {
+						string += ',';
+					}
+				}
+				return database.runQueryPromise(supplies.addToList(string));
 			}
-		}
-		console.log(string);
-		return string;
-	}).then((string) => {
-		return database.runQueryPromise(supplies.addToList(string));
-	}).then((results) => {
-		return reply({"message": "supplies added"}).code(200);
-	}).catch((error) => {
-		console.log(error);
-		return reply().code(400);
-	});
+		}).then(() => {
+			return reply().code(200);
+		}).catch((error) => {
+			console.log(error);
+			return reply().code(400);
+		});
 }
 
 // Delete job related to job_id
 function remove(request, reply) {
 	database.runQueryPromise(jobs.remove(request.params))
-	.then((results) => {
-		return reply().code(200);
-	}).catch((error) => {
-		console.log(error)
-		return reply().code(400);
-		// If server runs into an error return code 400
-	});
+		.then(() => {
+			return reply().code(200);
+		}).catch((error) => {
+			console.log(error)
+			return reply().code(400);
+			// If server runs into an error return code 400
+		});
 };
 
 function retrieveAll(request, reply) {

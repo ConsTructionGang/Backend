@@ -31,6 +31,16 @@ function publish(request, reply){
 		});
 }
 
+function dispute(request, reply) {
+	database.runQueryPromise(review.dispute(request.payload))
+		.then( () => {
+			return reply().code(200);
+		}).catch((error) => {
+			console.log(error)
+			return reply().code(400);
+		});
+}
+
 function retrieveAll(request, reply) {
 	database.runQueryPromise(account.isSupplier(request.params))
 		.then( (results) => {
@@ -82,5 +92,6 @@ function errorHandler(reply, error) {
 module.exports = {
 	publish,
 	remove,
-	retrieveAll
+	retrieveAll,
+	dispute
 };

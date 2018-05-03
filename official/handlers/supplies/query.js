@@ -29,8 +29,7 @@ const query = {
 			Supply_ID
 		) Values
 		${payloadstring}
-		ON DUPLICATE KEY UPDATE Quantity = Quantity + values(Quantity);
-		;`,
+		ON DUPLICATE KEY UPDATE Quantity = Quantity + values(Quantity);`,
 	retrieveAll: () =>
 		`SELECT *
 		FROM Item;`,
