@@ -35,6 +35,7 @@ function create(request, reply) {
 
 //Function handler for editing a user job
 function editJob(request, reply) {
+	request.payload.status = (request.payload.status === 'In Progress') ? false : true;
 	database.runQueryPromise(jobs.edit(request.payload, request.params))
 		.then(() => {
 			if (!request.payload.supplies) {
