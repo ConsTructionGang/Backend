@@ -37,7 +37,7 @@ const query = {
 		`UPDATE Comment 
 		SET Body = '${payload.comment}',
 		Date_Created = CURDATE()
-		WHERE ${payload.review_id}`,
+		WHERE Review_ID = ${payload.review_id}`,
 	remove: (params) =>
 		`DELETE FROM Review
 		WHERE Supplier_ID = '${params.id}'
