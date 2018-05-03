@@ -34,11 +34,11 @@ const query = {
 		ON t.Review_ID = Comment.Review_ID
 		Order By t.Date_Created;`,
 	dispute: payload => 
-		`Insert Into Comment (
+		`INSERT INTO Comment (
 			Review_ID,
 			Body,
 			Date_Created
-		) Values (
+		) VALUES (
 			${payload.review_id},
 			"${payload.comment}",
 			CURDATE()
