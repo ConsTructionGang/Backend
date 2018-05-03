@@ -11,7 +11,7 @@ const query = {
 				FROM Review
 				WHERE Supplier_ID = ${params.supplier_id}
 			) Rating
-		FROM Account JOIN Review
+		FROM Account LEFT JOIN Review
 		ON Account.ID = Review.Supplier_ID
 		WHERE Account.ID = ${params.supplier_id};`,
 	retrieveAll: () =>
