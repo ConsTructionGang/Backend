@@ -38,7 +38,7 @@ function editJob(request, reply) {
 	request.payload.status = (request.payload.status === 'In Progress') ? false : true;
 	database.runQueryPromise(jobs.edit(request.payload, request.params))
 		.then(() => {
-			if (!request.payload.supplies) {
+			if (request.payload.supplies) {
 				let string = "";
 				let data;
 				try {
