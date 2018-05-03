@@ -12,7 +12,6 @@ const supplies = require('./query');
 
 function create(request, reply) {
 	request.payload.id = request.params.id;
-	console.log(request.payload);
 	database.runQueryPromise(supplies.create(request.payload))
 		.then(() => {
 			return reply({
@@ -27,6 +26,7 @@ function create(request, reply) {
 }
 
 function view(request, reply) {
+	console.log(request.params);
 	database.runQueryPromise(supplies.view(request.params))
 		.then((results) => {
 			return reply(results).code(200);
@@ -34,7 +34,7 @@ function view(request, reply) {
 			console.log(error);
 			return reply({
 				message: "Problem viewing supplies"
-			}).code(500);
+			}).code(400);
 		});
 }
 
