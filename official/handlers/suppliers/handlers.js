@@ -14,6 +14,7 @@ const supplies = require('../supplies/query');
 
 function view(request, reply) {
 	if (request.params.id) request.params.supplier_id = request.params.id;
+	console.log(request.param);
 	const supplier = {};
 	database.runQueryPromise(suppliers.isSupplier(request.params))
 		.then((results) => {
