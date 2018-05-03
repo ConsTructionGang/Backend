@@ -27,6 +27,7 @@ const query = {
 		`INSERT INTO SupplyList(
 			Job_ID,
 			Supply_ID
+			Supplier_ID
 		) Values
 		${payloadstring}
 		ON DUPLICATE KEY UPDATE Quantity = Quantity + values(Quantity);`,
