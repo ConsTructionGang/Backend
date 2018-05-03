@@ -50,6 +50,7 @@ function editJob(request, reply) {
 					string += '(';
 				string += request.params.job_id + ', ';
 				string += data[i]['id'] + ', '; 
+				console.log(data[i]['SupplierID']);
 				string += (!(data[i]['SupplierID']) ? 'NULL' : data[i]['SupplierID'])  + ')';
 					if(i != data.length-1) {
 						string += ',';
