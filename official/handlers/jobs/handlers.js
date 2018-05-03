@@ -22,7 +22,7 @@ function create(request, reply) {
 		}).then(() => {
 			return database.runQueryPromise(jobs.getLastID());
 		}).then((results) => {
-			if(request.payload.supplies) {
+			if(request.payload.supplies && request.payload.supplies.length != 0) {
 				request.params.job_id = results[0].Job_ID;
 				throw 'add-supplies';
 			}
