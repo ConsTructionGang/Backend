@@ -1,6 +1,10 @@
 # Honeyscape Backend
 
-![](http://media0.giphy.com/media/ZTans30ONaaIM/giphy.gif)
+![](Logo.png)
+
+---
+
+
 
 ## Members
 

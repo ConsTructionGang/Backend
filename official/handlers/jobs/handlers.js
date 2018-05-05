@@ -11,7 +11,7 @@ const database = require('../database');
 const jobs = require('./query');
 const account = require('../account/query');
 const supplies = require('../supplies/query');
-const supply_handlers = require('../supplies/handlers')
+const supply_handlers = require('../supplies/handlers');
 
 // Function handler for creating a user job
 function create(request, reply) {
