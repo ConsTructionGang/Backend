@@ -9,11 +9,11 @@ const query = {
 			'${payload.id}',
 			'${payload.price}'
 		);`,
-	view: payload =>
+	view: params =>
 		`SELECT i.Name product_name, Price, i.supply_id
 		FROM Supplies s NATURAL JOIN Item i INNER JOIN Account a
 		ON s.Supplier_ID = a.ID
-		WHERE a.ID = ${payload.id};`,
+		WHERE a.ID = ${params.id};`,
 	retrieve: job_ID =>
 		`SELECT sl.Supply_ID as id, Name as name, Supplier_ID as SupplierID
 		FROM SupplyList sl inner join Item i 

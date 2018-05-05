@@ -26,6 +26,7 @@ function create(request, reply) {
 }
 
 function view(request, reply) {
+	console.log(request.params);
 	database.runQueryPromise(supplies.view(request.params))
 		.then((results) => {
 			return reply(results).code(200);
@@ -33,7 +34,7 @@ function view(request, reply) {
 			console.log(error);
 			return reply({
 				message: "Problem viewing supplies"
-			}).code(500);
+			}).code(400);
 		});
 }
 
@@ -81,7 +82,7 @@ function retrieveTypes(request, reply) {
 }
 
 function remove(request, reply) {
-	request.payload.task_id = request.params.task_id;
+	request.payload.id = request.params.id;
 	database.runQueryPromise(supplies.removeAsSupplier(request.payload))
 		.then(() => {
 			return database.runQueryPromise(supplies.removeFromSupplyListAsSupplier(request.payload))

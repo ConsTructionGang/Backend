@@ -2,10 +2,6 @@
 
 ![](Logo.png)
 
----
-
-
-
 ## Members
 
 - Tyrone Criddle [@Rye-Ton](http://github.com/Rye-Ton)

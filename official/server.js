@@ -45,6 +45,7 @@ server.auth.strategy('session', 'cookie', {
 
 // ------ Account Management Routes ------
 
+
 //Login route
 server.route({
 	method: 'PUT',
