@@ -16,10 +16,7 @@
 	},
 	"homepage": "https://github.com/ConsTructionGang/Backend#readme",
 	"dependencies": {
-		"express": "^4.16.3",
-		"express-session": "^1.15.6",
 		"hapi": "^16.6.3",
-		"hapi-auth-cookie": "^8.1.0",
 		"mysql": "^2.15.0",
 		"nodemon": "^1.17.2"
 	},

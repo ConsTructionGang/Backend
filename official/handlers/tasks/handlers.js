@@ -10,6 +10,13 @@ const database = require('../database');
 //Import neccesary query files
 const tasks = require('./query');
 
+/**
+ * Retrieve all tasks for a given user
+ * @param request Includes userID
+ * @param reply 
+ * @returns code 200 with all user tasks
+ * @throws code 500
+ */
 function retrieve(request, reply) {
 	database.runQueryPromise(tasks.retrieveAll(request.params))
 		.then( (results) => {
