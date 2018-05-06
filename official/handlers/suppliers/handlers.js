@@ -12,6 +12,11 @@ const suppliers = require('./query');
 const reviews = require('../reviews/query');
 const supplies = require('../supplies/query');
 
+
+/**
+ * 	Given a supplier id retrieves all the supplies and supplies being sold
+ * 	by the supplier.
+ */
 function view(request, reply) {
 	if (request.params.id) request.params.supplier_id = request.params.id;
 	const supplier = {};
@@ -42,7 +47,7 @@ function view(request, reply) {
 			}
 		});
 }
-
+// Search function that retrieves all suppliers with a certain supply id. 
 function viewAllSuppliersID(request, reply) {
 	database.runQueryPromise(suppliers.retrieveAllByID(request.params))
 		.then( (results) => {
@@ -58,7 +63,7 @@ function viewAllSuppliersID(request, reply) {
 			}
 		});
 }
-
+// Search function that retrieces all suppliers with a certain supply name.
 function viewAllSuppliersName(request, reply) {
 	database.runQueryPromise(suppliers.retrieveAllByName(request.params))
 		.then( (results) => {
@@ -73,7 +78,7 @@ function viewAllSuppliersName(request, reply) {
 			}
 		});
 }
-
+// Retrieves All suppliers
 function viewAll(request, reply) {
 	database.runQueryPromise(suppliers.retrieveAll())
 		.then( (results) => {
