@@ -11,11 +11,7 @@ const database = require('../database');
 const tasks = require('./query');
 
 /**
- * Retrieve all tasks for a given user
- * @param request Includes userID
- * @param reply 
- * @returns code 200 with all user tasks
- * @throws code 500
+ * 	Retrieves all tasks related to a particular user id.
  */
 function retrieve(request, reply) {
 	database.runQueryPromise(tasks.retrieveAll(request.params))
@@ -31,6 +27,9 @@ function retrieve(request, reply) {
 		});
 }
 
+/**
+ *	Generates a new task id and assigns it to the tasklist.
+ */
 function create(request, reply) {
 	request.payload.user_id = request.params.user_id;
 	database.runQueryPromise(tasks.create(request.payload))
@@ -46,6 +45,9 @@ function create(request, reply) {
 		});
 }
 
+/**
+ *	Given a task id, marks  a task as complete.
+ */
 function complete(request, reply) {
 	request.params.status = request.payload.status;
 	database.runQueryPromise(tasks.changeStatus(request.params))
@@ -61,6 +63,9 @@ function complete(request, reply) {
 		});
 }
 
+/**
+ *	Given a task id, removes a task from the table.
+ */
 function remove(request, reply) {
 	database.runQueryPromise(tasks.remove(request.params))
 		.then( () => {

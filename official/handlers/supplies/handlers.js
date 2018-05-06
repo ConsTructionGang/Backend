@@ -10,6 +10,9 @@ const database = require('../database');
 //Import neccesary query files
 const supplies = require('./query');
 
+/**
+ *	Creates a new supply given a price, item id and supplier id.
+ */
 function create(request, reply) {
 	request.payload.id = request.params.id;
 	database.runQueryPromise(supplies.create(request.payload))
@@ -25,6 +28,10 @@ function create(request, reply) {
 		});
 }
 
+/**
+ *	View all supplies from a particular supplier.
+ *	Retrieves Product Name, Price and Supply ID.
+ */
 function view(request, reply) {
 	console.log(request.params);
 	database.runQueryPromise(supplies.view(request.params))
@@ -38,6 +45,10 @@ function view(request, reply) {
 		});
 }
 
+/**
+ *	Retrieves supplies array from request payload, and creates 
+ *	a string that is interacts directly with a mysql script.
+ */
 function addToJob(request, reply){
 	request.payload.id = request.params.id;
 	let string = "";
@@ -70,6 +81,9 @@ function addToJob(request, reply){
 		});
 }
 
+/**
+ *	Retrieves every type of supply, pulling directly from the item table. 
+ */
 function retrieveTypes(request, reply) {
 
 	database.runQueryPromise(supplies.retrieveAll())
@@ -81,6 +95,12 @@ function retrieveTypes(request, reply) {
 		});
 }
 
+/**
+ *	This function directly interacts with two tables. First, removes the supply
+ *	in its entirety from the Supplies table (given a valid supplier id), then 
+ *	sets to NULL the Supplier ID field of every Supplylist tuple who matches on
+ *	SupplierID, SupplyID.
+ */
 function remove(request, reply) {
 	request.payload.id = request.params.id;
 	database.runQueryPromise(supplies.removeAsSupplier(request.payload))
@@ -93,7 +113,9 @@ function remove(request, reply) {
 			return reply().code(400);
 		});
 }
-
+/**
+ *	Updates the price of any suppliers particular supply,
+ */
 function editPrice(request, reply) {
 	request.payload.id = request.params.id;
 	database.runQueryPromise(supplies.editPrice(request.payload))
