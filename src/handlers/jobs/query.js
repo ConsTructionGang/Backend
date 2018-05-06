@@ -5,12 +5,12 @@
 */
 const query = {
 
-	//delete job
+	// Delete job
 	remove: payload =>
 		`DELETE FROM Job
 		WHERE Job_ID = '${payload.job_id}';`,
 
-	//Add job
+	// Add job
 	add: (payload, params) =>
 		`INSERT INTO Job(
 			Construction_ID,
@@ -32,7 +32,7 @@ const query = {
 			'${payload.endDate}'
 		);`,
 
-	//Returns all jobs for a sepecific user
+	// Returns all jobs for a sepecific user
 	retrieveAll: params =>
 		`SELECT
 			Job_ID ID,
@@ -47,13 +47,14 @@ const query = {
 		FROM Job
 		WHERE Construction_ID = ${params.id}`,
 
-	//Returns isSupplier value from account table ... Determines whether user is supplier or not
+	// Returns isSupplier value from account table 
+	// Determines whether user is supplier or not
 	isSupplier: params =>
 		`SELECT isSupplier
 		FROM Account
 		WHERE ID = ${params.id};`,
 
-	//Updates any changes to a specific job
+	// Updates any changes to a specific job
 	edit: (payload, params) =>
 		`UPDATE Job
 		SET
@@ -66,6 +67,8 @@ const query = {
 			Completion_Date = '${payload.endDate}',
 			Completed = ${payload.status}
 		WHERE Job_ID = ${params.job_id};`,
+
+	// Retrieve last job ID that was inserted into the Job table
 	getLastID: () =>
 		`SELECT Job_ID 
 		FROM Job 

@@ -6,9 +6,9 @@ RUN mkdir -p /usr/src/app
 
 WORKDIR /usr/src/app/
 
-COPY *.js /usr/src/app/
-COPY package.json /usr/src/app/
-COPY handlers/. /usr/src/app/
+COPY ../src/*.js /usr/src/app/
+COPY ../src/package.json /usr/src/app/
+COPY ../src/handlers/. /usr/src/app/
 
 RUN npm install 
 
