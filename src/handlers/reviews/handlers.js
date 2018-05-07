@@ -11,6 +11,7 @@ const database = require('../database');
 const review = require('./query');
 const account = require('../account/query');
 
+// Publish a review for a supplier company from the perspective of a construction company
 function publish(request, reply){
 	database.runQueryPromise(account.isSupplier(request.params))
 		.then( (results) => {
@@ -31,6 +32,7 @@ function publish(request, reply){
 		});
 }
 
+// Dispute a published review as a supplier.
 function dispute(request, reply) {
 	database.runQueryPromise(review.dispute(request.payload))
 		.then( () => {
@@ -41,6 +43,7 @@ function dispute(request, reply) {
 		});
 }
 
+// Retrieve all reviews attached to a supplier.
 function retrieveAll(request, reply) {
 	database.runQueryPromise(account.isSupplier(request.params))
 		.then( (results) => {
@@ -55,6 +58,7 @@ function retrieveAll(request, reply) {
 		});
 }
 
+// Removes a review.
 function remove(request, reply) {
 	database.runQueryPromise(review.remove(request.params))
 		.then( () => {

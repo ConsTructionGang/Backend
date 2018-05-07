@@ -86,6 +86,7 @@ function remove(request, reply) {
 		});
 };
 
+// Retrieves all jobs for a constructor.
 function retrieveAll(request, reply) {
 	database.runQueryPromise(account.isSupplier(request.params))
 		.then( (results) => {
